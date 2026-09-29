@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" style="visibility: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Legal | Midwest Toy Connections</title>
+        <link rel="stylesheet" href="mtc-admin.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="mtc-admin.js" defer></script>
+        <script src="mtc-admin-legal.js" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    </head>
+    <body>
+        <div class="mw-dashboard-shell">
+            <aside class="mw-dashboard-sidebar">
+                <div class="mw-dashboard-brand">
+                    <div class="mw-dashboard-mark">
+                        <span>MTC</span>
+                    </div>
+                    <div class="mw-dashboard-brand-text">
+                        <strong>Midwest Toy</strong>
+                        <span>Connections</span>
+                    </div>
+                </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link  mw-dashboard-nav-active"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+                <div class="mw-dashboard-sidebar-bottom">
+                    <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </div>
+            </aside>
+            <main class="mtc-admin-legal-main" id="mtcAdminLegalMain">
+                <header class="mtc-admin-legal-header" id="mtcAdminLegalHeader">
+                    <div class="mtc-admin-legal-header-left">
+                        <button
+                            type="button"
+                            class="mtc-admin-legal-menu-button"
+                            id="mtcAdminLegalMenuButton"
+                            aria-label="Open navigation">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div>
+                            <h1 class="mtc-admin-legal-title">Legal</h1>
+                            <p class="mtc-admin-legal-subtitle">
+                                Manage your store policies and customer-facing legal documents.
+                            </p>
+                        </div>
+                    </div>
+                </header>
+                <section class="mtc-admin-legal-content" id="mtcAdminLegalContent">
+                    <section class="mtc-admin-legal-overview">
+                        <div>
+                            <div class="mtc-admin-legal-title-row">
+                                <h2>Legal Documents</h2>
+                                <button
+                                    type="button"
+                                    class="mtc-admin-legal-create-policy-button"
+                                    id="mtcAdminLegalCreatePolicyButton">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Create Policy
+                                </button>
+                            </div>
+                            <p>
+                                Create, review, update, and publish the policies displayed on the Midwest Toy
+                                Connections storefront.
+                            </p>
+                        </div>
+                        <div class="mtc-admin-legal-overview-status">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <span>Store Policies</span>
+                                <strong id="mtcAdminLegalStorePoliciesStatus"> Loading... </strong>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="mtc-admin-legal-grid" id="mtcAdminLegalGrid">
+                        <article class="mtc-admin-legal-card" data-legal-type="terms">
+                            <div class="mtc-admin-legal-card-icon">
+                                <i class="fa-solid fa-file-contract"></i>
+                            </div>
+                            <div class="mtc-admin-legal-card-content">
+                                <div class="mtc-admin-legal-card-heading">
+                                    <div>
+                                        <h3>Terms of Service</h3>
+                                        <p>
+                                            Rules and conditions customers agree to when using your website and
+                                            purchasing products.
+                                        </p>
+                                    </div>
+                                    <span
+                                        class="mtc-admin-legal-status mtc-admin-legal-status-draft"
+                                        id="mtcAdminLegalTermsStatus">
+                                        Draft
+                                    </span>
+                                </div>
+                                <div class="mtc-admin-legal-card-meta">
+                                    <span>
+                                        <i class="fa-regular fa-clock"></i>
+                                        Last Updated:
+                                        <strong id="mtcAdminLegalTermsUpdated"> Not Published </strong>
+                                    </span>
+                                </div>
+                                <div class="mtc-admin-legal-card-actions">
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-legal-edit-button"
+                                        data-legal-action="edit"
+                                        data-legal-type="terms">
+                                        <i class="fa-solid fa-pen"></i>
+                                        Edit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-legal-preview-button"
+                                        data-legal-action="preview"
+                                        data-legal-type="terms">
+                                        <i class="fa-regular fa-eye"></i>
+                                        Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="mtc-admin-legal-card" data-legal-type="privacy">
+                            <div class="mtc-admin-legal-card-icon">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </div>
+                            <div class="mtc-admin-legal-card-content">
+                                <div class="mtc-admin-legal-card-heading">
+                                    <div>
+                                        <h3>Privacy Policy</h3>
+                                        <p>
+                                            Explain how customer information is collected, stored, used, and protected.
+                                        </p>
+                                    </div>
+                                    <span
+                                        class="mtc-admin-legal-status mtc-admin-legal-status-draft"
+                                        id="mtcAdminLegalPrivacyStatus">
+                                        Draft
+                                    </span>
+                                </div>
+                                <div class="mtc-admin-legal-card-meta">
+                                    <span>
+                                        <i class="fa-regular fa-clock"></i>
+                                        Last Updated:
+                                        <strong id="mtcAdminLegalPrivacyUpdated"> Not Published </strong>
+                                    </span>
+                                </div>
+                                <div class="mtc-admin-legal-card-actions">
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-legal-edit-button"
+                                        data-legal-action="edit"
+                                        data-legal-type="privacy">
+                                        <i class="fa-solid fa-pen"></i>
+                                        Edit
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-legal-preview-button"
+                                        data-legal-action="preview"
+                                        data-legal-type="privacy">
+                                        <i class="fa-regular fa-eye"></i>
+                                        Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+                    <section class="mtc-admin-legal-history" id="mtcAdminLegalHistory">
+                        <div class="mtc-admin-legal-history-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                    Version History
+                                </h2>
+                                <p>Review previously published versions of your legal documents.</p>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-legal-history-empty" id="mtcAdminLegalHistoryEmpty">
+                            <i class="fa-solid fa-file-circle-check"></i>
+                            <h3>No Version History Yet</h3>
+                            <p>Published policy versions will appear here.</p>
+                        </div>
+                    </section>
+                </section>
+                <footer class="mtc-admin-legal-footer">
+                    <span> © 2026 Midwest Toy Connections </span>
+                    <span> Legal Management </span>
+                </footer>
+            </main>
+        </div>
+    </body>
+</html>

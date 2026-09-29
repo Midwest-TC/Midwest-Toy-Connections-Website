@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en" style="visibility: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Categories | Midwest Toy Connections</title>
+        <link rel="stylesheet" href="mtc-admin.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="mtc-admin.js" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    </head>
+    <body>
+        <div class="mw-dashboard-shell">
+            <aside class="mw-dashboard-sidebar">
+                <div class="mw-dashboard-brand">
+                    <div class="mw-dashboard-mark">
+                        <span>MTC</span>
+                    </div>
+                    <div class="mw-dashboard-brand-text">
+                        <strong>Midwest Toy</strong>
+                        <span>Connections</span>
+                    </div>
+                </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+                <div class="mw-dashboard-sidebar-bottom">
+                    <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </div>
+            </aside>
+            <!-- =========================================
+             REVIEWS MAIN CONTENT
+        ========================================== -->
+            <main class="mtc-admin-reviews-main">
+                <!-- HEADER -->
+                <header class="mtc-admin-reviews-header">
+                    <div class="mtc-admin-reviews-header-left">
+                        <button
+                            type="button"
+                            class="mtc-admin-reviews-menu-button"
+                            aria-label="Open admin menu">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div>
+                            <h1 class="mtc-admin-reviews-title">Reviews</h1>
+
+                            <p class="mtc-admin-reviews-subtitle">Manage customer reviews and approve or deny them.</p>
+                        </div>
+                    </div>
+
+                    <div class="mtc-admin-reviews-header-actions">
+                        <button
+                            type="button"
+                            class="mtc-admin-reviews-refresh-button"
+                            id="mtcAdminReviewsRefreshButton"
+                        >
+                            <i class="fa-solid fa-rotate"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </header>
+
+                <!-- =========================================
+                 PAGE CONTENT
+            ========================================== -->
+                <section class="mtc-admin-reviews-content">
+                    <!-- REVIEW STAT CARDS -->
+                    <div class="mtc-admin-reviews-stats">
+                        <!-- TOTAL REVIEWS -->
+                        <div class="mtc-admin-reviews-stat-card">
+                            <div class="mtc-admin-reviews-stat-icon mtc-admin-reviews-stat-blue">
+                                <i class="fa-regular fa-message"></i>
+                            </div>
+
+                            <div class="mtc-admin-reviews-stat-info">
+                                <p>Total Reviews</p>
+
+                                <h2 id="mtcAdminReviewsTotal">0</h2>
+
+                                <span>All time</span>
+                            </div>
+                        </div>
+
+                        <!-- PENDING -->
+                        <div class="mtc-admin-reviews-stat-card">
+                            <div class="mtc-admin-reviews-stat-icon mtc-admin-reviews-stat-yellow">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+
+                            <div class="mtc-admin-reviews-stat-info">
+                                <p>Pending Approval</p>
+
+                                <h2 id="mtcAdminReviewsPending">0</h2>
+
+                                <span>Need review</span>
+                            </div>
+                        </div>
+
+                        <!-- APPROVED -->
+                        <div class="mtc-admin-reviews-stat-card">
+                            <div class="mtc-admin-reviews-stat-icon mtc-admin-reviews-stat-green">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+
+                            <div class="mtc-admin-reviews-stat-info">
+                                <p>Approved Reviews</p>
+
+                                <h2 id="mtcAdminReviewsApproved">0</h2>
+
+                                <span>Visible to customers</span>
+                            </div>
+                        </div>
+
+                        <!-- AVERAGE RATING -->
+                        <div class="mtc-admin-reviews-stat-card">
+                            <div class="mtc-admin-reviews-stat-icon mtc-admin-reviews-stat-purple">
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+
+                            <div class="mtc-admin-reviews-stat-info">
+                                <p>Average Rating</p>
+
+                                <div class="mtc-admin-reviews-average-row">
+                                    <h2 id="mtcAdminReviewsAverage">0.0</h2>
+
+                                    <div class="mtc-admin-reviews-stars">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+
+                                <span id="mtcAdminReviewsAverageCount"> Based on 0 approved reviews </span>
+                            </div>
+                        </div>
+                    </div>
+        <!-- =========================================
+            REVIEW TYPE TABS
+        ========================================== -->
+                    <div class="mtc-admin-reviews-tabs">
+                        <button
+                            type="button"
+                            class="mtc-admin-reviews-tab"
+                            id="mtcAdminReviewsStoreTab"
+                            data-review-type="store">
+                            <i class="fa-solid fa-store"></i>
+                            Store Reviews
+                        </button>
+                         <button
+                            type="button"
+                            class="mtc-admin-reviews-tab active"
+                            id="mtcAdminReviewsProductTab"
+                            data-review-type="product">
+                            <i class="fa-solid fa-box"></i>
+                            Product Reviews
+                        </button>
+                    </div>
+            <!-- =========================================
+                 FILTERS
+            ========================================== -->
+                    <div class="mtc-admin-reviews-filter-panel">
+                        <!-- SEARCH -->
+                        <div class="mtc-admin-reviews-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input
+                                type="text"
+                                id="mtcAdminReviewsSearch"
+                                placeholder="Search reviews..."
+                                autocomplete="off"
+                            />
+                        </div>
+
+                        <!-- STATUS -->
+                        <div class="mtc-admin-reviews-filter-group">
+                            <label for="mtcAdminReviewsStatusFilter"> Status </label>
+
+                            <select id="mtcAdminReviewsStatusFilter" class="mtc-admin-reviews-filter-select">
+                                <option value="all">All</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                            </select>
+                        </div>
+
+                        <!-- RATING -->
+                        <div class="mtc-admin-reviews-filter-group">
+                            <label for="mtcAdminReviewsRatingFilter"> Rating </label>
+
+                            <select id="mtcAdminReviewsRatingFilter" class="mtc-admin-reviews-filter-select">
+                                <option value="all">All</option>
+                                <option value="5">5 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="2">2 Stars</option>
+                                <option value="1">1 Star</option>
+                            </select>
+                        </div>
+
+                        <!-- PRODUCT -->
+                        <div class="mtc-admin-reviews-filter-group">
+                            <label for="mtcAdminReviewsProductFilter"> Product </label>
+
+                            <select id="mtcAdminReviewsProductFilter" class="mtc-admin-reviews-filter-select">
+                                <option value="all">All Products</option>
+                            </select>
+                        </div>
+
+                        <!-- CLEAR FILTERS -->
+                        <button type="button" class="mtc-admin-reviews-clear-button" id="mtcAdminReviewsClearFilters">
+                            <i class="fa-solid fa-xmark"></i>
+                            Clear Filters
+                        </button>
+                    </div>
+
+                    <!-- =========================================
+                            REVIEWS TABLE
+                        ========================================== -->
+                        <div class="mtc-admin-reviews-panel">
+                            <div class="mtc-admin-reviews-bulk-actions">
+                                <label class="mtc-admin-reviews-select-all">
+                                    <input type="checkbox" id="mtcAdminReviewsSelectAll" />
+
+                                    <span>Select All</span>
+                                </label>
+
+                                <button type="button" class="mtc-admin-reviews-delete-selected" id="mtcAdminReviewsDeleteSelected" disabled>
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete Selected
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-reviews-table-wrapper">
+                            <table class="mtc-admin-reviews-table">
+                                <thead>
+                                    <tr>
+                                        <th class="mtc-admin-reviews-checkbox-column">
+                                            <i class="fa-solid fa-check"></i>
+                                        </th>
+                                        <th>Product</th>
+                                        <th>Customer</th>
+                                        <th>Rating</th>
+                                        <th>Review</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mtcAdminReviewsTableBody">
+                                    <tr class="mtc-admin-reviews-loading-row">
+                                        <td colspan="8">
+                                            <div class="mtc-admin-reviews-loading">
+                                                <i class="fa-solid fa-spinner fa-spin"></i>
+                                                <span>Loading reviews...</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- EMPTY STATE -->
+                        <div class="mtc-admin-reviews-empty" id="mtcAdminReviewsEmpty" hidden>
+                            <div class="mtc-admin-reviews-empty-icon">
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+
+                            <h3>No Reviews Found</h3>
+
+                            <p>There are no reviews matching your current filters.</p>
+                        </div>
+
+                        <!-- PAGINATION -->
+                        <div class="mtc-admin-reviews-pagination">
+                            <p id="mtcAdminReviewsPaginationInfo">Showing 0 reviews</p>
+
+                            <div class="mtc-admin-reviews-pagination-buttons">
+                                <button
+                                    type="button"
+                                    class="mtc-admin-reviews-pagination-button"
+                                    id="mtcAdminReviewsPreviousPage"
+                                    disabled>
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+
+                                <span class="mtc-admin-reviews-page-number" id="mtcAdminReviewsPageNumber">
+                                    Page 1 of 1
+                                </span>
+
+                                <button
+                                    type="button"
+                                    class="mtc-admin-reviews-pagination-button"
+                                    id="mtcAdminReviewsNextPage"
+                                    disabled>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- =========================================
+         VIEW REVIEW MODAL
+    ========================================== -->
+        <div class="mtc-admin-reviews-modal" id="mtcAdminReviewsViewModal" hidden>
+            <div class="mtc-admin-reviews-modal-overlay"></div>
+
+            <div class="mtc-admin-reviews-modal-card">
+                <div class="mtc-admin-reviews-modal-header">
+                    <div>
+                        <h2>Customer Review</h2>
+                        <p>Review details and customer feedback.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="mtc-admin-reviews-modal-close"
+                        id="mtcAdminReviewsModalClose"
+                        aria-label="Close review">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-reviews-modal-content" id="mtcAdminReviewsModalContent"></div>
+            </div>
+        </div>
+
+        <!-- =========================================
+         DENY REVIEW MODAL
+    ========================================== -->
+        <div class="mtc-admin-reviews-modal" id="mtcAdminReviewsDenyModal" hidden>
+            <div class="mtc-admin-reviews-modal-overlay"></div>
+
+            <div class="mtc-admin-reviews-modal-card mtc-admin-reviews-deny-modal-card">
+                <div class="mtc-admin-reviews-modal-header">
+                    <div>
+                        <h2>Deny Review</h2>
+                        <p>Are you sure you want to deny this customer review?</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="mtc-admin-reviews-modal-close"
+                        id="mtcAdminReviewsDenyModalClose"
+                        aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-reviews-deny-content">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p>Denied reviews will not be visible on the storefront.</p>
+                </div>
+                <div class="mtc-admin-reviews-modal-actions">
+                    <button type="button" class="mtc-admin-reviews-cancel-button" id="mtcAdminReviewsDenyCancel">
+                        Cancel
+                    </button>
+                    <button type="button" class="mtc-admin-reviews-deny-confirm-button" id="mtcAdminReviewsDenyConfirm">
+                        <i class="fa-solid fa-xmark"></i>
+                        Deny Review
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================
+            DELETE REVIEWS MODAL
+        ========================================== -->
+        <div
+            class="mtc-admin-reviews-modal"
+            id="mtcAdminReviewsDeleteModal"
+            hidden>
+            <div class="mtc-admin-reviews-modal-overlay"></div>
+            <div class="mtc-admin-reviews-modal-card mtc-admin-reviews-deny-modal-card">
+                <div class="mtc-admin-reviews-modal-header">
+                    <div>
+                        <h2>Delete Reviews</h2>
+                        <p>
+                            Are you sure you want to permanently delete
+                            the selected reviews?
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        class="mtc-admin-reviews-modal-close"
+                        id="mtcAdminReviewsDeleteModalClose"
+                        aria-label="Close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-reviews-deny-content">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <p>
+                        This action cannot be undone.
+                    </p>
+                </div>
+                <div class="mtc-admin-reviews-modal-actions">
+                    <button
+                        type="button"
+                        class="mtc-admin-reviews-cancel-button"
+                        id="mtcAdminReviewsDeleteCancel">
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        class="mtc-admin-reviews-deny-confirm-button"
+                        id="mtcAdminReviewsDeleteConfirm">
+                        <i class="fa-solid fa-trash"></i>
+                        Delete Reviews
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

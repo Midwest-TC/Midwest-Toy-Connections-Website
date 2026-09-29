@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Midwest Toy Connections</title>
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="frontend.js" defer></script>
+        <script src="index.js" defer></script>
+    </head>
+    <body>
+       <div class="announcement-bar">
+            <div class="shipping" id="mtcFreeShippingBanner">
+                <i class="fa-solid fa-truck-fast"></i>
+                <span id="mtcFreeShippingBannerText"></span>
+            </div>
+            <div class="announcement-links">
+                <a href="mw-track-order.html">Track Order</a>
+                <span>|</span>
+                <a href="mw-contact.html">Contact Us</a>
+                <a href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.discord.gg/AQcqcQPN8"><i class="fa-brands fa-discord"></i></a>
+            </div>
+        </div>
+        <header class="main-header">
+            <div class="logo">
+                <a href="index.html"><img src="mw-logoimg.png" alt="Logo" /></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" >Home</a></li>
+                    <li><a href="mw-about.html">About</a></li>
+                    <li><a href="mw-visit-store.html">Visit Store</a></li>
+                    <li><a href="mw-upcoming-event.html" class="active">View Events</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <div class="nav-search">
+                    <button type="button" id="nav-search-toggle" class="nav-search-toggle" aria-label="Search products">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <form id="nav-search-form" class="nav-search-form">
+                        <input
+                            type="search"
+                            id="nav-search-input"
+                            placeholder="Search products..."
+                            autocomplete="off"/>
+                    </form>
+                </div>
+                <a href="#"><i class="fa-regular fa-user"></i></a>
+                <a href="mw-shoppingcart.html" class="cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>0</span>
+                </a>
+            </div>
+    </header>
+    <section class="events-hero"> 
+        <div class="events-hero-content"> 
+            <h1>Upcoming Events</h1> 
+            <p> Join us at Midwest Toy Connection for tournaments, game nights, and community events. </p> 
+        </div> 
+    </section>
+    <div class="events-intro"> 
+        <h2>Join Our Events Below</h2> 
+        <p> Midwest Toy Connection is more than just a place to shop. We're a place where collectors,<br> 
+            players, families, and hobby enthusiasts can come together and enjoy the community.<br>
+            Check out our upcoming TCG events, tournaments, and game nights below. </p>
+            <p><h2><i class="fas fa-arrow-down"></i></h2></p> 
+    </div>
+    <section class="events-section"> 
+        <div class="events-container"> 
+            <article class="event-card"> 
+                <div class="event-date"> 
+                    <span class="month">TBA</span> 
+                    <span class="day">--</span> 
+                </div> 
+                <div class="event-info">
+                    <span class="event-type">Pokémon <i class="fa-solid fa-layer-group"></i></span>
+                    <span class="event-type">One Piece <i class="fa-solid fa-layer-group"></i></span>
+                    <span class="event-type">Yu-Gi-Oh <i class="fa-solid fa-layer-group"></i></span>
+                    <span class="event-type">Magic & Gathering <i class="fa-solid fa-layer-group"></i></span>
+                    <h2>Loading...</h2>
+                        <p>
+                            Get ready for our next in-store tournament.
+                            Event details, game format, and registration information
+                            will be announced soon.
+                        </p> 
+                    <div class="event-details"> 
+                        <span> <i class="fa-regular fa-clock"></i> Loading... </span> 
+                        <span> <i class="fa-solid fa-location-dot"></i> Loading... </span> 
+                    </div> 
+                    <a href="mw-event-tournament.html" class="event-button"> Event Details <i class="fa-solid fa-arrow-right"></i> </a> 
+                </div> 
+            </article>   
+        </div> 
+    </section>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="mw-logoimg.png" alt="Midwest Toy Connections" />
+                <p>
+                    Your trusted destination for TCG Products, action figures, collectibles, and the latest trading card
+                    games.
+                </p>
+                <div class="footer-socials">
+                    <a
+                        href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                        href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a
+                        href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                        href="https://www.discord.gg/AQcqcQPN8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Customer Service</h3>
+                <a href="mw-contact.html"> Contact Us </a>
+                <a href="mw-faq.html"> FAQ </a>
+            </div>
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <a href="mw-terms.html"> Terms of Service </a>
+                <a href="mw-privacy.html"> Privacy Policy </a>
+                <div class="mtc-dynamic-policy-links"></div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <p>
+                    Be the first to know about new releases, restocks, and exclusive deals. Also, stay up to date with our
+                    upcoming events and tournaments!
+                </p>
+                <form id="mtcNewsletterForm" novalidate>
+                    <input
+                        type="email"
+                        id="mtcNewsletterEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        maxlength="254"
+                        aria-label="Email address"
+                        required/>
+                    <button type="submit" id="mtcNewsletterSubscribeButton">Subscribe</button>
+                </form>
+                <p id="mtcNewsletterMessage" class="footer-newsletter-message" aria-live="polite" hidden></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                © 2026 Midwest Toy Connections. All Rights Reserved.
+                <br /><br />
+                Designed by Amplified Sites
+            </p>
+            <div class="footer-payments">
+                <i class="fa-brands fa-cc-visa" aria-label="Visa"></i>
+                <i class="fa-brands fa-cc-mastercard" aria-label="Mastercard"></i>
+                <i class="fa-brands fa-cc-paypal" aria-label="PayPal"></i>
+                <i class="fa-brands fa-cc-amex" aria-label="American Express"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

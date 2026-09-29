@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" style="visibility: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midwest Toy Connections</title>
+    <link rel="stylesheet" href="mtc-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="mtc-admin.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="mw-dashboard-shell">
+        <aside class="mw-dashboard-sidebar">
+            <div class="mw-dashboard-brand">
+                <div class="mw-dashboard-mark"><span>MTC</span></div>
+                <div class="mw-dashboard-brand-text"><strong>Midwest Toy</strong><span>Connections</span></div>
+            </div>
+             <nav class="mw-dashboard-navigation">
+                <p class="mw-dashboard-nav-title">Admin Panel</p>
+                <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+            <div class="mw-dashboard-sidebar-bottom">
+                <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link"><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a>
+            </div>
+        </aside>
+        <main class="mw-dashboard-main">
+            <header class="mw-dashboard-header">
+                <div class="mw-dashboard-header-left">
+                    <button type="button" class="mw-dashboard-mobile-toggle" id="mwDashboardMenuToggle"><i class="fa-solid fa-bars"></i></button>
+                    <div><h1>Dashboard</h1><p>Welcome back, Admin.</p></div>
+                </div>
+                <div class="mw-dashboard-header-right">
+                    <div class="mw-dashboard-notification-wrapper">
+                        <button
+                            class="mw-dashboard-notification"
+                            id="mwNotificationButton"
+                            type="button"
+                            aria-label="Notifications">
+                            <i class="fa-regular fa-bell"></i>
+                            <span
+                                class="mw-dashboard-notification-dot"
+                                id="mwNotificationDot"
+                            ></span>
+                        </button>
+                        <div
+                            class="mw-dashboard-notification-menu"
+                            id="mwNotificationMenu">
+                            <div class="mw-dashboard-dropdown-header">
+                                <strong>Notifications</strong>
+                                <span id="mwNotificationCount">0 new</span>
+                            </div>
+                            <div
+                                class="mw-dashboard-notification-list"
+                                id="mwNotificationList">
+                                <div class="mw-dashboard-empty-notification">
+                                    No new notifications
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mw-dashboard-profile-wrapper">
+                        <button
+                            class="mw-dashboard-profile"
+                            id="mwProfileButton"
+                            type="button">
+                            <div class="mw-dashboard-profile-avatar">
+                                AD
+                            </div>
+                            <div class="mw-dashboard-profile-info">
+                                <strong>Admin</strong>
+                                <span>Administrator</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div
+                            class="mw-dashboard-profile-menu"
+                            id="mwProfileMenu">
+                            <div class="mw-dashboard-profile-menu-header">
+                                <div class="mw-dashboard-profile-avatar">
+                                    AD
+                                </div>
+                                <div>
+                                    <strong>Admin</strong>
+                                    <span>Administrator</span>
+                                </div>
+                            </div>
+                            <a href="mtc-admin-settings.html">
+                                <i class="fa-solid fa-gear"></i>
+                                Settings
+                            </a>
+                            <a href="index.html">
+                                <i class="fa-solid fa-store"></i>
+                                View Store
+                            </a>
+                            <a
+                                href="#"
+                                class="mw-dashboard-profile-logout mw-dashboard-logout-link">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section class="mw-dashboard-content">
+                <div class="mw-dashboard-stat-grid">
+                    <div class="mw-dashboard-stat-card">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon"><i class="fa-solid fa-dollar-sign"></i></div>
+                            <span class="mw-dashboard-stat-change">Revenue</span>
+                        </div>
+                        <p>Total Sales</p>
+                        <h2 id="mwDashboardTotalSales">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Compared to last month</span>
+                    </div>
+                    <div class="mw-dashboard-stat-card">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <span class="mw-dashboard-stat-change">Orders</span>
+                        </div>
+                        <p>Total Orders</p>
+                        <h2 id="mwDashboardTotalOrders">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Compared to last month</span>
+                    </div>
+                    <div class="mw-dashboard-stat-card">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon"><i class="fa-solid fa-users"></i></div>
+                            <span class="mw-dashboard-stat-change">Customers</span>
+                        </div>
+                        <p>Customers</p>
+                        <h2 id="mwDashboardCustomerCount">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Total registered customers</span>
+                    </div>
+                    <div class="mw-dashboard-stat-card">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon"><i class="fa-solid fa-box"></i></div>
+                            <span class="mw-dashboard-stat-change">Inventory</span>
+                        </div>
+                        <p>Products</p>
+                        <h2 id="mwDashboardProductCount">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Products currently listed</span>
+                    </div>
+                    <div class="mw-dashboard-stat-card">
+                    <div class="mw-dashboard-stat-top">
+                        <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </div>
+                        <span class="mw-dashboard-stat-change">Refunds</span>
+                    </div>
+                    <p>Refunded Orders</p>
+                    <h2 id="mwDashboardRefundedOrders">
+                        Loading...
+                    </h2>
+                    <span class="mw-dashboard-stat-description">
+                        Orders with partial or full refunds
+                    </span>
+                </div>
+                <div class="mw-dashboard-stat-card">
+    <div class="mw-dashboard-stat-top">
+        <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
+            <i class="fa-solid fa-money-bill-transfer"></i>
+        </div>
+        <span class="mw-dashboard-stat-change">Total Refund Amount</span>
+    </div>
+
+    <p>Total Refunded</p>
+
+    <h2 id="mwDashboardTotalRefunded">
+        Loading...
+    </h2>
+
+    <span class="mw-dashboard-stat-description">
+        Total amount refunded to customers
+    </span>
+</div>
+                </div>
+                <div class="mw-dashboard-panel mw-dashboard-sales-panel">
+                    <div class="mw-dashboard-panel-header">
+                        <div>
+                            <h2>Sales Analytics</h2>
+                            <p>Revenue performance over time</p>
+                        </div>
+                        <select
+                            id="mwDashboardSalesRange"
+                            class="mw-dashboard-sales-range">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="365">Last 12 Months</option>
+                        </select>
+                    </div>
+                    <div class="mw-dashboard-chart-container">
+                        <canvas
+                            id="mwDashboardSalesChart"
+                        ></canvas>
+                    </div>
+                </div>
+                <div class="mw-dashboard-main-grid">
+                    <div class="mw-dashboard-panel mw-dashboard-orders-panel">
+                        <div class="mw-dashboard-panel-header">
+                            <div><h2>Recent Orders</h2><p>Latest customer orders</p></div>
+                            <a href="mtc-admin-orders.html" class="mw-dashboard-view-link">View All<i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="mw-dashboard-table-wrapper">
+                            <table class="mw-dashboard-orders-table">
+                                <thead>
+                                    <tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr>
+                                </thead>
+                                <tbody id="mwDashboardOrdersTableBody">
+                                    <tr><td colspan="5"><div class="mw-dashboard-loading">Loading...</div></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="mw-dashboard-panel mw-dashboard-actions-panel">
+                        <div class="mw-dashboard-panel-header">
+                            <div><h2>Quick Actions</h2><p>Manage your store</p></div>
+                        </div>
+                        <div class="mw-dashboard-actions-grid">
+                            <a href="mtc-admin-products.html" class="mw-dashboard-action-card"><div class="mw-dashboard-action-icon"><i class="fa-solid fa-plus"></i></div><span>Add Product</span></a>
+                            <a href="mtc-admin-orders.html" class="mw-dashboard-action-card"><div class="mw-dashboard-action-icon"><i class="fa-solid fa-box"></i></div><span>View Orders</span></a>
+                            <a href="mtc-admin-events.html" class="mw-dashboard-action-card"><div class="mw-dashboard-action-icon"><i class="fa-solid fa-calendar-plus"></i></div><span>Create Event</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mw-dashboard-lower-grid">
+                    <div class="mw-dashboard-panel">
+                        <div class="mw-dashboard-panel-header">
+                            <div><h2>Inventory Overview</h2><p>Current product inventory</p></div>
+                            <a href="mtc-admin-products.html" class="mw-dashboard-view-link">Manage<i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="mw-dashboard-inventory-list">
+                            <div class="mw-dashboard-inventory-item">
+                                <div class="mw-dashboard-inventory-icon"><i class="fa-solid fa-layer-group"></i></div>
+                                <div class="mw-dashboard-inventory-info">
+                                    <div><strong>Trading Cards</strong><span id="mwDashboardTradingCardsCount">Loading...</span></div>
+                                    <div class="mw-dashboard-progress"><span id="mwDashboardTradingCardsProgress"></span></div>
+                                </div>
+                            </div>
+                            <div class="mw-dashboard-inventory-item">
+                                <div class="mw-dashboard-inventory-icon"><i class="fa-solid fa-cube"></i></div>
+                                <div class="mw-dashboard-inventory-info">
+                                    <div><strong>Toy Collectibles</strong><span id="mwDashboardToyCount">Loading...</span></div>
+                                    <div class="mw-dashboard-progress"><span id="mwDashboardToyProgress"></span></div>
+                                </div>
+                            </div>
+                            <div class="mw-dashboard-inventory-item">
+                                <div class="mw-dashboard-inventory-icon"><i class="fa-solid fa-gamepad"></i></div>
+                                <div class="mw-dashboard-inventory-info">
+                                    <div><strong>Accessories / Other Inventory</strong><span id="mwDashboardOtherCount">Loading...</span></div>
+                                    <div class="mw-dashboard-progress"><span id="mwDashboardOtherProgress"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mw-dashboard-panel">
+                        <div class="mw-dashboard-panel-header">
+                            <div><h2>Upcoming Events</h2><p>Scheduled store events</p></div>
+                            <a href="mtc-admin-events.html" class="mw-dashboard-view-link">View All<i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="mw-dashboard-event-list" id="mwDashboardEventList">
+                            <div class="mw-dashboard-loading">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="mw-dashboard-footer">
+                <span>© 2026 Midwest Toy Connections</span>
+                <span>Admin Dashboard</span>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>

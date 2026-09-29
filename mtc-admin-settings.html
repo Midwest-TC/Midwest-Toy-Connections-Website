@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en" style="visibility: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Midwest Toy Connections</title>
+        <link rel="stylesheet" href="mtc-admin.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="mtc-admin.js" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    </head>
+    <body>
+        <div class="mw-dashboard-shell">
+            <aside class="mw-dashboard-sidebar">
+                <div class="mw-dashboard-brand">
+                    <div class="mw-dashboard-mark"><span>MTC</span></div>
+                    <div class="mw-dashboard-brand-text"><strong>Midwest Toy</strong><span>Connections</span></div>
+                </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+                <div class="mw-dashboard-sidebar-bottom">
+                    <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link"
+                        ><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a>
+                </div>
+            </aside>
+            <main class="mtc-admin-settings-main" id="mtcAdminSettingsMain">
+                <header class="mtc-admin-settings-header" id="mtcAdminSettingsHeader">
+                    <div class="mtc-admin-settings-header-left" id="mtcAdminSettingsHeaderLeft">
+                        <button
+                            type="button"
+                            class="mtc-admin-settings-menu-button"
+                            id="mtcAdminSettingsMenuButton"
+                            aria-label="Open navigation"
+                        >
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div>
+                            <h1 class="mtc-admin-settings-title" id="mtcAdminSettingsTitle">Settings</h1>
+                            <p class="mtc-admin-settings-subtitle" id="mtcAdminSettingsSubtitle">
+                                Manage your store and administrator settings.
+                            </p>
+                        </div>
+                    </div>
+                </header>
+                <section class="mtc-admin-settings-content" id="mtcAdminSettingsContent">
+                    <div class="mtc-admin-settings-layout" id="mtcAdminSettingsLayout">
+                        <aside class="mtc-admin-settings-tabs" id="mtcAdminSettingsTabs">
+                            <button
+                                type="button"
+                                class="mtc-admin-settings-tab active"
+                                id="mtcAdminSettingsTabStore"
+                                data-settings-tab="store"
+                                style="display: none"
+                            >
+                                <i class="fa-solid fa-store"></i>
+                                <span>Store Settings</span>
+                            </button>
+                            <button
+                                type="button"
+                                class="mtc-admin-settings-tab"
+                                id="mtcAdminSettingsTabAccount"
+                                data-settings-tab="account"
+                                style="display: none"
+                            >
+                                <i class="fa-solid fa-user-shield"></i>
+                                <span>Admin Profile</span>
+                            </button>
+                            <button
+                                type="button"
+                                class="mtc-admin-settings-tab"
+                                data-settings-tab="users"
+                                style="display: none"
+                            >
+                                <i class="fa-solid fa-users-gear"></i>
+                                Account Management
+                            </button>
+                            <button
+                                type="button"
+                                class="mtc-admin-settings-tab"
+                                id="mtcAdminSettingsTabNotifications"
+                                data-settings-tab="notifications"
+                                style="display: none"
+                            >
+                                <i class="fa-solid fa-bell"></i>
+                                <span>Notifications</span>
+                            </button>
+                            <button
+                                type="button"
+                                class="mtc-admin-settings-tab"
+                                data-settings-tab="security"
+                                style="display: none"
+                            >
+                                <i class="fa-solid fa-shield-halved"></i>
+                                Security
+                            </button>
+                        </aside>
+                        <div class="mtc-admin-settings-panels" id="mtcAdminSettingsPanels">
+                            <section
+                                class="mtc-admin-settings-panel"
+                                id="mtcAdminSettingsStorePanel"
+                                data-settings-panel="store"
+                            >
+                                <div class="mtc-admin-settings-panel-header">
+                                    <div>
+                                        <h2>Store Settings</h2>
+                                        <p>Manage your Midwest Toy Connections store information.</p>
+                                    </div>
+                                </div>
+                                <form class="mtc-admin-settings-form" id="mtcAdminSettingsStoreForm">
+                                    <div class="mtc-admin-settings-form-group">
+                                        <label for="mtcAdminSettingsStoreName">Store Name</label>
+                                        <input
+                                            type="text"
+                                            id="mtcAdminSettingsStoreName"
+                                            class="mtc-admin-settings-input"
+                                            value="Midwest Toy Connections"
+                                        />
+                                    </div>
+                                    <div class="mtc-admin-settings-form-row">
+                                        <div class="mtc-admin-settings-form-group">
+                                            <label for="mtcAdminSettingsStoreEmail">Store Email</label>
+                                            <input
+                                                type="email"
+                                                id="mtcAdminSettingsStoreEmail"
+                                                class="mtc-admin-settings-input"
+                                                placeholder="store@example.com"
+                                            />
+                                        </div>
+                                        <div class="mtc-admin-settings-form-group">
+                                            <label for="mtcAdminSettingsStorePhone">Store Phone</label>
+                                            <input
+                                                type="tel"
+                                                id="mtcAdminSettingsStorePhone"
+                                                class="mtc-admin-settings-input"
+                                                placeholder="(000) 000-0000"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-settings-field">
+                                        <label for="mtcStoreAddress"> Store Address </label>
+                                        <input
+                                            type="text"
+                                            id="mtcStoreAddress"
+                                            placeholder="5601 S Pennsylvania Ave, Cudahy, WI 53110"
+                                        />
+                                    </div>
+                                    <div class="mtc-admin-settings-form-group">
+                                        <label for="mtcAdminSettingsStoreDescription">Store Description</label>
+                                        <textarea
+                                            id="mtcAdminSettingsStoreDescription"
+                                            class="mtc-admin-settings-textarea"
+                                            placeholder="Enter your store description..."
+                                        ></textarea>
+                                    </div>
+                                    <div class="mtc-admin-settings-field">
+                                        <label for="mtcStoreHoursDays"> Open Days </label>
+                                        <input type="text" id="mtcStoreHoursDays" placeholder="Tues - Sat" />
+                                    </div>
+                                    <div class="mtc-admin-settings-field">
+                                        <label for="mtcStoreHoursOpen"> Opening Time </label>
+                                        <input type="time" id="mtcStoreHoursOpen" />
+                                    </div>
+                                    <div class="mtc-admin-settings-field">
+                                        <label for="mtcStoreHoursClose"> Closing Time </label>
+                                        <input type="time" id="mtcStoreHoursClose" />
+                                    </div>
+                                    <div class="mtc-admin-settings-field">
+                                        <label for="mtcStoreClosedDays"> Closed Days </label>
+                                        <input type="text" id="mtcStoreClosedDays" placeholder="Sun - Mon" />
+                                    </div>
+                                    <div class="mtc-admin-settings-form-actions">
+                                        <button
+                                            type="submit"
+                                            class="mtc-admin-settings-save-button"
+                                            id="mtcAdminSettingsStoreSaveButton"
+                                        >
+                                            <i class="fa-solid fa-check"></i>
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </form>
+                            </section>
+                            <section
+                                class="mtc-admin-settings-panel"
+                                id="mtcAdminSettingsAccountPanel"
+                                data-settings-panel="account"
+                            >
+                                <div class="mtc-admin-settings-panel-header">
+                                    <div>
+                                        <h2>Admin Account</h2>
+                                        <p>Manage your administrator account information.</p>
+                                    </div>
+                                </div>
+                                <form class="mtc-admin-settings-form" id="mtcAdminSettingsAccountForm">
+                                    <div class="mtc-admin-settings-section-heading">
+                                        <div>
+                                            <h3>Profile Information</h3>
+                                            <p>Manage your personal administrator account information.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-settings-form-row">
+                                        <div class="mtc-admin-settings-form-group">
+                                            <label for="mtcAdminSettingsFirstName">First Name</label>
+                                            <input
+                                                type="text"
+                                                id="mtcAdminSettingsFirstName"
+                                                class="mtc-admin-settings-input"
+                                                placeholder="First name"
+                                            />
+                                        </div>
+                                        <div class="mtc-admin-settings-form-group">
+                                            <label for="mtcAdminSettingsLastName">Last Name</label>
+                                            <input
+                                                type="text"
+                                                id="mtcAdminSettingsLastName"
+                                                class="mtc-admin-settings-input"
+                                                placeholder="Last name"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-settings-form-group">
+                                        <label for="mtcAdminSettingsAdminEmail"> Administrator Email </label>
+                                        <input
+                                            type="email"
+                                            id="mtcAdminSettingsAdminEmail"
+                                            class="mtc-admin-settings-input"
+                                            placeholder="admin@example.com"
+                                        />
+                                    </div>
+                                    <div class="mtc-admin-settings-account-details">
+                                        <div class="mtc-admin-settings-account-detail">
+                                            <span class="mtc-admin-settings-account-detail-label"> Positions </span>
+                                            <strong id="mtcAdminSettingsAccountRole"> — </strong>
+                                        </div>
+                                        <div class="mtc-admin-settings-account-detail">
+                                            <span class="mtc-admin-settings-account-detail-label">
+                                                Account Status
+                                            </span>
+                                            <strong id="mtcAdminSettingsAccountStatus"> Active </strong>
+                                        </div>
+                                        <div class="mtc-admin-settings-account-detail">
+                                            <span class="mtc-admin-settings-account-detail-label">
+                                                Account Created
+                                            </span>
+
+                                            <strong id="mtcAdminSettingsAccountCreated"> — </strong>
+                                        </div>
+                                        <div class="mtc-admin-settings-account-detail">
+                                            <span class="mtc-admin-settings-account-detail-label"> Last Login </span>
+
+                                            <strong id="mtcAdminSettingsAccountLastLogin"> — </strong>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-settings-section-heading">
+                                        <div>
+                                            <h3>Change Password</h3>
+                                            <p>Update the password used to sign in to your administrator account.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-settings-form-group">
+                                        <label for="mtcAdminSettingsCurrentPassword"> Current Password </label>
+                                        <input
+                                            type="password"
+                                            id="mtcAdminSettingsCurrentPassword"
+                                            class="mtc-admin-settings-input"
+                                            placeholder="Enter current password"
+                                        />
+                                    </div>
+                                    <div class="mtc-admin-settings-form-row">
+                                        <div class="mtc-admin-settings-form-group">
+                                            <label for="mtcAdminSettingsNewPassword">New Password</label>
+                                            <input
+                                                type="password"
+                                                id="mtcAdminSettingsNewPassword"
+                                                class="mtc-admin-settings-input"
+                                                placeholder="Enter new password"
+                                            />
+                                        </div>
+                                        <div class="mtc-admin-settings-form-group">
+                                            <label for="mtcAdminSettingsConfirmPassword">Confirm Password</label>
+                                            <input
+                                                type="password"
+                                                id="mtcAdminSettingsConfirmPassword"
+                                                class="mtc-admin-settings-input"
+                                                placeholder="Confirm password"
+                                            />
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        class="mtc-admin-settings-save-button"
+                                        id="mtcAdminSettingsAccountSaveButton"
+                                    >
+                                        <i class="fa-solid fa-check"></i>
+                                        Update Account
+                                    </button>
+                                </form>
+                            </section>
+                            <section
+                                class="mtc-admin-settings-panel"
+                                id="mtcAdminSettingsUsersPanel"
+                                data-settings-panel="users"
+                            >
+                                <div class="mtc-admin-settings-panel-header">
+                                    <div>
+                                        <h2>Account Management</h2>
+                                        <p>Manage administrator accounts, access, and permissions.</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-settings-save-button"
+                                        id="mtcAdminAddUserButton"
+                                    >
+                                        <i class="fa-solid fa-user-plus"></i>
+                                        Add Employee
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-settings-save-button"
+                                        id="mtcAdminCreatePositionButton"
+                                    >
+                                        <i class="fa-solid fa-plus"></i>
+                                        Create Position
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-settings-save-button"
+                                        id="mtcAdminDeletePositionButton"
+                                    >
+                                        <i class="fa-solid fa-trash"></i>
+                                        Delete Position
+                                    </button>
+                                </div>
+                                <div class="mtc-admin-account-management">
+                                    <div class="mtc-admin-account-list-header">
+                                        <div>
+                                            <h3>Admin Users</h3>
+                                            <p>Administrators who have access to the MTC admin dashboard.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-account-table-wrapper">
+                                        <table class="mtc-admin-account-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Administrator</th>
+                                                    <th>Positions</th>
+                                                    <th>Status</th>
+                                                    <th>Last Login</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="mtcAdminAccountTableBody">
+                                                <tr>
+                                                    <td colspan="5">Loading administrators...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="mtc-admin-settings-panel"
+                                id="mtcAdminSettingsNotificationsPanel"
+                                data-settings-panel="notifications"
+                            >
+                                <div class="mtc-admin-settings-panel-header">
+                                    <div>
+                                        <h2>Notifications</h2>
+                                        <p>Configure administrator notification bell alerts.</p>
+                                    </div>
+                                </div>
+                                <!-- =========================================
+                                    NOTIFICATION TYPES
+                                ========================================= -->
+                                <div class="mtc-admin-notification-card">
+                                    <div class="mtc-admin-settings-section-heading">
+                                        <div>
+                                            <h3>Notification Types</h3>
+                                            <p>Choose which notifications appear in your admin notification bell.</p>
+                                        </div>
+                                    </div>
+                                    <!-- NEW ORDERS -->
+                                    <label class="mtc-admin-notification-option">
+                                        <div>
+                                            <strong>New Orders</strong>
+                                            <span>Get notified when a new order is placed.</span>
+                                        </div>
+                                        <input type="checkbox" id="mtcAdminNotificationNewOrders" />
+                                        <span class="mtc-admin-notification-switch"></span>
+                                    </label>
+                                    <!-- NEW CUSTOMERS -->
+                                    <label class="mtc-admin-notification-option">
+                                        <div>
+                                            <strong>New Customer Registrations</strong>
+                                            <span>Get notified when a new customer account is created.</span>
+                                        </div>
+                                        <input type="checkbox" id="mtcAdminNotificationNewCustomers" />
+                                        <span class="mtc-admin-notification-switch"></span>
+                                    </label>
+
+                                    <!-- NEW MESSAGES -->
+                                    <label class="mtc-admin-notification-option">
+                                        <div>
+                                            <strong>New Messages</strong>
+                                            <span>Get notified when a customer sends a new message.</span>
+                                        </div>
+                                        <input type="checkbox" id="mtcAdminNotificationNewMessages" />
+                                        <span class="mtc-admin-notification-switch"></span>
+                                    </label>
+                                    <!-- NEW REVIEWS -->
+                                    <label class="mtc-admin-notification-option">
+                                        <div>
+                                            <strong>New Product Reviews</strong>
+                                            <span>Get notified when a customer submits a product review.</span>
+                                        </div>
+                                        <input type="checkbox" id="mtcAdminNotificationNewReviews" />
+                                        <span class="mtc-admin-notification-switch"></span>
+                                    </label>
+
+                                    <!-- LOW STOCK -->
+                                    <label class="mtc-admin-notification-option">
+                                        <div>
+                                            <strong>Low Stock Alerts</strong>
+                                            <span>Get notified when a product is running low in inventory.</span>
+                                        </div>
+                                        <input type="checkbox" id="mtcAdminNotificationLowStock" />
+                                        <span class="mtc-admin-notification-switch"></span>
+                                    </label>
+
+                                    <!-- SECURITY -->
+                                    <div class="mtc-admin-notification-option mtc-admin-notification-security">
+                                        <div>
+                                            <strong>
+                                                Security Alerts
+                                                <span class="mtc-admin-notification-required"> Required </span>
+                                            </strong>
+                                            <span>
+                                                Receive important security alerts such as suspicious login activity and
+                                                account security events.
+                                            </span>
+                                        </div>
+                                        <input type="checkbox" id="mtcAdminNotificationSecurity" checked disabled />
+
+                                        <span class="mtc-admin-notification-switch"></span>
+                                    </div>
+                                </div>
+                                <!-- =========================================
+         SAVE
+    ========================================= -->
+
+                                <div class="mtc-admin-notification-save-area">
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-settings-save-button"
+                                        id="mtcAdminNotificationSaveButton"
+                                    >
+                                        <i class="fa-solid fa-floppy-disk"></i>
+                                        Save Changes
+                                    </button>
+                                </div>
+                                <!-- =========================================
+                                    NOTIFICATION ACTIVITY LOG
+                                ========================================= -->
+
+                                <div class="mtc-admin-notification-activity-card">
+                                    <div class="mtc-admin-notification-activity-header">
+                                        <div>
+                                            <h3>Notification Activity Log</h3>
+                                            <p>View notification activity and reopen related records.</p>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-notification-activity-search">
+                                        <input
+                                            type="text"
+                                            id="mtcAdminNotificationActivitySearch"
+                                            placeholder="Search notification activity..."
+                                            autocomplete="off"
+                                        />
+                                    </div>
+                                    <div class="mtc-admin-notification-activity-table-wrapper">
+                                        <table class="mtc-admin-notification-activity-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date / Time</th>
+                                                    <th>Admin</th>
+                                                    <th>Action</th>
+                                                    <th>Notification Type</th>
+                                                    <th>Notification</th>
+                                                    <th>Related Record</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="mtcAdminNotificationActivityTableBody">
+                                                <tr>
+                                                    <td colspan="6">Loading notification activity...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="mtc-admin-notification-activity-pagination">
+                                        <button
+                                            type="button"
+                                            id="mtcAdminNotificationActivityPrevious"
+                                            class="mtc-admin-notification-activity-page-button"
+                                        >
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                            Previous
+                                        </button>
+                                        <span id="mtcAdminNotificationActivityPageInfo"> Page 1 of 1 </span>
+                                        <button
+                                            type="button"
+                                            id="mtcAdminNotificationActivityNext"
+                                            class="mtc-admin-notification-activity-page-button"
+                                        >
+                                            Next
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </section>
+                            <section
+                                class="mtc-admin-settings-panel"
+                                id="mtcAdminSettingsSecurityPanel"
+                                data-settings-panel="security"
+                            >
+                                <div class="mtc-admin-settings-panel-header">
+                                    <div>
+                                        <h2>Security</h2>
+                                        <p>Manage administrator security and login access.</p>
+                                    </div>
+                                </div>
+                                <div class="mtc-admin-security-dashboard-grid">
+                                    <!-- =========================================
+             RIGHT SECURITY COLUMN
+        ========================================= -->
+
+                                    <div class="mtc-admin-security-unlock-module">
+                                        <!-- =========================================
+                 ADMIN LOGIN LOCKOUT
+            ========================================= -->
+
+                                        <div class="mtc-admin-settings-section-heading">
+                                            <div>
+                                                <h3>Admin Login Lockout</h3>
+                                                <p>
+                                                    Manually unlock an administrator login that has been temporarily
+                                                    locked.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="mtc-admin-security-lockout-card">
+                                            <div class="mtc-admin-security-lockout-icon">
+                                                <i class="fa-solid fa-shield-halved"></i>
+                                            </div>
+
+                                            <div class="mtc-admin-security-lockout-content">
+                                                <div class="mtc-admin-security-lockout-heading">
+                                                    <h4>Unlock Administrator Login</h4>
+                                                    <p>
+                                                        Enter the email address and IP address associated with the
+                                                        temporary lockout.
+                                                    </p>
+                                                </div>
+
+                                                <div class="mtc-admin-security-lockout-fields">
+                                                    <div class="mtc-admin-settings-form-group">
+                                                        <label for="mtcAdminUnlockEmail"> Email Address </label>
+
+                                                        <div class="mtc-admin-security-input-wrapper">
+                                                            <i class="fa-solid fa-envelope"></i>
+
+                                                            <input
+                                                                type="email"
+                                                                id="mtcAdminUnlockEmail"
+                                                                class="mtc-admin-settings-input"
+                                                                placeholder="admin@example.com"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mtc-admin-settings-form-group">
+                                                        <label for="mtcAdminUnlockIpAddress"> IP Address </label>
+
+                                                        <div class="mtc-admin-security-input-wrapper">
+                                                            <i class="fa-solid fa-network-wired"></i>
+
+                                                            <input
+                                                                type="text"
+                                                                id="mtcAdminUnlockIpAddress"
+                                                                class="mtc-admin-settings-input"
+                                                                placeholder="Example: ::1"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mtc-admin-security-lockout-actions">
+                                                    <button
+                                                        type="button"
+                                                        class="mtc-admin-settings-save-button"
+                                                        id="mtcAdminUnlockLoginButton"
+                                                    >
+                                                        <i class="fa-solid fa-unlock"></i>
+                                                        Unlock Login
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- =========================================
+                 SECURITY SETTINGS
+            ========================================= -->
+
+                                        <div class="mtc-admin-security-settings-card">
+                                            <div class="mtc-admin-security-settings-header">
+                                                <div>
+                                                    <h4>Security Settings</h4>
+                                                    <p>
+                                                        Configure administrator login lockout and session security
+                                                        rules.
+                                                    </p>
+                                                </div>
+
+                                                <div class="mtc-admin-security-settings-icon">
+                                                    <i class="fa-solid fa-sliders"></i>
+                                                </div>
+                                            </div>
+
+                                            <div class="mtc-admin-security-settings-fields">
+                                                <div class="mtc-admin-settings-form-group">
+                                                    <label for="mtcAdminSecurityFailedAttemptLimit">
+                                                        Failed Attempts Before Lockout
+                                                    </label>
+
+                                                    <input
+                                                        type="number"
+                                                        id="mtcAdminSecurityFailedAttemptLimit"
+                                                        class="mtc-admin-settings-input"
+                                                        min="1"
+                                                        max="20"
+                                                        value="5"
+                                                    />
+                                                </div>
+
+                                                <div class="mtc-admin-settings-form-group">
+                                                    <label for="mtcAdminSecurityLockoutDuration">
+                                                        Lockout Duration
+                                                    </label>
+
+                                                    <div class="mtc-admin-security-setting-input-unit">
+                                                        <input
+                                                            type="number"
+                                                            id="mtcAdminSecurityLockoutDuration"
+                                                            class="mtc-admin-settings-input"
+                                                            min="1"
+                                                            max="1440"
+                                                            value="15"
+                                                        />
+
+                                                        <span>minutes</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mtc-admin-settings-form-group">
+                                                    <label for="mtcAdminSecuritySessionTimeout">
+                                                        Session Timeout
+                                                    </label>
+
+                                                    <div class="mtc-admin-security-setting-input-unit">
+                                                        <input
+                                                            type="number"
+                                                            id="mtcAdminSecuritySessionTimeout"
+                                                            class="mtc-admin-settings-input"
+                                                            min="5"
+                                                            max="1440"
+                                                            value="60"
+                                                        />
+
+                                                        <span>minutes</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mtc-admin-security-settings-actions">
+                                                <button
+                                                    type="button"
+                                                    class="mtc-admin-settings-save-button"
+                                                    id="mtcAdminSecuritySettingsSaveButton"
+                                                >
+                                                    <i class="fa-solid fa-floppy-disk"></i>
+                                                    Save Security Settings
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ========================================
+                                CURRENT LOGIN LOCKOUTS
+                            ========================================= -->
+                                    <div class="mtc-admin-login-lockout-list-card">
+                                        <div class="mtc-admin-login-lockout-list-header">
+                                            <div>
+                                                <h4>Current Login Lockouts</h4>
+                                                <p>
+                                                    View administrator login lockouts by email address and IP address.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="mtc-admin-login-lockout-table-wrapper">
+                                            <table class="mtc-admin-login-lockout-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Email Address</th>
+                                                        <th>IP Address</th>
+                                                        <th>Failed Attempts</th>
+                                                        <th>Locked Until</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="mtcAdminLoginLockoutTableBody">
+                                                    <tr>
+                                                        <td colspan="5">Loading login lockouts...</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-active-sessions-card">
+                                        <div class="mtc-admin-active-sessions-header">
+                                            <div>
+                                                <h4>Active Admin Sessions</h4>
+                                                <p>
+                                                    View currently active administrator sessions and revoke access when
+                                                    needed.
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="mtc-admin-active-sessions-table-wrapper">
+                                            <table class="mtc-admin-active-sessions-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Administrator</th>
+                                                        <th>IP Address</th>
+                                                        <th>Browser / Device</th>
+                                                        <th>Signed In</th>
+                                                        <th>Last Activity</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="mtcAdminActiveSessionsTableBody">
+                                                    <tr>
+                                                        <td colspan="6">Loading active sessions...</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="mtc-admin-active-sessions-pagination">
+                                            <button
+                                                type="button"
+                                                id="mtcAdminActiveSessionsPrevious"
+                                                class="mtc-admin-active-sessions-page-button"
+                                            >
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                                Previous
+                                            </button>
+                                            <span id="mtcAdminActiveSessionsPageInfo"> Page 1 of 1 </span>
+                                            <button
+                                                type="button"
+                                                id="mtcAdminActiveSessionsNext"
+                                                class="mtc-admin-active-sessions-page-button"
+                                            >
+                                                Next
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-login-attempt-history-card">
+                                        <div class="mtc-admin-login-attempt-history-header">
+                                            <div>
+                                                <h4>Login Attempt History</h4>
+                                                <p>View successful and failed administrator login attempts.</p>
+                                            </div>
+                                        </div>
+                                        <div class="mtc-admin-login-attempt-history-search">
+                                            <input
+                                                type="text"
+                                                id="mtcAdminLoginAttemptHistorySearch"
+                                                placeholder="Search by email address or IP address..."
+                                                autocomplete="off"
+                                            />
+                                            <select id="mtcAdminLoginAttemptHistoryResultFilter">
+                                                <option value="all">All Attempts</option>
+                                                <option value="successful">Successful</option>
+                                                <option value="failed">Failed</option>
+                                            </select>
+                                        </div>
+                                        <div class="mtc-admin-login-attempt-history-table-wrapper">
+                                            <table class="mtc-admin-login-attempt-history-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date / Time</th>
+                                                        <th>Email Address</th>
+                                                        <th>IP Address</th>
+                                                        <th>Result</th>
+                                                        <th>Failure Reason</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="mtcAdminLoginAttemptHistoryTableBody">
+                                                    <tr>
+                                                        <td colspan="5">Loading login attempt history...</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="mtc-admin-login-attempt-pagination">
+                                            <button
+                                                type="button"
+                                                id="mtcAdminLoginAttemptPrevious"
+                                                class="mtc-admin-login-attempt-page-button"
+                                            >
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                                Previous
+                                            </button>
+                                            <span id="mtcAdminLoginAttemptPageInfo"> Page 1 of 1 </span>
+                                            <button
+                                                type="button"
+                                                id="mtcAdminLoginAttemptNext"
+                                                class="mtc-admin-login-attempt-page-button"
+                                            >
+                                                Next
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mtc-admin-activity-log-card">
+                                        <div class="mtc-admin-activity-log-header">
+                                            <div>
+                                                <h4>Admin Activity Log</h4>
+                                                <p>View administrator actions across the MTC Admin Portal.</p>
+                                            </div>
+                                        </div>
+                                        <div class="mtc-admin-activity-log-table-wrapper">
+                                            <table class="mtc-admin-activity-log-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date / Time</th>
+                                                        <th>Admin</th>
+                                                        <th>Position</th>
+                                                        <th>Category</th>
+                                                        <th>Action</th>
+                                                        <th>Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="mtcAdminActivityLogTableBody">
+                                                    <tr>
+                                                        <td colspan="6">Loading Admin activity...</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="mtc-admin-activity-log-pagination">
+                                            <button
+                                                type="button"
+                                                id="mtcAdminActivityLogPrevious"
+                                                class="mtc-admin-activity-log-pagination-button"
+                                            >
+                                                <i class="fa-solid fa-chevron-left"></i>
+                                                Previous
+                                            </button>
+                                            <span id="mtcAdminActivityLogPageInfo"> Page 1 of 1 </span>
+                                            <button
+                                                type="button"
+                                                id="mtcAdminActivityLogNext"
+                                                class="mtc-admin-activity-log-pagination-button"
+                                            >
+                                                Next
+                                                <i class="fa-solid fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <!-- =========================================
+     EDIT ADMIN MODAL
+    ========================================= -->
+        <div class="mtc-admin-account-modal" id="mtcAdminEditAccountModal">
+            <div class="mtc-admin-account-modal-card">
+                <div class="mtc-admin-account-modal-header">
+                    <div>
+                        <h2>Edit Administrator</h2>
+                        <p>Update administrator details, positions, and status.</p>
+                    </div>
+                    <button type="button" class="mtc-admin-account-modal-close" id="mtcAdminEditAccountClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-account-modal-body">
+                    <input type="hidden" id="mtcAdminEditUserId" />
+                    <div class="mtc-admin-settings-form-row">
+                        <div class="mtc-admin-settings-field">
+                            <label for="mtcAdminEditFirstName"> First Name </label>
+                            <input type="text" id="mtcAdminEditFirstName" />
+                        </div>
+                        <div class="mtc-admin-settings-field">
+                            <label for="mtcAdminEditLastName"> Last Name </label>
+                            <input type="text" id="mtcAdminEditLastName" />
+                        </div>
+                    </div>
+                    <div class="mtc-admin-settings-form-row">
+                        <div class="mtc-admin-settings-field">
+                            <label>Positions</label>
+                            <div class="mtc-admin-position-options" id="mtcAdminEditPositionOptions">
+                                <p>Loading positions...</p>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-settings-field">
+                            <label for="mtcAdminEditAuthority"> Authority Level </label>
+                            <select id="mtcAdminEditAuthority">
+                                <option value="">Select authority level</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                                <option value="70">70</option>
+                                <option value="80">80</option>
+                                <option value="90">90</option>
+                                <option value="100">100</option>
+                            </select>
+                            <small> You can only assign an authority level below your own. </small>
+                        </div>
+                        <div class="mtc-admin-settings-field">
+                            <label for="mtcAdminEditStatus">Status</label>
+
+                            <select id="mtcAdminEditStatus">
+                                <option value="Active">Active</option>
+                                <option value="Disabled">Disabled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mtc-admin-settings-field">
+                        <label>Individual Permissions</label>
+                        <div class="mtc-admin-edit-permissions" id="mtcAdminEditPermissionOptions">
+                            <p>Loading permissions...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mtc-admin-account-modal-footer">
+                    <button type="button" class="mtc-admin-account-modal-cancel" id="mtcAdminEditAccountCancel">
+                        Cancel
+                    </button>
+                    <button type="button" class="mtc-admin-settings-save-button" id="mtcAdminEditAccountSave">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================
+     ADD ADMIN MODAL
+    ========================================= -->
+        <div class="mtc-admin-account-modal" id="mtcAdminAddAccountModal">
+            <div class="mtc-admin-account-modal-card">
+                <div class="mtc-admin-account-modal-header">
+                    <div>
+                        <h2>Add Administrator</h2>
+                        <p>Create a new administrator account for the MTC admin dashboard.</p>
+                    </div>
+                    <button type="button" class="mtc-admin-account-modal-close" id="mtcAdminAddAccountClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-account-modal-body">
+                    <div class="mtc-admin-settings-form-row">
+                        <div class="mtc-admin-settings-field">
+                            <label for="mtcAdminAddFirstName"> First Name </label>
+                            <input type="text" id="mtcAdminAddFirstName" />
+                        </div>
+                        <div class="mtc-admin-settings-field">
+                            <label for="mtcAdminAddLastName"> Last Name </label>
+                            <input type="text" id="mtcAdminAddLastName" />
+                        </div>
+                    </div>
+                    <div class="mtc-admin-settings-field">
+                        <label for="mtcAdminAddEmail"> Email </label>
+                        <input type="email" id="mtcAdminAddEmail" />
+                    </div>
+                    <div class="mtc-admin-settings-field">
+                        <label> Positions </label>
+                        <div class="mtc-admin-position-options" id="mtcAdminAddPositionOptions">
+                            <p>Loading positions...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mtc-admin-account-modal-footer">
+                    <button type="button" class="mtc-admin-account-modal-cancel" id="mtcAdminAddAccountCancel">
+                        Cancel
+                    </button>
+                    <button type="button" class="mtc-admin-settings-save-button" id="mtcAdminAddAccountSave">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Add Admin
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================
+     CREATE POSITION MODAL
+    ========================================= -->
+        <div class="mtc-admin-account-modal" id="mtcAdminCreatePositionModal">
+            <div class="mtc-admin-account-modal-card">
+                <div class="mtc-admin-account-modal-header">
+                    <div>
+                        <h2>Create Position</h2>
+                        <p>Create a new administrator job position.</p>
+                    </div>
+                    <button type="button" class="mtc-admin-account-modal-close" id="mtcAdminCreatePositionClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-account-modal-body">
+                    <div class="mtc-admin-settings-field">
+                        <label for="mtcAdminCreatePositionName"> Position Name </label>
+                        <input type="text" id="mtcAdminCreatePositionName" placeholder="Example: Sales Associate" />
+                    </div>
+                    <div class="mtc-admin-settings-field">
+                        <label for="mtcAdminCreatePositionAuthority"> Authority Level </label>
+                        <select id="mtcAdminCreatePositionAuthority">
+                            <option value="">Select authority level</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            <option value="60">60</option>
+                            <option value="70">70</option>
+                            <option value="80">80</option>
+                            <option value="90">90</option>
+                            <option value="100">100</option>
+                        </select>
+                        <small>
+                            Higher numbers have more management authority. A position can only be created below your own
+                            authority level.
+                        </small>
+                    </div>
+                </div>
+                <div class="mtc-admin-position-permissions" id="mtcAdminCreatePositionPermissions">
+                    <p>Loading permissions...</p>
+                </div>
+            </div>
+            <div class="mtc-admin-account-modal-footer">
+                <button type="button" class="mtc-admin-account-modal-cancel" id="mtcAdminCreatePositionCancel">
+                    Cancel
+                </button>
+                <button type="button" class="mtc-admin-settings-save-button" id="mtcAdminCreatePositionSave">
+                    <i class="fa-solid fa-plus"></i>
+                    Create Position
+                </button>
+            </div>
+        </div>
+        <!-- =========================================
+     DELETE EMPLOYEE ACCOUNT MODAL
+    ========================================= -->
+        <div class="mtc-admin-account-modal" id="mtcAdminDeleteAccountModal">
+            <div class="mtc-admin-account-modal-card">
+                <h2>Delete Employee Account</h2>
+                <p>
+                    Are you sure you want to delete this employee account? This will permanently remove the employee's
+                    account and access. This action cannot be undone.
+                </p>
+                <div class="mtc-admin-account-modal-actions">
+                    <button type="button" class="mtc-admin-account-modal-save danger" id="mtcAdminDeleteAccountConfirm">
+                        <i class="fa-solid fa-trash"></i>
+                        Delete Account
+                    </button>
+                    <button type="button" class="mtc-admin-account-modal-cancel" id="mtcAdminDeleteAccountCancel">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mtc-position-confirm-modal" id="mtcPositionConfirmModal" aria-hidden="true">
+            <div class="mtc-position-confirm-overlay" id="mtcPositionConfirmOverlay"></div>
+            <div class="mtc-position-confirm-dialog">
+                <div class="mtc-position-confirm-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3>Confirm Position Change</h3>
+                <p id="mtcPositionConfirmMessage">Are you sure you want to assign this position?</p>
+                <div class="mtc-position-confirm-actions">
+                    <button type="button" class="mtc-position-confirm-cancel" id="mtcPositionConfirmCancel">
+                        Cancel
+                    </button>
+                    <button type="button" class="mtc-position-confirm-button" id="mtcPositionConfirmButton">
+                        <i class="fa-solid fa-check"></i>
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- =========================================
+        ADMIN LOGIN UNLOCK SUCCESS MODAL
+    ========================================= -->
+        <div id="mtcAdminLoginUnlockSuccessModal" style="display: none">
+            <div class="mtc-admin-login-unlock-success-card">
+                <div class="mtc-admin-login-unlock-success-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3>Login Unlocked</h3>
+                <p>Admin login unlocked successfully.</p>
+                <button
+                    type="button"
+                    id="mtcAdminLoginUnlockSuccessButton"
+                    class="mtc-admin-login-unlock-success-button"
+                >
+                    Done
+                </button>
+            </div>
+        </div>
+        <!-- =========================================
+        ADMIN LOGIN UNLOCK ERROR MODAL
+    ========================================= -->
+        <div id="mtcAdminLoginUnlockErrorModal" style="display: none">
+            <div class="mtc-admin-login-unlock-error-card">
+                <div class="mtc-admin-login-unlock-error-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3>Unable to Unlock Login</h3>
+                <p id="mtcAdminLoginUnlockErrorMessage">Something went wrong.</p>
+                <button type="button" id="mtcAdminLoginUnlockErrorButton" class="mtc-admin-login-unlock-error-button">
+                    Done
+                </button>
+            </div>
+        </div>
+        <!-- =========================================
+     SECURITY SETTINGS SUCCESS MODAL
+========================================= -->
+
+        <div class="mtc-admin-security-success-modal" id="mtcAdminSecuritySuccessModal" aria-hidden="true">
+            <div class="mtc-admin-security-success-overlay" id="mtcAdminSecuritySuccessOverlay"></div>
+            <div class="mtc-admin-security-success-dialog">
+                <div class="mtc-admin-security-success-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3>Security Settings Saved</h3>
+                <p>Your security settings were updated successfully.</p>
+                <button type="button" class="mtc-admin-security-success-button" id="mtcAdminSecuritySuccessButton">
+                    OK
+                </button>
+            </div>
+        </div>
+    </body>
+</html>

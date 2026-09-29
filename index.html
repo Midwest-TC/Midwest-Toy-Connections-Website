@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Midwest Toy Connections</title>
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="frontend.js" defer></script>
+        <script src="index.js" defer></script>
+    </head>
+    <body>
+        <div class="announcement-bar">
+            <div class="shipping" id="mtcFreeShippingBanner">
+                <i class="fa-solid fa-truck-fast"></i>
+                <span id="mtcFreeShippingBannerText"></span>
+            </div>
+            <div class="announcement-links">
+                <a href="mw-track-order.html">Track Order</a>
+                <span>|</span>
+                <a href="mw-contact.html">Contact Us</a>
+                <a href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.discord.gg/AQcqcQPN8"><i class="fa-brands fa-discord"></i></a>
+            </div>
+        </div>
+        <header class="main-header">
+            <div class="logo">
+                <a href="index.html"><img src="mw-logoimg.png" alt="Logo" /></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="mw-about.html">About</a></li>
+                    <li><a href="mw-visit-store.html">Visit Store</a></li>
+                    <li><a href="mw-upcoming-event.html">View Events</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <div class="nav-search">
+                    <button type="button" id="nav-search-toggle" class="nav-search-toggle" aria-label="Search products">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <form id="nav-search-form" class="nav-search-form">
+                        <input
+                            type="search"
+                            id="nav-search-input"
+                            placeholder="Search products..."
+                            autocomplete="off"
+                        />
+                    </form>
+                </div>
+                <a href=""><i class="fa-regular fa-user"></i></a>
+                <a href="mw-shoppingcart.html" class="cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>0</span>
+                </a>
+            </div>
+    </header>
+    <section class="hero">      
+         <div class="hero-text">
+            <div class="hero-content">
+                <h2>The Ultimate Destination For</h2>
+                <h1>Toys & TCG</h1>
+                <p>
+                    Pokémon, One Piece, and more!
+                    <br>
+                    Authentic products. Epic pulls. Endless fun.
+                </p>
+                <a href="mw-visit-store.html" class="btn" id="visit-our-store">Visit Our Store</a>
+            </div>
+         </div>
+    </section>
+    <section class="features">
+        <div class="feature">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+                <h3>100% Authentic</h3>
+                <p>Authentic products from trusted sources</p>
+            </div>
+        </div>
+        <div class="feature">
+            <i class="fa-solid fa-truck-fast"></i>
+            <div>
+                <h3>Fast Shipping</h3>
+                <p>Orders ship within 1-2 business days</p>
+            </div>
+        </div>
+        <div class="feature">
+            <i class="fa-solid fa-lock"></i>
+            <div>
+                <h3>Secure Checkout</h3>
+                <p>Safe and secure payments</p>
+            </div>
+        </div>
+        <div class="feature">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+            <div>
+                <h3>Easy Returns</h3>
+                <p>30-day hassle-free returns</p>
+            </div>
+        </div>
+        <div class="feature">
+            <i class="fa-solid fa-headset"></i>
+            <div>
+                <h3>Customer Support</h3>
+                <p>We're here to help anytime</p>
+            </div>
+        </div>
+    </section>
+    <section class="categories">
+        <h2>Join Our Community</h2>
+        <div class="community-content">
+            <div class="community-text">
+                <h3>More Than Just A Store</h3>
+                <p>
+                    Whether you're here to battle, trade, build your 
+                    collection, or hangout, there's always a seat at the table for you. 
+                    We host TCG Events, tournaments, and game nights. Checkout our 
+                    latest inventory and deals while you're in here!
+                </p>  
+                <a href="mw-upcoming-event.html">
+                    View Upcoming Events
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="store-reviews-section">
+            <div class="store-reviews-header">
+                 <div class="store-reviews-container">
+                    <div class="store-reviews-average">
+                        <span id="store-reviews-average-rating">0.0</span>
+                            <div
+                                class="store-reviews-average-stars"
+                                id="store-reviews-average-stars"
+                                aria-label="Store average rating">
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                            </div>
+                        <span id="store-reviews-count">0 Reviews</span>
+                    </div>
+                </div>
+            </div>
+            <div class="store-reviews-content">
+            <div class="store-review-form-container">
+                <div class="store-review-form-header">
+                    <span class="store-reviews-label">
+                        <i class="fa-solid fa-pen"></i>
+                        Share Your Experience
+                    </span>
+                    <h2>Write a Store Review</h2>
+                    <p>
+                        Tell us about your experience with Midwest Toy Connections.
+                        Customer verification is checked automatically using your email.
+                    </p>
+                </div>
+                <form id="store-review-form">
+                <div class="store-review-form-grid">
+                    <div class="store-review-form-group">
+                        <label for="store-review-name">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            id="store-review-name"
+                            maxlength="100"
+                            required />
+                    </div>
+                    <div class="store-review-form-group">
+                        <label for="store-review-email">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="store-review-email"
+                            maxlength="255"
+                            required />
+                    </div>
+                </div>
+                <div class="store-review-form-group">
+                    <label>Rating</label>
+                    <div
+                        class="store-review-star-selector"
+                        id="store-review-star-selector"
+                        aria-label="Select store rating">
+                        <button type="button" data-rating="1" aria-label="1 star">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                        <button type="button" data-rating="2" aria-label="2 stars">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                        <button type="button" data-rating="3" aria-label="3 stars">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                        <button type="button" data-rating="4" aria-label="4 stars">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                        <button type="button" data-rating="5" aria-label="5 stars">
+                            <i class="fa-regular fa-star"></i>
+                        </button>
+                    </div>
+                    <input
+                        type="hidden"
+                        id="store-review-rating"
+                        required />
+                </div>
+                <div class="store-review-form-group">
+                    <label for="store-review-title">
+                        Review Title
+                    </label>
+                    <input
+                        type="text"
+                        id="store-review-title"
+                        maxlength="150"
+                        required />
+                </div>
+                <div class="store-review-form-group">
+                    <label for="store-review-comment">
+                        Your Review
+                    </label>
+                    <textarea
+                        id="store-review-comment"
+                        rows="4"
+                        maxlength="2000"
+                        required></textarea>
+                </div>
+                <div class="store-review-verification-message">
+                    <p>
+                        Customer verification is checked automatically using your email.
+                        Anyone may submit a review. Reviews are approved before appearing publicly.
+                    </p>
+                </div>
+                <button
+                    type="submit"
+                    class="store-review-submit-button"
+                    id="store-review-submit-button">
+                    <i class="fa-solid fa-star"></i>
+                    Submit Review
+                </button>
+                <div
+                    class="store-review-submit-result"
+                    id="store-review-submit-result"
+                    aria-live="polite">
+                </div>
+            </form>
+            </div> <!-- CLOSES store-review-form-container -->
+            <!-- RIGHT SIDE: CUSTOMER REVIEWS -->
+            <div class="store-reviews-right">
+                <div
+                    class="store-reviews-list"
+                    id="store-reviews-list">
+                </div>
+                <div
+                    class="store-reviews-pagination"
+                    id="store-reviews-pagination">
+                </div>
+                <div
+                    class="store-reviews-empty"
+                    id="store-reviews-empty"
+                    hidden>
+                    <i class="fa-regular fa-comments"></i>
+                    <h3>No Reviews Yet</h3>
+                    <p>
+                        Be the first to review Midwest Toy Connections.
+                    </p>
+                </div>
+            </div> <!-- CLOSES store-reviews-right -->
+        </div> <!-- CLOSES store-reviews-content -->
+    </section>           
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="mw-logoimg.png" alt="Midwest Toy Connections" />
+                <p>
+                    Your trusted destination for TCG Products, action figures, collectibles, and the latest trading card
+                    games.
+                </p>
+                <div class="footer-socials">
+                    <a
+                        href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                        href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a
+                        href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                        href="https://www.discord.gg/AQcqcQPN8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Customer Service</h3>
+                <a href="mw-contact.html">Contact Us</a>
+                <a href="mw-faq.html">FAQ</a>
+            </div>
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <a href="mw-terms.html">Terms of Service</a>
+                <a href="mw-privacy.html">Privacy Policy</a>
+                <div class="mtc-dynamic-policy-links"></div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <p>
+                    Be the first to know about new releases,
+                    restocks, and exclusive deals. Also, stay up
+                    to date with our upcoming events and tournaments!
+                </p>
+                <form>
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                © 2026 Midwest Toy Connection. All Rights Reserved.<br><br><a href="mtc-admin-login.html">Designed by Amplified Sites</a>
+            </p>
+            <div class="footer-payments">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-brands fa-cc-paypal"></i>
+                <i class="fa-brands fa-cc-amex"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

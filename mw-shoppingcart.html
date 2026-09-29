@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Midwest Toy Connections</title>
+        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="frontend.js" defer></script>
+        <script src="index.js" defer></script>
+    </head>
+    <body>
+       <div class="announcement-bar">
+            <div class="shipping" id="mtcFreeShippingBanner">
+                <i class="fa-solid fa-truck-fast"></i>
+                <span id="mtcFreeShippingBannerText"></span>
+            </div>
+            <div class="announcement-links">
+                <a href="mw-track-order.html">Track Order</a>
+                <span>|</span>
+                <a href="mw-contact.html">Contact Us</a>
+                <a href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.discord.gg/AQcqcQPN8"><i class="fa-brands fa-discord"></i></a>
+            </div>
+        </div>
+        <header class="main-header">
+            <div class="logo">
+                <a href="index.html"><img src="mw-logoimg.png" alt="Logo" /></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" >Home</a></li>
+                    <li><a href="mw-about.html">About</a></li>
+                    <li><a href="mw-visit-store.html">Visit Store</a></li>
+                    <li><a href="mw-upcoming-event.html">View Events</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <div class="nav-search">
+                    <button type="button" id="nav-search-toggle" class="nav-search-toggle" aria-label="Search products">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <form id="nav-search-form" class="nav-search-form">
+                        <input
+                            type="search"
+                            id="nav-search-input"
+                            placeholder="Search products..."
+                            autocomplete="off"/>
+                    </form>
+                </div>
+                <a href="#"><i class="fa-regular fa-user"></i></a>
+                <a href="mw-shoppingcart.html" class="cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>0</span>
+                </a>
+            </div>
+    </header>
+    <section class="page-header">
+        <h1>Your Cart</h1>
+    </section>
+    <section class="cart-container">
+        <!-- CART PRODUCTS -->
+        <div class="cart-table">
+            <!-- Column Headers -->
+            <div class="cart-head">
+                <div>Item</div>
+                <div>Price</div>
+                <div>Qty</div>
+                <div>Total</div>
+                <div></div>
+            </div>
+            <div id="cart-items">
+                <div class="cart-loading">Loading cart...</div>
+            </div>
+        </div>
+        <div class="summary">
+            <h2>Order Summary</h2>
+            <hr>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <strong id="cart-shipping">$0.00</strong>
+        </div>
+        <div
+            class="summary-row"
+            id="cart-discount-row"
+            hidden>
+            <span>Discount</span>
+            <strong id="cart-discount">-$0.00</strong>
+        </div>
+        <hr>
+        <div class="summary-row total">
+            <span>Total</span>
+            <strong id="cart-total">$0.00</strong>
+        </div>
+            <!-- =========================================
+                SHIPPING METHOD
+            ========================================== -->
+            <div class="cart-shipping-methods">
+                <div class="cart-shipping-methods-header">
+                    <span>Shipping Method</span>
+                </div>
+                <div
+                    class="cart-shipping-methods-list"
+                    id="cart-shipping-methods">
+                    <div class="cart-shipping-method-loading">
+                        Loading shipping options...
+                    </div>
+                </div>
+            </div>
+            <button class="checkout-btn" id="checkout-btn">Proceed To Checkout</button>
+            <button class="paypal-btn" id="paypal-btn">
+                <i class="fab fa-paypal"></i> Buy with PayPal
+            </button>
+            <div class="promo">
+                <p>Have a promo code?</p>
+                <div class="promo-box">
+                    <input type="text" id="promo-code" placeholder="Enter code">
+                    <button id="apply-promo">Apply</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+    <!-- =========================================
+         SHIPPING ADDRESS MODAL
+    ========================================== -->
+    <div
+        class="shipping-address-modal"
+        id="shipping-address-modal"
+        hidden>
+        <div class="shipping-address-overlay"></div>
+        <div
+            class="shipping-address-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="shipping-address-title">
+            <button
+                type="button"
+                class="shipping-address-close"
+                id="shipping-address-close"
+                aria-label="Close shipping address">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 id="shipping-address-title">
+                Shipping Address
+            </h2>
+            <p>
+                Enter the address where your order will be shipped.
+            </p>
+            <form id="shipping-address-form">
+                <div class="shipping-address-row">
+                    <div class="shipping-address-field">
+                        <label for="shipping-first-name">
+                            First Name
+                        </label>
+                        <input
+                            type="text"
+                            id="shipping-first-name"
+                            autocomplete="given-name"
+                            required>
+                    </div>
+                    <div class="shipping-address-field">
+                        <label for="shipping-last-name">
+                            Last Name
+                        </label>
+                        <input
+                            type="text"
+                            id="shipping-last-name"
+                            autocomplete="family-name"
+                            required>
+                    </div>
+                </div>
+                <div class="shipping-address-field">
+                    <label for="shipping-address-line1">
+                        Street Address
+                    </label>
+                    <input
+                        type="text"
+                        id="shipping-address-line1"
+                        autocomplete="address-line1"
+                        required>
+                </div>
+                <div class="shipping-address-field">
+                    <label for="shipping-address-line2">
+                        Apartment, Suite, Unit
+                        <span>(Optional)</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="shipping-address-line2"
+                        autocomplete="address-line2">
+                </div>
+                <div class="shipping-address-row">
+                    <div class="shipping-address-field">
+                        <label for="shipping-city">
+                            City
+                        </label>
+                        <input
+                            type="text"
+                            id="shipping-city"
+                            autocomplete="address-level2"
+                            required>
+                    </div>
+                    <div class="shipping-address-field">
+                        <label for="shipping-state">
+                            State
+                        </label>
+                        <select
+                            id="shipping-state"
+                            autocomplete="address-level1"
+                            required>
+                            <option value="">
+                                Select State
+                            </option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                            <option value="DC">District of Columbia</option>
+                            <option value="PR">Puerto Rico</option>
+                        </select>
+                    </div>
+                    <div class="shipping-address-field">
+                        <label for="shipping-zip">
+                            ZIP Code
+                        </label>
+                        <input
+                            type="text"
+                            id="shipping-zip"
+                            autocomplete="postal-code"
+                            inputmode="numeric"
+                            maxlength="10"
+                            required>
+                    </div>
+                </div>
+                <div
+                    class="shipping-address-error"
+                    id="shipping-address-error"
+                    hidden>
+                </div>
+                <button
+                    type="submit"
+                    class="checkout-btn shipping-address-continue"
+                    id="shipping-address-continue">
+                    Continue To Payment
+                </button>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="mw-logoimg.png" alt="Midwest Toy Connections" />
+                <p>
+                    Your trusted destination for TCG Products, action figures, collectibles, and the latest trading card
+                    games.
+                </p>
+                <div class="footer-socials">
+                    <a
+                        href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                        href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a
+                        href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                        href="https://www.discord.gg/AQcqcQPN8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Customer Service</h3>
+                <a href="mw-contact.html"> Contact Us </a>
+                <a href="mw-faq.html"> FAQ </a>
+            </div>
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <a href="mw-terms.html"> Terms of Service </a>
+                <a href="mw-privacy.html"> Privacy Policy </a>
+                <div class="mtc-dynamic-policy-links"></div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <p>
+                    Be the first to know about new releases, restocks, and exclusive deals. Also, stay up to date with our
+                    upcoming events and tournaments!
+                </p>
+                <form id="mtcNewsletterForm" novalidate>
+                    <input
+                        type="email"
+                        id="mtcNewsletterEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        maxlength="254"
+                        aria-label="Email address"
+                        required/>
+                    <button type="submit" id="mtcNewsletterSubscribeButton">Subscribe</button>
+                </form>
+                <p id="mtcNewsletterMessage" class="footer-newsletter-message" aria-live="polite" hidden></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                © 2026 Midwest Toy Connections. All Rights Reserved.
+                <br /><br />
+                Designed by Amplified Sites
+            </p>
+            <div class="footer-payments">
+                <i class="fa-brands fa-cc-visa" aria-label="Visa"></i>
+                <i class="fa-brands fa-cc-mastercard" aria-label="Mastercard"></i>
+                <i class="fa-brands fa-cc-paypal" aria-label="PayPal"></i>
+                <i class="fa-brands fa-cc-amex" aria-label="American Express"></i>
+            </div>
+        </div>
+    </footer>
+    <!-- =============================================
+        DISCOUNT MESSAGE POPUP
+    ============================================= -->
+
+    <div
+        id="discount-message-popup"
+        class="discount-message-popup"
+        hidden>
+        <div class="discount-message-card">
+            <button
+                type="button"
+                id="discount-message-close"
+                class="discount-message-close"
+                aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div
+                id="discount-message-icon"
+                class="discount-message-icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h3 id="discount-message-title">
+                Invalid Discount Code
+            </h3>
+            <p id="discount-message-text">
+                This discount code is invalid.
+            </p>
+            <button
+                type="button"
+                id="discount-message-ok"
+                class="discount-message-ok">
+                OK
+            </button>
+        </div>
+    </div>
+</body>
+</html>

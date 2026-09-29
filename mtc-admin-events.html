@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" style="visibility: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midwest Toy Connections</title>
+    <link rel="stylesheet" href="mtc-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="mtc-admin.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="mw-dashboard-shell">
+        <aside class="mw-dashboard-sidebar">
+            <div class="mw-dashboard-brand">
+                <div class="mw-dashboard-mark">
+                    <span>MTC</span>
+                </div>
+                <div class="mw-dashboard-brand-text">
+                    <strong>Midwest Toy</strong>
+                    <span>Connections</span>
+                </div>
+            </div>
+            <nav class="mw-dashboard-navigation">
+                <p class="mw-dashboard-nav-title">Admin Panel</p>
+                <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                <a href="mtc-admin-events.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+            <div class="mw-dashboard-sidebar-bottom">
+                <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+        <main class="mtc-admin-events-main" id="mtcAdminEventsMain">
+            <header class="mtc-admin-events-header">
+                <div class="mtc-admin-events-header-left">
+                    <button type="button" class="mtc-admin-events-menu-button" id="mtcAdminEventsMenuButton">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1 class="mtc-admin-events-title">
+                            Events
+                        </h1>
+                        <p class="mtc-admin-events-subtitle">
+                            Create and manage events shown on your website.
+                        </p>
+                    </div>
+                </div>
+                <div class="mtc-admin-events-header-actions">
+                    <button type="button" class="mtc-admin-events-create-button" id="mtcAdminEventsCreateButton">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>
+                            Create Event
+                        </span>
+                    </button>
+                </div>
+            </header>
+            <section class="mtc-admin-events-content" id="mtcAdminEventsContent">
+                <section class="mtc-admin-events-stats" id="mtcAdminEventsStats">
+                    <div class="mtc-admin-events-stat-card" id="mtcAdminEventsTotalCard">
+                        <div class="mtc-admin-events-stat-icon">
+                            <i class="fa-solid fa-list"></i>
+                        </div>
+                        <div class="mtc-admin-events-stat-info">
+                            <span>
+                                Total Events
+                            </span>
+                            <strong id="mtcAdminEventsTotalCount">
+                                Loading...
+                            </strong>
+                        </div>
+                    </div>
+                </section>
+                <section class="mtc-admin-events-panel" id="mtcAdminEventsUpcomingPanel">
+                    <div class="mtc-admin-events-panel-header">
+                        <div>
+                            <h2>
+                                Upcoming Events
+                            </h2>
+                            <p>
+                                Events currently scheduled to appear on your website.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mtc-admin-events-list" id="mtcAdminEventsList">
+                        <div class="mtc-admin-events-loading">
+                            Loading...
+                        </div>
+                    </div>
+                </section>
+               <section class="mtc-admin-events-panel" id="mtcAdminEventsAllPanel">
+                    <div class="mtc-admin-events-panel-header">
+                        <div>
+                            <h2>
+                                All Events
+                            </h2>
+                            <p>
+                                View, edit, and manage your store events.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="mtc-admin-events-table-wrapper" id="mtcAdminEventsTableWrapper">
+                        <table class="mtc-admin-events-table">
+                           <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Game / Type</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Entry Fee</th>
+                                    <th>Prize Pool</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mtcAdminEventsTableBody">
+                                <tr>
+                                    <td colspan="7" class="mtc-admin-events-loading-cell">
+                                        Loading...
+                                    </td>
+                                </tr>
+                            </tbody>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <div class="mtc-admin-events-modal" id="mtcAdminEventsModal" aria-hidden="true">
+        <div class="mtc-admin-events-modal-overlay" id="mtcAdminEventsModalOverlay"></div>
+        <div class="mtc-admin-events-modal-card">
+            <div class="mtc-admin-events-modal-header">
+                <div>
+                    <h2 id="mtcAdminEventsModalTitle">
+                        Create Event
+                    </h2>
+                    <p>
+                        Enter the event information that will be displayed on your website.
+                    </p>
+                </div>
+                <button type="button" class="mtc-admin-events-modal-close" id="mtcAdminEventsModalClose">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form class="mtc-admin-events-form" id="mtcAdminEventsForm">
+                <div class="mtc-admin-events-form-group">
+                    <label for="mtcAdminEventsName">
+                        Event Name
+                    </label>
+                    <input type="text" id="mtcAdminEventsName" class="mtc-admin-events-form-input" placeholder="e.g. Pokémon League Night" required>
+                </div>
+                <div class="mtc-admin-events-form-row">
+                    <div class="mtc-admin-events-form-group">
+                        <label for="mtcAdminEventsGame">
+                            Game
+                        </label>
+                        <select id="mtcAdminEventsGame" class="mtc-admin-events-form-input">
+                            <option value="">
+                                Select Game
+                            </option>
+                            <option value="pokemon">
+                                Pokémon TCG
+                            </option>
+                            <option value="one-piece">
+                                One Piece Card Game
+                            </option>
+                            <option value="yugioh">
+                                Yu-Gi-Oh!
+                            </option>
+                            <option value="magic">
+                                Magic: The Gathering
+                            </option>
+                            <option value="other">
+                                Other
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mtc-admin-events-form-group">
+                        <label for="mtcAdminEventsType">
+                            Event Type
+                        </label>
+                        <input type="text" id="mtcAdminEventsType" class="mtc-admin-events-form-input" placeholder="e.g. Tournament, Game Night, Release Event">
+                    </div>
+                </div>
+                <div class="mtc-admin-events-form-group">
+                    <label for="mtcAdminEventsDate">
+                        Event Date
+                    </label>
+                    <input type="date" id="mtcAdminEventsDate" class="mtc-admin-events-form-input" required>
+                </div>
+                <div class="mtc-admin-events-form-row">
+                    <div class="mtc-admin-events-form-group">
+                        <label for="mtcAdminEventsStartTime">
+                            Start Time
+                        </label>
+                        <input type="time" id="mtcAdminEventsStartTime" class="mtc-admin-events-form-input">
+                    </div>
+                </div>
+                <div class="mtc-admin-events-form-group">
+                    <label>
+                        Location
+                    </label>
+                    <div class="mtc-admin-events-location-fixed">
+                        Midwest Toy Connections<br>
+                        5601 S Pennsylvania Ave, Cudahy, WI 53110
+                    </div>
+                </div>
+                <div class="mtc-admin-events-form-row">
+                <div class="mtc-admin-events-form-group">
+                    <label for="mtcAdminEventsEntryFee">
+                        Entry Fee ($)
+                    </label>
+                    <input type="number" id="mtcAdminEventsEntryFee" class="mtc-admin-events-form-input" placeholder="0.00" min="0" step="0.01">
+                </div>
+                <div class="mtc-admin-events-form-group">
+                    <label for="mtcAdminEventsPrize">
+                        Prize Pool
+                    </label>
+                    <input type="text" id="mtcAdminEventsPrize" class="mtc-admin-events-form-input" placeholder="e.g. $500 Store Credit + Booster Boxes">
+                </div>
+            </div>
+            <div class="mtc-admin-events-form-group">
+                <label for="mtcAdminEventsBandaiLink">
+                    Bandai TCG+ Registration Link
+                </label>
+                <input
+                    type="url"
+                    id="mtcAdminEventsBandaiLink"
+                    class="mtc-admin-events-form-input"
+                    placeholder="https://..."
+                    autocomplete="off">
+            </div>
+            <div class="mtc-admin-events-form-group">
+                <label for="mtcAdminEventsDescription">
+                    Event Description
+                </label>
+                <textarea
+                    id="mtcAdminEventsDescription"
+                    class="mtc-admin-events-form-input"
+                    placeholder="Enter the event details..."
+                    maxlength="2000">
+                </textarea>
+            </div>
+                <div class="mtc-admin-events-form-actions">
+                    <button type="button" class="mtc-admin-events-cancel-button" id="mtcAdminEventsCancelButton">
+                        Cancel
+                    </button>
+                    <button type="submit" class="mtc-admin-events-save-button" id="mtcAdminEventsSaveButton">
+                        <i class="fa-solid fa-check"></i>
+                        Save Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div
+        class="mtc-admin-delete-modal"
+        id="mtcAdminDeleteModal"
+        aria-hidden="true">
+        <div
+            class="mtc-admin-delete-modal-overlay"
+            id="mtcAdminDeleteModalOverlay">
+        </div>
+        <div class="mtc-admin-delete-modal-card">
+            <div class="mtc-admin-delete-modal-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2>
+                Delete Event?
+            </h2>
+            <p id="mtcAdminDeleteModalMessage">
+                Are you sure you want to delete this event?
+            </p>
+            <div class="mtc-admin-delete-modal-actions">
+                <button
+                    type="button"
+                    class="mtc-admin-delete-cancel-button"
+                    id="mtcAdminDeleteCancelButton">
+                    Cancel
+                </button>
+                <button
+                    type="button"
+                    class="mtc-admin-delete-confirm-button"
+                    id="mtcAdminDeleteConfirmButton">
+                    <i class="fa-solid fa-trash"></i>
+                    Delete Event
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" style="visibility: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Midwest Toy Connections</title>
+        <link rel="stylesheet" href="mtc-admin.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="mtc-admin.js" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    </head>
+    <body>
+        <div class="mw-dashboard-shell">
+            <aside class="mw-dashboard-sidebar">
+                <div class="mw-dashboard-brand">
+                    <div class="mw-dashboard-mark"><span>MTC</span></div>
+                    <div class="mw-dashboard-brand-text"><strong>Midwest Toy</strong><span>Connections</span></div>
+                </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+                <div class="mw-dashboard-sidebar-bottom">
+                    <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link"
+                        ><i class="fa-solid fa-right-from-bracket"></i><span>Sign Out</span></a
+                    >
+                </div>
+            </aside>
+            <main class="mtc-admin-orders-main" id="mtcAdminOrdersMain">
+                <header class="mtc-admin-orders-header">
+                    <div class="mtc-admin-orders-header-left">
+                        <button type="button" class="mtc-admin-orders-menu-button" id="mtcAdminOrdersMenuButton">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <div>
+                            <h1 class="mtc-admin-orders-title">Orders</h1>
+                            <p class="mtc-admin-orders-subtitle">Manage and track customer orders.</p>
+                        </div>
+                    </div>
+                    <div class="mtc-admin-orders-header-actions">
+                        <button type="button" class="mtc-admin-orders-export-button" id="mtcAdminOrdersExportButton">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Export</span>
+                        </button>
+                    </div>
+                </header>
+                <section class="mtc-admin-orders-content" id="mtcAdminOrdersContent">
+                    <section class="mtc-admin-orders-stats" id="mtcAdminOrdersStats">
+                        <div class="mtc-admin-orders-stat-card" id="mtcAdminOrdersTotalCard">
+                            <div class="mtc-admin-orders-stat-icon">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                            <div class="mtc-admin-orders-stat-info">
+                                <span>Total Orders</span>
+                                <strong id="mtcAdminOrdersTotalCount">Loading...</strong>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-orders-stat-card" id="mtcAdminOrdersPendingCard">
+                            <div class="mtc-admin-orders-stat-icon">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="mtc-admin-orders-stat-info">
+                                <span>Pending</span>
+                                <strong id="mtcAdminOrdersPendingCount">Loading...</strong>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-orders-stat-card" id="mtcAdminOrdersProcessingCard">
+                            <div class="mtc-admin-orders-stat-icon">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+                            <div class="mtc-admin-orders-stat-info">
+                                <span>Processing</span>
+                                <strong id="mtcAdminOrdersProcessingCount">Loading...</strong>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-orders-stat-card" id="mtcAdminOrdersCompletedCard">
+                            <div class="mtc-admin-orders-stat-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div class="mtc-admin-orders-stat-info">
+                                <span>Completed</span>
+                                <strong id="mtcAdminOrdersCompletedCount">Loading...</strong>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="mtc-admin-orders-panel" id="mtcAdminOrdersPanel">
+                        <div class="mtc-admin-orders-panel-header">
+                            <div>
+                                <h2 id="mtcAdminOrdersSectionTitle">All Orders</h2>
+                                <p id="mtcAdminOrdersSectionSubtitle">View and manage customer orders.</p>
+                            </div>
+                            <button
+                                type="button"
+                                class="mtc-admin-refund-history-tab"
+                                id="mtcAdminRefundHistoryTab"
+                                style="display: none">
+                                Refund History
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div id="mtcAdminAllOrdersContent">
+                            <div class="mtc-admin-orders-toolbar" id="mtcAdminOrdersToolbar">
+                                <div class="mtc-admin-orders-search">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="search" id="mtcAdminOrdersSearch" placeholder="Search orders..." />
+                                </div>
+                                <select id="mtcAdminOrdersStatusFilter" class="mtc-admin-orders-filter">
+                                    <option value="all">All Statuses</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="processing">Processing</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                                <select id="mtcAdminOrdersDateFilter" class="mtc-admin-orders-filter">
+                                    <option value="all">All Dates</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                </select>
+                            </div>
+                            <div class="mtc-admin-orders-table-wrapper" id="mtcAdminOrdersTableWrapper">
+                                <table class="mtc-admin-orders-table" id="mtcAdminOrdersTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Order</th>
+                                            <th>Customer</th>
+                                            <th>Email</th>
+                                            <th>Last 4</th>
+                                            <th>Date</th>
+                                            <th>Item Quantity</th>
+                                            <th>Total</th>
+                                            <th>Order/Shipping Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mtcAdminOrdersTableBody">
+                                        <tr>
+                                            <td colspan="7" class="mtc-admin-orders-loading">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mtc-admin-orders-empty" id="mtcAdminOrdersEmpty" style="display: none">
+                                <div class="mtc-admin-orders-empty-icon">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </div>
+                                <h3>No Orders Found</h3>
+                                <p>There are currently no orders matching your search.</p>
+                            </div>
+                            <div class="mtc-admin-orders-pagination" id="mtcAdminOrdersPagination">
+                                <span id="mtcAdminOrdersPaginationInfo">Loading...</span>
+                                <div class="mtc-admin-orders-pagination-buttons">
+                                    <button
+                                        type="button"
+                                        id="mtcAdminOrdersPreviousButton"
+                                        class="mtc-admin-orders-pagination-button"
+                                    >
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        id="mtcAdminOrdersNextButton"
+                                        class="mtc-admin-orders-pagination-button"
+                                    >
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <div id="mtcAdminRefundHistoryPanel" style="display: none">
+                        <div class="mtc-admin-orders-table-wrapper">
+                            <table class="mtc-admin-orders-table" id="mtcAdminRefundHistoryTable">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Customer</th>
+                                        <th>Email</th>
+                                        <th>Original Total</th>
+                                        <th>Refunded</th>
+                                        <th>Remaining</th>
+                                        <th>Status</th>
+                                        <th>Latest Refund</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mtcAdminRefundHistoryTableBody">
+                                    <tr>
+                                        <td colspan="8">
+                                            Loading refund history...
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mtc-admin-orders-pagination" id="mtcAdminRefundHistoryPagination">
+                                <span id="mtcAdminRefundHistoryPageInfo">
+                                    Page 1 of 1
+                                </span>
+                                <div class="mtc-admin-orders-pagination-buttons">
+                                    <button
+                                        type="button"
+                                        id="mtcAdminRefundHistoryPrevious"
+                                        class="mtc-admin-orders-pagination-button">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        id="mtcAdminRefundHistoryNext"
+                                        class="mtc-admin-orders-pagination-button">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-orders-empty" id="mtcAdminRefundHistoryEmpty" style="display: none">
+                            <div class="mtc-admin-orders-empty-icon">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </div>
+                            <h3>No Refund History</h3>
+                            <p>There are currently no refund records.</p>
+                        </div>
+                    </div>
+                </section>
+                <footer class="mtc-admin-orders-footer">
+                    <span>Midwest Toy Connections Admin</span>
+                    <span>Order Management</span>
+                </footer>
+            </main>
+        </div>
+        <div class="mtc-admin-orders-modal" id="mtcAdminOrdersModal" aria-hidden="true">
+            <div class="mtc-admin-orders-modal-overlay" id="mtcAdminOrdersModalOverlay"></div>
+            <div class="mtc-admin-orders-modal-card">
+                <div class="mtc-admin-orders-modal-header">
+                    <div>
+                        <h2 id="mtcAdminOrdersModalTitle">Order Details</h2>
+                        <p id="mtcAdminOrdersModalSubtitle">Loading...</p>
+                    </div>
+                    <button type="button" class="mtc-admin-orders-modal-close" id="mtcAdminOrdersModalClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-orders-modal-content" id="mtcAdminOrdersModalContent">
+                    <div class="mtc-admin-orders-loading">Loading...</div>
+                </div>
+                <div class="mtc-admin-orders-modal-actions">
+                    <button type="button" class="mtc-admin-orders-modal-cancel" id="mtcAdminOrdersModalCancel">
+                        Close
+                    </button>
+                    <button type="button" class="mtc-admin-orders-modal-save" id="mtcAdminOrdersModalSave">
+                        <i class="fa-solid fa-check"></i>
+                        Update Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

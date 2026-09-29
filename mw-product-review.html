@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Midwest Toy Connections</title>
+        <link rel="stylesheet" href="mw-product-review.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="frontend.js" defer></script>
+        <script src="index.js" defer></script>
+    </head>
+    <body>
+       <div class="announcement-bar">
+            <div class="shipping" id="mtcFreeShippingBanner">
+                <i class="fa-solid fa-truck-fast"></i>
+                <span id="mtcFreeShippingBannerText"></span>
+            </div>
+            <div class="announcement-links">
+                <a href="mw-track-order.html">Track Order</a>
+                <span>|</span>
+                <a href="mw-contact.html">Contact Us</a>
+                <a href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.discord.gg/AQcqcQPN8"><i class="fa-brands fa-discord"></i></a>
+            </div>
+        </div>
+        <header class="main-header">
+            <div class="logo">
+                <a href="index.html"><img src="mw-logoimg.png" alt="Logo" /></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" >Home</a></li>
+                    <li><a href="mw-about.html">About</a></li>
+                    <li><a href="mw-visit-store.html">Visit Store</a></li>
+                    <li><a href="mw-upcoming-event.html">View Events</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <div class="nav-search">
+                    <button type="button" id="nav-search-toggle" class="nav-search-toggle" aria-label="Search products">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <form id="nav-search-form" class="nav-search-form">
+                        <input
+                            type="search"
+                            id="nav-search-input"
+                            placeholder="Search products..."
+                            autocomplete="off"/>
+                    </form>
+                </div>
+                <a href="#"><i class="fa-regular fa-user"></i></a>
+                <a href="mw-shoppingcart.html" class="cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>0</span>
+                </a>
+            </div>
+    </header>
+    <main class="product-detail-page">
+        <div class="product-detail-container">
+            <div class="product-back">
+                <a href="mw-visit-store.html">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back to Store
+                </a>
+            </div>
+            <div id="product-detail-loading" class="product-detail-loading">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Loading product...</p>
+            </div>
+            <section id="product-detail-content" class="product-detail-content" hidden>
+                <div class="product-detail-gallery">
+                    <div class="product-main-image">
+                        <img id="product-main-image" src="" alt="Product">
+                    </div>
+                    <div id="product-thumbnail-list" class="product-thumbnail-list"></div>
+                </div>
+                <div class="product-detail-info">
+                    <div id="product-stock-status" class="product-stock-status">In Stock</div>
+                    <div id="product-category" class="product-detail-category"></div>
+                    <h1 id="product-name">Product Name</h1>
+                    <div class="product-rating-summary">
+                        <div id="product-rating-stars" class="product-rating-stars">
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <span id="product-rating-text">No reviews yet</span>
+                    </div>
+                    <div class="product-detail-price">
+                        <span id="product-price">$0.00</span>
+                        <span id="product-compare-price" class="product-compare-price"></span>
+                    </div>
+                    <p id="product-description" class="product-detail-description"></p>
+                    <div id="product-variant-section" class="product-variant-section" hidden>
+                        <label for="product-variant-select">Options</label>
+                        <select id="product-variant-select"></select>
+                    </div>
+                    <div class="product-detail-purchase">
+                        <label>Quantity</label>
+                        <div class="product-detail-quantity">
+                            <button type="button" id="product-qty-minus">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <input
+                                type="number"
+                                id="product-qty-value"
+                                value="1"
+                                min="1"
+                                step="1">
+                            <button type="button" id="product-qty-plus">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                        <button type="button" id="product-add-to-cart" class="product-detail-cart-button">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="product-shipping-info">
+                        <div>
+                            <i class="fa-solid fa-truck-fast"></i>
+                            <span>
+                                <strong>Shipping</strong>
+                                Free shipping on orders over $85
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>
+                                <strong>Secure Checkout</strong>
+                                Payments processed securely through Stripe
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="product-not-found" class="product-not-found" hidden>
+                <i class="fa-solid fa-box-open"></i>
+                <h2>Product Not Found</h2>
+                <p>This product may no longer be available.</p>
+                <a href="mw-visit-store.html" class="store-btn">Return to Store</a>
+            </div>
+            <section id="product-reviews-section" class="product-reviews-section" hidden>
+                <div class="product-reviews-list">
+                    <div class="reviews-heading">
+                        <div>
+                            <span class="store-section-label">
+                                <i class="fa-solid fa-star"></i>
+                                Customer Reviews
+                            </span>
+                            <h2>Reviews</h2>
+                        </div>
+                        <div class="reviews-average">
+                            <strong id="reviews-average-rating">0.0</strong>
+                            <div id="reviews-average-stars"></div>
+                            <span id="reviews-count">0 reviews</span>
+                        </div>
+                    </div>
+                    <div id="product-reviews-list"></div>
+                    <div id="product-no-reviews" class="product-no-reviews" hidden>
+                        <i class="fa-regular fa-star"></i>
+                        <h3>No Reviews Yet</h3>
+                        <p>Be the first to review this product.</p>
+                    </div>
+                </div>
+                <div class="product-review-form-card">
+                    <div class="review-form-heading">
+                        <span class="store-section-label">
+                            <i class="fa-solid fa-pen"></i>
+                            Share Your Experience
+                        </span>
+                        <h2>Write a Review</h2>
+                        <p>Tell us what you think. Purchase verification is checked automatically using your email.</p>
+                    </div>
+                    <form id="product-review-form">
+                        <div class="review-form-group">
+                            <label for="review-name">Name</label>
+                            <input
+                                type="text"
+                                id="review-name"
+                                maxlength="100"
+                                placeholder="Your name"
+                                required>
+                        </div>
+                        <div class="review-form-group">
+                            <label for="review-email">Email Address</label>
+                            <input type="email" id="review-email" placeholder="Email used during checkout" required>
+                        </div>
+                        <div class="review-form-group">
+                            <label>Rating</label>
+                            <div id="review-star-selector" class="review-star-selector">
+                                <button type="button" data-rating="1" aria-label="1 Star">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                                <button type="button" data-rating="2" aria-label="2 Stars">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                                <button type="button" data-rating="3" aria-label="3 Stars">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                                <button type="button" data-rating="4" aria-label="4 Stars">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                                <button type="button" data-rating="5" aria-label="5 Stars">
+                                    <i class="fa-regular fa-star"></i>
+                                </button>
+                            </div>
+                            <input type="hidden" id="review-rating" required>
+                        </div>
+                        <div class="review-form-group">
+                            <label for="review-title">
+                                Review Title
+                            </label>
+                            <input
+                                type="text"
+                                id="review-title"
+                                maxlength="100"
+                                placeholder="Summarize your review"
+                                required>
+                        </div>
+                        <div class="review-form-group">
+                            <label for="review-comment">Your Review</label>
+                            <textarea id="review-comment" rows="6" maxlength="1000" placeholder="Tell us what you think about this product..." required></textarea>
+                        </div>
+                        <button type="submit" id="review-submit-button" class="review-submit-button">
+                            <i class="fa-solid fa-star"></i>
+                            Submit Review
+                        </button>
+                    </form>
+                    <div id="review-submit-result" class="review-submit-result"></div>
+                    <div class="review-verification-message">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <p>
+                            Purchase verification is checked automatically using your email.
+                            Anyone may submit a review. Reviews are approved before appearing publicly.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="mw-logoimg.png" alt="Midwest Toy Connections" />
+                <p>
+                    Your trusted destination for TCG Products, action figures, collectibles, and the latest trading card
+                    games.
+                </p>
+                <div class="footer-socials">
+                    <a
+                        href="https://www.instagram.com/midwestmangaa/?utm_source=ig_web_button_share_sheet"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                        href="https://www.tiktok.com/@midwestmangaa?is_from_webapp=1&sender_device=pc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on TikTok">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a
+                        href="https://www.facebook.com/p/Midwest-Toy-Connections-61582711286518/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                        href="https://www.discord.gg/AQcqcQPN8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Midwest Toy Connections on Discord">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Customer Service</h3>
+                <a href="mw-contact.html"> Contact Us </a>
+                <a href="mw-faq.html"> FAQ </a>
+            </div>
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <a href="mw-terms.html"> Terms of Service </a>
+                <a href="mw-privacy.html"> Privacy Policy </a>
+                <div class="mtc-dynamic-policy-links"></div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Stay Updated</h3>
+                <p>
+                    Be the first to know about new releases, restocks, and exclusive deals. Also, stay up to date with our
+                    upcoming events and tournaments!
+                </p>
+                <form id="mtcNewsletterForm" novalidate>
+                    <input
+                        type="email"
+                        id="mtcNewsletterEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        maxlength="254"
+                        aria-label="Email address"
+                        required/>
+                    <button type="submit" id="mtcNewsletterSubscribeButton">Subscribe</button>
+                </form>
+                <p id="mtcNewsletterMessage" class="footer-newsletter-message" aria-live="polite" hidden></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>
+                © 2026 Midwest Toy Connections. All Rights Reserved.
+                <br /><br />
+                Designed by Amplified Sites
+            </p>
+            <div class="footer-payments">
+                <i class="fa-brands fa-cc-visa" aria-label="Visa"></i>
+                <i class="fa-brands fa-cc-mastercard" aria-label="Mastercard"></i>
+                <i class="fa-brands fa-cc-paypal" aria-label="PayPal"></i>
+                <i class="fa-brands fa-cc-amex" aria-label="American Express"></i>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

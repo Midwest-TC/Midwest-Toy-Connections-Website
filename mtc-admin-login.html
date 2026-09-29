@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Midwest Toy Connections</title>
+    <link rel="stylesheet" href="mtc-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="mtc-admin.js" defer></script>
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="mw-admin-login">
+        <div class="mw-glow mw-glow-blue"></div>
+        <div class="mw-glow mw-glow-purple"></div>
+        <div class="mw-admin-container">
+            <div class="mw-admin-brand">
+                <div class="mw-admin-logo">
+                    <span>MTC</span>
+                </div>
+                <h1>Midwest Toy Connections</h1>
+                <p>Admin Portal</p>
+            </div>
+            <div class="mw-login-card">
+                <div class="mw-login-header">
+                    <h2>Welcome Back</h2>
+                    <p>
+                        Sign in to access the admin dashboard.
+                    </p>
+                </div>
+                <form id="adminLoginForm">
+                    <div class="mw-form-group">
+                        <label for="adminEmail">
+                            Email Address
+                        </label>
+                        <div class="mw-input-wrapper">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                name="email"
+                                placeholder="admin@example.com"
+                                autocomplete="email"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mw-form-group">
+                        <label for="adminPassword">
+                            Password
+                        </label>
+                        <div class="mw-input-wrapper">
+                            <i class="fa-solid fa-lock"></i>
+                            <input
+                                type="password"
+                                id="adminPassword"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+                            <button
+                                type="button"
+                                class="mw-password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mw-login-options">
+                        <label class="mw-remember">
+                            <input
+                                type="checkbox"
+                                id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a
+                            href="mtc-admin-forgot-password.html"
+                            class="mw-forgot-password">
+                            Forgot Password?
+                        </a>
+                    </div>
+                    <button
+                        type="submit"
+                        class="mw-login-button">
+                        <span>Sign In</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <div
+                        id="loginError"
+                        class="mw-login-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <span>
+                            Invalid email or password.
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="mw-security-notice">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>
+                    Authorized administrators only
+                </span>
+            </div>
+            <div class="mw-admin-footer">
+                © 2026 Midwest Toy Connections
+            </div>
+        </div>
+    </div>
+</body>
+</html>

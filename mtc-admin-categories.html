@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" style="visibility: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | Midwest Toy Connections</title>
+    <link rel="stylesheet" href="mtc-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="mtc-admin.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="mw-dashboard-shell">
+        <aside class="mw-dashboard-sidebar">
+            <div class="mw-dashboard-brand">
+                <div class="mw-dashboard-mark">
+                    <span>MTC</span>
+                </div>
+                <div class="mw-dashboard-brand-text">
+                    <strong>Midwest Toy</strong>
+                    <span>Connections</span>
+                </div>
+            </div>
+           <nav class="mw-dashboard-navigation">
+                <p class="mw-dashboard-nav-title">Admin Panel</p>
+                <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            </nav>
+            <div class="mw-dashboard-sidebar-bottom">
+                <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+        <main class="mtc-admin-categories-main" id="mtcAdminCategoriesMain">
+            <header class="mtc-admin-categories-header" id="mtcAdminCategoriesHeader">
+                <div class="mtc-admin-categories-header-left">
+                    <button type="button" class="mtc-admin-categories-menu-button" id="mtcAdminCategoriesMenuButton" aria-label="Open navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1 class="mtc-admin-categories-title">
+                            Categories
+                        </h1>
+                        <p class="mtc-admin-categories-subtitle">
+                            Organize and manage your store product categories.
+                        </p>
+                    </div>
+                </div>
+                <div class="mtc-admin-categories-header-actions">
+                    <button type="button" class="mtc-admin-categories-add-button" id="mtcAdminCategoriesAddButton">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Create Category</span>
+                    </button>
+                </div>
+            </header>
+            <section class="mtc-admin-categories-content" id="mtcAdminCategoriesContent">
+                <section class="mtc-admin-categories-stats" id="mtcAdminCategoriesStats">
+                    <div class="mtc-admin-categories-stat-card" id="mtcAdminCategoriesTotalCard">
+                        <div class="mtc-admin-categories-stat-icon">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <div class="mtc-admin-categories-stat-info">
+                            <span>Total Categories</span>
+                            <strong id="mtcAdminCategoriesTotalCount">
+                                Loading...
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="mtc-admin-categories-stat-card" id="mtcAdminCategoriesProductsCard">
+                        <div class="mtc-admin-categories-stat-icon">
+                            <i class="fa-solid fa-box"></i>
+                        </div>
+                        <div class="mtc-admin-categories-stat-info">
+                            <span>Products Assigned</span>
+                            <strong id="mtcAdminCategoriesProductCount">
+                                Loading...
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="mtc-admin-categories-stat-card" id="mtcAdminCategoriesEmptyCard">
+                        <div class="mtc-admin-categories-stat-icon">
+                            <i class="fa-solid fa-box-open"></i>
+                        </div>
+                        <div class="mtc-admin-categories-stat-info">
+                            <span>Empty Categories</span>
+                            <strong id="mtcAdminCategoriesEmptyCount">
+                                Loading...
+                            </strong>
+                        </div>
+                    </div>
+                </section>
+                <section class="mtc-admin-categories-panel" id="mtcAdminCategoriesPanel">
+                    <div class="mtc-admin-categories-panel-header">
+                        <div>
+                            <h2>All Categories</h2>
+                            <p>
+                                View and manage categories used by your products.
+                            </p>
+                        </div>
+                        <div class="mtc-admin-categories-search" id="mtcAdminCategoriesSearch">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="search" id="mtcAdminCategoriesSearchInput" placeholder="Search categories..." autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="mtc-admin-categories-table-wrapper" id="mtcAdminCategoriesTableWrapper">
+                        <table class="mtc-admin-categories-table" id="mtcAdminCategoriesTable">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Products</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mtcAdminCategoriesTableBody">
+                                <tr class="mtc-admin-categories-loading-row">
+                                    <td colspan="4">
+                                        <div class="mtc-admin-categories-loading">
+                                            Loading categories...
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mtc-admin-categories-empty" id="mtcAdminCategoriesEmpty" hidden>
+                        <div class="mtc-admin-categories-empty-icon">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+                        <h3>No Categories Found</h3>
+                        <p>
+                            No categories match your current search.
+                        </p>
+                        <button type="button" class="mtc-admin-categories-empty-button" id="mtcAdminCategoriesClearSearchButton">
+                            Clear Search
+                        </button>
+                    </div>
+                </section>
+            </section>
+            <footer class="mtc-admin-categories-footer">
+                <span>© 2026 Midwest Toy Connections</span>
+                <span>Category Management</span>
+            </footer>
+        </main>
+    </div>
+    <div class="mtc-admin-categories-modal" id="mtcAdminCategoriesModal" aria-hidden="true">
+        <div class="mtc-admin-categories-modal-overlay" id="mtcAdminCategoriesModalOverlay">
+        </div>
+        <div class="mtc-admin-categories-modal-card">
+            <div class="mtc-admin-categories-modal-header">
+                <div>
+                    <h2 id="mtcAdminCategoriesModalTitle">
+                        Add Category
+                    </h2>
+                    <p>
+                        Add or update a product category.
+                    </p>
+                </div>
+                <button type="button" class="mtc-admin-categories-modal-close" id="mtcAdminCategoriesModalClose" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form class="mtc-admin-categories-form" id="mtcAdminCategoriesForm">
+                <div class="mtc-admin-categories-form-group">
+                    <label for="mtcAdminCategoriesName">
+                        Category Name
+                    </label>
+                    <input type="text" id="mtcAdminCategoriesName" class="mtc-admin-categories-form-input" placeholder="Enter category name" autocomplete="off" required>
+                </div>
+                <div class="mtc-admin-categories-form-group">
+                    <label for="mtcAdminCategoriesDescription">
+                        Description
+                    </label>
+                    <textarea id="mtcAdminCategoriesDescription" class="mtc-admin-categories-form-input" rows="5" placeholder="Enter category description"></textarea>
+                </div>
+                <div class="mtc-admin-categories-form-actions">
+                    <button type="button" class="mtc-admin-categories-cancel-button" id="mtcAdminCategoriesCancelButton">
+                        Cancel
+                    </button>
+                    <button type="submit" class="mtc-admin-categories-save-button" id="mtcAdminCategoriesSaveButton">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Save Category</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mtc-admin-categories-delete-modal" id="mtcAdminCategoriesDeleteModal" aria-hidden="true">
+        <div class="mtc-admin-categories-delete-card">
+            <div class="mtc-admin-categories-delete-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2>Delete Category?</h2>
+            <p id="mtcAdminCategoriesDeleteMessage">
+                Are you sure you want to delete this category?
+            </p>
+            <span class="mtc-admin-categories-delete-warning">
+                Products assigned to this category should be moved before deletion.
+            </span>
+            <div class="mtc-admin-categories-delete-actions">
+                <button type="button" class="mtc-admin-categories-delete-cancel" id="mtcAdminCategoriesDeleteCancelButton">
+                    Cancel
+                </button>
+                <button type="button" class="mtc-admin-categories-delete-confirm" id="mtcAdminCategoriesDeleteConfirmButton">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Delete Category</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

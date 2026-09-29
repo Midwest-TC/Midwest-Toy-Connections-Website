@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en" style="visibility: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shipping | Midwest Toy Connections</title>
+        <link rel="stylesheet" href="mtc-admin.css" />
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="mtc-admin.js" defer></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    </head>
+    <body>
+        <div class="mw-dashboard-shell">
+            <!-- =========================================
+                 SIDEBAR
+            ========================================== -->
+            <aside class="mw-dashboard-sidebar">
+                <div class="mw-dashboard-brand">
+                    <div class="mw-dashboard-mark">
+                        <span>MTC</span>
+                    </div>
+
+                    <div class="mw-dashboard-brand-text">
+                        <strong>Midwest Toy</strong>
+                        <span>Connections</span>
+                    </div>
+                </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+                <div class="mw-dashboard-sidebar-bottom">
+                    <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- =========================================
+                 MAIN SHIPPING PAGE
+            ========================================== -->
+
+            <main class="mtc-admin-shipping-main" id="mtcAdminShippingMain">
+                <!-- =====================================
+                     HEADER
+                ====================================== -->
+
+                <header class="mtc-admin-shipping-header">
+                    <div class="mtc-admin-shipping-header-left">
+                        <button
+                            type="button"
+                            class="mtc-admin-shipping-menu-button"
+                            id="mtcAdminShippingMenuButton"
+                            aria-label="Open navigation"
+                        >
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+
+                        <div>
+                            <h1>Shipping</h1>
+
+                            <p>Manage your shipping methods, rates, and fulfillment settings.</p>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- =====================================
+                     CONTENT
+                ====================================== -->
+                <section class="mtc-admin-shipping-content">
+
+                    <!-- =================================
+                         SHIPPING PROCESS HEADER
+                    ================================== -->
+
+                    <section class="mtc-admin-shipping-hero">
+                        <div class="mtc-admin-shipping-hero-icon">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+
+                        <div>
+                            <h2>Admin Shipping Process</h2>
+
+                            <p>
+                                Configure shipping methods, rates, free shipping, local pickup, carriers, and
+                                fulfillment settings.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- =================================
+                         SHIPPING NAVIGATION
+                    ================================== -->
+                    <nav class="mtc-admin-shipping-tabs">
+                        <a href="#free-shipping" class="mtc-admin-shipping-tab">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Free Shipping</span>
+                        </a>
+                        <a href="#shipping-methods" class="mtc-admin-shipping-tab active">
+                            <i class="fa-solid fa-box"></i>
+                            <span>Shipping Methods</span>
+                        </a>
+                        <a href="#local-pickup" class="mtc-admin-shipping-tab">
+                            <i class="fa-solid fa-store"></i>
+                            <span>Local Pickup</span>
+                        </a>
+                        <a href="#carriers" class="mtc-admin-shipping-tab">
+                            <i class="fa-solid fa-truck"></i>
+                            <span>Carriers & Tracking</span>
+                        </a>
+                        <a href="#restrictions" class="mtc-admin-shipping-tab">
+                            <i class="fa-solid fa-earth-americas"></i>
+                            <span>Shipping Restrictions</span>
+                        </a>
+                    </nav>
+
+                    <!-- =================================
+                         SHIPPING METHODS
+                    ================================== -->
+
+                    <section class="mtc-admin-shipping-card mtc-admin-shipping-section" id="shipping-methods">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>Shipping Methods</h2>
+
+                                <p>Manage the shipping options customers can choose during checkout.</p>
+                            </div>
+
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminShippingAddMethodButton"
+                            >
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Add Shipping Method</span>
+                            </button>
+                        </div>
+
+                        <div class="mtc-admin-shipping-table-wrapper">
+                            <table class="mtc-admin-shipping-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Estimated Delivery</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="mtcAdminShippingMethodsTableBody">
+                                    <tr>
+                                        <td colspan="5">Loading shipping methods...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- =================================
+                         FREE SHIPPING
+                    ================================== -->
+
+                    <section class="mtc-admin-shipping-card mtc-admin-shipping-section" id="free-shipping">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-gift"></i>
+                                    Free Shipping
+                                </h2>
+
+                                <p>Configure your free shipping order minimum.</p>
+                            </div>
+
+                            <label class="mtc-admin-shipping-toggle">
+                                <input type="checkbox" id="mtcAdminFreeShippingEnabled" />
+
+                                <span class="mtc-admin-shipping-toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminFreeShippingMinimum"> Minimum Order Amount </label>
+
+                            <div class="mtc-admin-shipping-money-input">
+                                <span>$</span>
+
+                                <input
+                                    type="number"
+                                    id="mtcAdminFreeShippingMinimum"
+                                    min="0"
+                                    step="0.01"
+                                    value="85.00"
+                                />
+                            </div>
+
+                            <small>
+                                Customers receive free shipping when the qualifying order amount reaches this value.
+                            </small>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminFreeShippingName">
+                                Free Shipping Name
+                            </label>
+                            <input
+                                type="text"
+                                id="mtcAdminFreeShippingName"
+                                placeholder="Free Standard Shipping"/>
+                            <small>
+                                This is the shipping method name customers will see at checkout.
+                            </small>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminFreeShippingDescription">
+                                Customer Message
+                            </label>
+                            <input
+                                type="text"
+                                id="mtcAdminFreeShippingDescription"
+                                placeholder="Free standard shipping on qualifying orders"/>
+                            <small>
+                                This message will appear with the free shipping option at checkout.
+                            </small>
+                        </div>
+                        <div class="mtc-admin-shipping-card-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminFreeShippingSaveButton">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- =================================
+                         SHIPPING RATE RULES
+                    ================================== -->
+                    <section class="mtc-admin-shipping-card mtc-admin-shipping-section" id="rate-rules">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-calculator"></i>
+                                    Shipping Rate Rules
+                                </h2>
+                                <p>Control how shipping charges are calculated.</p>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminShippingRateMethod"> Rate Calculation Method </label>
+                            <select id="mtcAdminShippingRateMethod">
+                                <option value="flat_rate">Flat Rate (per method)</option>
+                                <option value="weight">Based on Order Weight</option>
+                                <option value="order_total">Based on Order Total</option>
+                            </select>
+                        </div>
+                        <div class="mtc-admin-shipping-options">
+                            <h3>Additional Options</h3>
+                            <label class="mtc-admin-shipping-checkbox">
+                                <input type="checkbox" id="mtcAdminShippingCombineItems" />
+                                <span> Combine items into one shipment </span>
+                            </label>
+                            <label class="mtc-admin-shipping-checkbox">
+                                <input type="checkbox" id="mtcAdminShippingTaxShipping" />
+                                <span> Calculate tax on shipping </span>
+                            </label>
+                        </div>
+                        <div class="mtc-admin-shipping-card-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminShippingRateRulesSaveButton">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- =================================
+                         LOCAL PICKUP
+                    ================================== -->
+                    <section class="mtc-admin-shipping-card mtc-admin-shipping-section" id="local-pickup">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-store"></i>
+                                    Local Pickup
+                                </h2>
+                                <p>Allow customers to pick up orders directly from your store.</p>
+                            </div>
+                            <label class="mtc-admin-shipping-toggle">
+                                <input type="checkbox" id="mtcAdminLocalPickupEnabled" />
+                                <span class="mtc-admin-shipping-toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminLocalPickupAddress"> Store Address </label>
+                            <textarea
+                                id="mtcAdminLocalPickupAddress"
+                                rows="2"
+                                placeholder="Enter store pickup address">
+                            </textarea>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminLocalPickupInstructions"> Pickup Instructions </label>
+                            <textarea
+                                id="mtcAdminLocalPickupInstructions"
+                                rows="4"
+                                placeholder="Example: Bring your order confirmation and a valid ID.">
+                            </textarea>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminLocalPickupReadyTime"> Estimated Ready Time </label>
+                            <select id="mtcAdminLocalPickupReadyTime">
+                                <option value="1 hour">1 hour</option>
+                                <option value="2 hours">2 hours</option>
+                                <option value="4 hours">4 hours</option>
+                                <option value="Same day">Same day</option>
+                                <option value="Next business day">Next business day</option>
+                            </select>
+                        </div>
+                        <div class="mtc-admin-shipping-card-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminLocalPickupSaveButton">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- =================================
+                         CARRIERS & TRACKING
+                    ================================== -->
+                    <section class="mtc-admin-shipping-card mtc-admin-shipping-section" id="carriers">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-truck"></i>
+                                    Carriers & Tracking
+                                </h2>
+                                <p>Choose which carriers are available for shipping and tracking.</p>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-shipping-carriers" id="mtcAdminShippingCarriers">
+                            <label class="mtc-admin-shipping-carrier">
+                                <input type="checkbox" data-shipping-carrier="USPS" />
+                                <span>
+                                    <strong>USPS</strong>
+                                    <small> United States Postal Service </small>
+                                </span>
+                            </label>
+                            <label class="mtc-admin-shipping-carrier">
+                                <input type="checkbox" data-shipping-carrier="UPS" />
+                                <span>
+                                    <strong>UPS</strong>
+                                    <small> United Parcel Service </small>
+                                </span>
+                            </label>
+                            <label class="mtc-admin-shipping-carrier">
+                                <input type="checkbox" data-shipping-carrier="FedEx" />
+                                <span>
+                                    <strong>FedEx</strong>
+                                    <small> FedEx shipping and tracking </small>
+                                </span>
+                            </label>
+                            <label class="mtc-admin-shipping-carrier">
+                                <input type="checkbox" data-shipping-carrier="DHL" />
+                                <span>
+                                    <strong>DHL</strong>
+                                    <small> DHL shipping and tracking </small>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="mtc-admin-shipping-card-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminShippingCarriersSaveButton">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </section>
+                    <!-- =================================
+                         FULFILLMENT
+                    ================================== -->
+                    <section class="mtc-admin-shipping-card mtc-admin-shipping-section" id="fulfillment">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-boxes-packing"></i>
+                                    Fulfillment Settings
+                                </h2>
+                                <p>Configure order processing and shipment behavior after payment.</p>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-shipping-form-row">
+                            <div class="mtc-admin-shipping-field">
+                                <label for="mtcAdminShippingProcessingTime"> Processing Time </label>
+                                <select id="mtcAdminShippingProcessingTime">
+                                    <option value="Same day">Same day</option>
+                                    <option value="1 business day">1 business day</option>
+                                    <option value="1-2 business days">1-2 business days</option>
+                                    <option value="2-3 business days">2-3 business days</option>
+                                    <option value="3-5 business days">3-5 business days</option>
+                                </select>
+                            </div>
+                            <div class="mtc-admin-shipping-field">
+                                <label for="mtcAdminShippingPaidStatus"> Order Status After Payment </label>
+                                <select id="mtcAdminShippingPaidStatus">
+                                    <option value="Not Shipped">Not Shipped</option>
+                                    <option value="Processing">Processing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label class="mtc-admin-shipping-checkbox">
+                            <input type="checkbox" id="mtcAdminShippingTrackingEmail" />
+                            <span> Send tracking email automatically when tracking information is added. </span>
+                        </label>
+                        <div class="mtc-admin-shipping-card-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminShippingFulfillmentSaveButton">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save Changes</span>
+                            </button>
+                        </div>
+                    </section>
+                   <!-- =================================
+                        SHIPPING RESTRICTIONS
+                    ================================== -->
+                    <section
+                        class="mtc-admin-shipping-card mtc-admin-shipping-section"
+                        id="restrictions">
+                        <div class="mtc-admin-shipping-card-header">
+                            <div>
+                                <h2>
+                                    <i class="fa-solid fa-earth-americas"></i>
+                                    Shipping Restrictions
+                                </h2>
+
+                                <p>
+                                    Control the locations where customers can receive orders.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- SHIPPING AVAILABILITY -->
+                        <div class="mtc-admin-shipping-options">
+                            <h3>Shipping Availability</h3>
+                            <!-- INTERNATIONAL -->
+                            <label class="mtc-admin-shipping-checkbox">
+                                <input
+                                    type="checkbox"
+                                    id="mtcAdminInternationalShippingEnabled"/>
+                                <span>
+                                    International Shipping
+                                </span>
+                            </label>
+                        </div>
+                        <!-- RESTRICTED LOCATIONS -->
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminShippingRestrictedLocations">
+                                Restricted Locations
+                                <span>(Optional)</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="mtcAdminShippingRestrictedLocations"
+                                placeholder="Example: WI, FL, CA"
+                                autocomplete="off"/>
+                            <small>
+                                Enter state or region codes separated by commas.
+                                Customers from these locations will not be offered
+                                shipping at checkout.
+                            </small>
+                        </div>
+                        <!-- SAVE -->
+                        <div class="mtc-admin-shipping-card-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-shipping-primary-button"
+                                id="mtcAdminShippingRestrictionsSaveButton">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>
+                                    Save Changes
+                                </span>
+                            </button>
+                        </div>
+                    </section>
+                <!-- =====================================
+                     FOOTER
+                ====================================== -->
+                <footer class="mtc-admin-shipping-footer">
+                    <span> © 2026 Midwest Toy Connections </span>
+
+                    <span> Admin Dashboard </span>
+                </footer>
+            </main>
+        </div>
+        <!-- =========================================
+             ADD / EDIT SHIPPING METHOD MODAL
+        ========================================== -->
+        <div class="mtc-admin-shipping-modal" id="mtcAdminShippingMethodModal" aria-hidden="true">
+            <div class="mtc-admin-shipping-modal-overlay" id="mtcAdminShippingMethodModalOverlay"></div>
+            <div class="mtc-admin-shipping-modal-card">
+                <div class="mtc-admin-shipping-modal-header">
+                    <div>
+                        <h2 id="mtcAdminShippingMethodModalTitle">Add Shipping Method</h2>
+                        <p>Configure the shipping option customers will see at checkout.</p>
+                    </div>
+                    <button
+                        type="button"
+                        class="mtc-admin-shipping-modal-close"
+                        id="mtcAdminShippingMethodModalClose"
+                        aria-label="Close shipping method">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <form id="mtcAdminShippingMethodForm">
+                    <input type="hidden" id="mtcAdminShippingMethodId" />
+                    <div class="mtc-admin-shipping-field">
+                        <label for="mtcAdminShippingMethodName"> Method Name </label>
+                        <input
+                            type="text"
+                            id="mtcAdminShippingMethodName"
+                            placeholder="Example: Standard Shipping"
+                            required/>
+                    </div>
+                    <div class="mtc-admin-shipping-field">
+                        <label for="mtcAdminShippingMethodDescription"> Description </label>
+                        <textarea
+                            id="mtcAdminShippingMethodDescription"
+                            rows="3"
+                            placeholder="Optional shipping method description">
+                        </textarea>
+                    </div>
+                    <div class="mtc-admin-shipping-form-row">
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminShippingMethodPrice"> Price </label>
+                            <input
+                                type="number"
+                                id="mtcAdminShippingMethodPrice"
+                                min="0"
+                                step="0.01"
+                                value="0.00"
+                                required/>
+                        </div>
+                        <div class="mtc-admin-shipping-field">
+                            <label for="mtcAdminShippingMethodDelivery"> Estimated Delivery </label>
+
+                            <input
+                                type="text"
+                                id="mtcAdminShippingMethodDelivery"
+                                placeholder="Example: 3-5 business days"
+                            />
+                        </div>
+                    </div>
+                    <label class="mtc-admin-shipping-checkbox">
+                        <input type="checkbox" id="mtcAdminShippingMethodActive" checked />
+
+                        <span> Active </span>
+                    </label>
+                    <div class="mtc-admin-shipping-modal-actions">
+                        <button
+                            type="button"
+                            class="mtc-admin-shipping-secondary-button"
+                            id="mtcAdminShippingMethodCancelButton">
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="mtc-admin-shipping-primary-button"
+                            id="mtcAdminShippingMethodSaveButton">
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                            <span> Save Shipping Method </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

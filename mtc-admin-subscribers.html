@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en" style="visibility: hidden">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Subscribers | Midwest Toy Connections</title>
+
+        <link rel="stylesheet" href="mtc-admin.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        <script src="mtc-admin.js" defer></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    </head>
+
+    <body>
+        <div class="mw-dashboard-shell">
+            <!-- =========================================
+             SIDEBAR
+        ========================================== -->
+
+            <aside class="mw-dashboard-sidebar">
+                <div class="mw-dashboard-brand">
+                    <div class="mw-dashboard-mark">
+                        <span>MTC</span>
+                    </div>
+
+                    <div class="mw-dashboard-brand-text">
+                        <strong>Midwest Toy</strong>
+                        <span>Connections</span>
+                    </div>
+                </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+                <div class="mw-dashboard-sidebar-bottom">
+                    <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- =========================================
+             MAIN
+        ========================================== -->
+
+            <main class="mtc-admin-subscribers-main" id="mtcAdminSubscribersMain">
+                <!-- =========================================
+                 HEADER
+            ========================================== -->
+
+                <header class="mtc-admin-subscribers-header">
+                    <div class="mtc-admin-subscribers-header-left">
+                        <button
+                            type="button"
+                            class="mtc-admin-subscribers-menu-button"
+                            id="mtcAdminSubscribersMenuButton"
+                            aria-label="Open navigation">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+
+                        <div>
+                            <h1 class="mtc-admin-subscribers-title">Subscribers</h1>
+
+                            <p class="mtc-admin-subscribers-subtitle">
+                                Manage subscribers, discount codes, and customer promotions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mtc-admin-subscribers-header-actions">
+                        <button
+                            type="button"
+                            class="mtc-admin-subscribers-primary-button"
+                            id="mtcAdminSubscribersCreateDiscountButton">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Create Discount</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- =========================================
+                 CONTENT
+            ========================================== -->
+
+                <section class="mtc-admin-subscribers-content">
+                    <!-- =========================================
+                     STATS
+                ========================================== -->
+
+                    <section class="mtc-admin-subscribers-stats">
+                        <div class="mtc-admin-subscribers-stat-card">
+                            <div class="mtc-admin-subscribers-stat-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+
+                            <div class="mtc-admin-subscribers-stat-info">
+                                <span>Total Subscribers</span>
+
+                                <strong id="mtcAdminSubscribersTotalCount"> 0 </strong>
+                            </div>
+                        </div>
+
+                        <div class="mtc-admin-subscribers-stat-card">
+                            <div class="mtc-admin-subscribers-stat-icon">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+
+                            <div class="mtc-admin-subscribers-stat-info">
+                                <span>Active Subscribers</span>
+
+                                <strong id="mtcAdminSubscribersActiveCount"> 0 </strong>
+                            </div>
+                        </div>
+
+                        <div class="mtc-admin-subscribers-stat-card">
+                            <div class="mtc-admin-subscribers-stat-icon">
+                                <i class="fa-solid fa-ticket"></i>
+                            </div>
+
+                            <div class="mtc-admin-subscribers-stat-info">
+                                <span>Active Discounts</span>
+
+                                <strong id="mtcAdminSubscribersDiscountCount"> 0 </strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================
+                     TABS
+                ========================================== -->
+
+                    <div class="mtc-admin-subscribers-tabs">
+                        <button
+                            type="button"
+                            class="mtc-admin-subscribers-tab active"
+                            id="mtcAdminSubscribersTab">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>Subscribers</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="mtc-admin-subscribers-tab"
+                            id="mtcAdminDiscountsTab">
+                            <i class="fa-solid fa-tag"></i>
+                            <span>Discounts</span>
+                        </button>
+                    </div>
+
+                    <!-- =========================================
+                     SUBSCRIBERS PANEL
+                ========================================== -->
+                    <section class="mtc-admin-subscribers-panel" id="mtcAdminSubscribersPanel">
+                        <div class="mtc-admin-subscribers-panel-header">
+                            <div>
+                                <h2>All Subscribers</h2>
+                                <p>View customers subscribed to store promotions and updates.</p>
+                            </div>
+                            <div class="mtc-admin-subscribers-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                <input
+                                    type="search"
+                                    id="mtcAdminSubscribersSearchInput"
+                                    placeholder="Search subscribers..."
+                                    autocomplete="off"/>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-subscribers-table-wrapper">
+                            <table class="mtc-admin-subscribers-table">
+                               <thead>
+                                    <tr>
+                                        <th>
+                                            <label for="mtcAdminSubscribersSelectAll">
+                                                <input
+                                                    type="checkbox"
+                                                    id="mtcAdminSubscribersSelectAll"
+                                                    aria-label="Select all subscribers"/>
+                                                <span>Select All</span>
+                                            </label>
+                                        </th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Subscribed</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="mtcAdminSubscribersTableBody">
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="mtc-admin-subscribers-loading">
+                                                Subscribers will appear here.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mtc-admin-subscribers-promotion-actions">
+                            <button
+                                type="button"
+                                class="mtc-admin-subscribers-primary-button"
+                                id="mtcAdminSubscribersSendPromotionButton"
+                                hidden>
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Send Promotion</span>
+                            </button>
+                        </div>
+                        <!-- =========================================================
+                            SEND PROMOTION MODAL
+                        ========================================================= -->
+                        <div
+                            class="mtc-admin-promotion-modal"
+                            id="mtcAdminPromotionModal"
+                            hidden>
+                            <div
+                                class="mtc-admin-promotion-modal-card"
+                                role="dialog"
+                                aria-modal="true"
+                                aria-labelledby="mtcAdminPromotionModalTitle">
+                                <!-- HEADER -->
+                                <div class="mtc-admin-promotion-modal-header">
+                                    <div>
+                                        <h2 id="mtcAdminPromotionModalTitle">
+                                            Send Promotion
+                                        </h2>
+                                        <p>
+                                            Send a promotional email to the selected subscribers.
+                                        </p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-promotion-modal-close"
+                                        id="mtcAdminPromotionModalClose"
+                                        aria-label="Close send promotion window">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                <!-- RECIPIENT COUNT -->
+                                <div class="mtc-admin-promotion-recipients">
+                                    <i class="fa-solid fa-users"></i>
+                                    <span>
+                                        Sending to
+                                        <strong id="mtcAdminPromotionRecipientCount">
+                                            0
+                                        </strong>
+                                        selected subscriber(s)
+                                    </span>
+                                </div>
+                                <!-- FORM -->
+                                <form
+                                    class="mtc-admin-promotion-form"
+                                    id="mtcAdminPromotionForm"
+                                    autocomplete="off">
+                                    <!-- SUBJECT -->
+                                    <div class="mtc-admin-promotion-field">
+                                        <label for="mtcAdminPromotionSubject">
+                                            Email Subject
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="mtcAdminPromotionSubject"
+                                            maxlength="150"
+                                            placeholder="Example: Weekend Sale at Midwest Toy Connections"
+                                            required/>
+                                    </div>
+                                    <!-- MESSAGE -->
+                                    <div class="mtc-admin-promotion-field">
+                                        <label for="mtcAdminPromotionMessage">
+                                            Message
+                                        </label>
+                                        <textarea
+                                            id="mtcAdminPromotionMessage"
+                                            rows="7"
+                                            maxlength="5000"
+                                            placeholder="Enter your promotional message..."
+                                            required
+                                        ></textarea>
+                                    </div>
+                                    <!-- DISCOUNT -->
+                                    <div class="mtc-admin-promotion-field">
+                                        <label for="mtcAdminPromotionDiscount">
+                                            Discount Code
+                                        </label>
+                                        <select id="mtcAdminPromotionDiscount">
+                                            <option value="">
+                                                No Discount Code
+                                            </option>
+                                        </select>
+                                        <small>
+                                            Optional — attach one of your active discount codes.
+                                        </small>
+                                    </div>
+                                    <p
+                                        class="mtc-admin-promotion-message"
+                                        id="mtcAdminPromotionMessageStatus"
+                                        aria-live="polite"
+                                        hidden>
+                                    </p>
+                                    <div class="mtc-admin-promotion-modal-actions">
+                                        <button
+                                            type="button"
+                                            class="mtc-admin-promotion-cancel-button"
+                                            id="mtcAdminPromotionCancelButton">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            class="mtc-admin-subscribers-primary-button"
+                                            id="mtcAdminPromotionSubmitButton">
+                                            <i class="fa-solid fa-paper-plane"></i>
+                                            <span>
+                                                Send Promotion
+                                            </span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =========================================
+                     DISCOUNTS PANEL
+                ========================================== -->
+
+                    <section class="mtc-admin-subscribers-panel" id="mtcAdminDiscountsPanel" hidden>
+                        <div class="mtc-admin-subscribers-panel-header">
+                            <div>
+                                <h2>Discount Codes</h2>
+
+                                <p>Create and manage promotional discount codes.</p>
+                            </div>
+
+                            <div class="mtc-admin-subscribers-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                <input
+                                    type="search"
+                                    id="mtcAdminDiscountsSearchInput"
+                                    placeholder="Search discounts..."
+                                    autocomplete="off"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="mtc-admin-subscribers-table-wrapper">
+                            <table class="mtc-admin-subscribers-table">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Discount</th>
+                                        <th>Minimum</th>
+                                        <th>Usage</th>
+                                        <th>Expires</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="mtcAdminDiscountsTableBody">
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="mtc-admin-subscribers-loading">
+                                                Discount codes will appear here.
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- =========================================
+                     CREATE DISCOUNT MODAL
+                ========================================== -->
+                <div class="mtc-admin-discount-modal" id="mtcAdminDiscountModal" hidden>
+                    <div
+                        class="mtc-admin-discount-modal-card"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="mtcAdminDiscountModalTitle">
+                        <div class="mtc-admin-discount-modal-header">
+                            <div>
+                                <h2 id="mtcAdminDiscountModalTitle">Create Discount</h2>
+                                <p>Create a promotional discount code for customers.</p>
+                            </div>
+                            <button
+                                type="button"
+                                class="mtc-admin-discount-modal-close"
+                                id="mtcAdminDiscountModalClose"
+                                aria-label="Close create discount window">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <form class="mtc-admin-discount-form" id="mtcAdminDiscountForm" autocomplete="off">
+                            <div class="mtc-admin-discount-field">
+                                <label for="mtcAdminDiscountCode"> Discount Code </label>
+                                <input type="text" id="mtcAdminDiscountCode" maxlength="40" placeholder="Example: MTC10" required />
+                                <small> Customers will enter this code during checkout. </small>
+                            </div>
+                            <div class="mtc-admin-discount-form-row">
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminDiscountType"> Discount Type </label>
+                                    <select id="mtcAdminDiscountType" required>
+                                        <option value="percentage">Percentage (%)</option>
+                                        <option value="fixed">Fixed Amount ($)</option>
+                                    </select>
+                                </div>
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminDiscountValue"> Discount Value </label>
+                                    <input type="number" id="mtcAdminDiscountValue" min="0.01" step="0.01" placeholder="10" required />
+                                </div>
+                            </div>
+                            <div class="mtc-admin-discount-form-row">
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminDiscountMinimum"> Minimum Order </label>
+                                    <input type="number" id="mtcAdminDiscountMinimum" min="0" step="0.01" placeholder="0.00" />
+                                    <small> Leave blank for no minimum. </small>
+                                </div>
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminDiscountUsageLimit"> Usage Limit </label>
+                                    <input type="number" id="mtcAdminDiscountUsageLimit" min="1" step="1" placeholder="No limit" />
+                                    <small> Leave blank for unlimited uses. </small>
+                                </div>
+                            </div>
+                            <div class="mtc-admin-discount-form-row">
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminDiscountStartsAt"> Start Date </label>
+                                    <input type="datetime-local" id="mtcAdminDiscountStartsAt" />
+                                </div>
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminDiscountExpiresAt"> Expiration Date </label>
+                                    <input type="datetime-local" id="mtcAdminDiscountExpiresAt" />
+                                </div>
+                            </div>
+                            <label class="mtc-admin-discount-active">
+                                <input type="checkbox" id="mtcAdminDiscountActive" checked />
+                                <span>
+                                    <strong>Active Discount</strong>
+                                    <small> Customers can use this discount when it is valid. </small>
+                                </span>
+                            </label>
+                            <p class="mtc-admin-discount-message" id="mtcAdminDiscountMessage" aria-live="polite" hidden></p>
+                            <div class="mtc-admin-discount-modal-actions">
+                                <button type="button" class="mtc-admin-discount-cancel-button" id="mtcAdminDiscountCancelButton">
+                                    Cancel
+                                </button>
+                                <button type="submit" class="mtc-admin-subscribers-primary-button" id="mtcAdminDiscountSubmitButton">
+                                    <i class="fa-solid fa-plus"></i>
+                                    <span> Create Discount </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- =========================================================
+                        UPDATE DISCOUNT MODAL
+                ========================================================= -->
+                <div class="mtc-admin-discount-modal" id="mtcAdminUpdateDiscountModal" hidden>
+                    <div
+                        class="mtc-admin-discount-modal-card"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="mtcAdminUpdateDiscountTitle">
+                        <div class="mtc-admin-discount-modal-header">
+                            <div>
+                                <h2 id="mtcAdminUpdateDiscountTitle">Update Discount</h2>
+
+                                <p>Update this promotional discount code.</p>
+                            </div>
+                            <button
+                                type="button"
+                                class="mtc-admin-discount-modal-close"
+                                id="mtcAdminUpdateDiscountClose"
+                                aria-label="Close update discount window">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <form class="mtc-admin-discount-form" id="mtcAdminUpdateDiscountForm" autocomplete="off">
+                            <div class="mtc-admin-discount-field">
+                                <label for="mtcAdminUpdateDiscountCode"> Discount Code </label>
+                                <input type="text" id="mtcAdminUpdateDiscountCode" maxlength="40" required />
+                            </div>
+                            <div class="mtc-admin-discount-form-row">
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminUpdateDiscountType"> Discount Type </label>
+                                    <select id="mtcAdminUpdateDiscountType" required>
+                                        <option value="percentage">Percentage (%)</option>
+                                        <option value="fixed">Fixed Amount ($)</option>
+                                    </select>
+                                </div>
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminUpdateDiscountValue"> Discount Value </label>
+                                    <input type="number" id="mtcAdminUpdateDiscountValue" min="0.01" step="0.01" required />
+                                </div>
+                            </div>
+                            <div class="mtc-admin-discount-form-row">
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminUpdateDiscountMinimum"> Minimum Order </label>
+                                    <input type="number" id="mtcAdminUpdateDiscountMinimum" min="0" step="0.01" />
+                                </div>
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminUpdateDiscountUsageLimit"> Usage Limit </label>
+                                    <input type="number" id="mtcAdminUpdateDiscountUsageLimit" min="1" step="1" />
+                                </div>
+                            </div>
+                            <div class="mtc-admin-discount-form-row">
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminUpdateDiscountStartsAt"> Start Date </label>
+                                    <input type="datetime-local" id="mtcAdminUpdateDiscountStartsAt" />
+                                </div>
+                                <div class="mtc-admin-discount-field">
+                                    <label for="mtcAdminUpdateDiscountExpiresAt"> Expiration Date </label>
+                                    <input type="datetime-local" id="mtcAdminUpdateDiscountExpiresAt" />
+                                </div>
+                            </div>
+                            <label class="mtc-admin-discount-active">
+                                <input type="checkbox" id="mtcAdminUpdateDiscountActive" />
+                                <span>
+                                    <strong> Active Discount </strong>
+                                    <small> Customers can use this discount when it is valid. </small>
+                                </span>
+                            </label>
+                            <p class="mtc-admin-discount-message" id="mtcAdminUpdateDiscountMessage" aria-live="polite" hidden></p>
+                            <!-- DELETE AND UPDATE STAY TOGETHER -->
+                            <div class="mtc-admin-update-discount-actions">
+                                <button type="button" class="mtc-admin-discount-delete-button" id="mtcAdminUpdateDiscountDeleteButton">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <span>Delete</span>
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="mtc-admin-subscribers-primary-button"
+                                    id="mtcAdminUpdateDiscountSubmitButton">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    <span>Update</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- =========================================================
+                        DELETE DISCOUNT CONFIRMATION
+                ========================================================= -->
+                <div class="mtc-admin-discount-modal" id="mtcAdminDiscountDeleteModal" hidden>
+                    <div
+                        class="mtc-admin-discount-delete-card"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="mtcAdminDiscountDeleteTitle">
+                        <button
+                            type="button"
+                            class="mtc-admin-discount-modal-close"
+                            id="mtcAdminDiscountDeleteClose"
+                            aria-label="Close delete confirmation">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <h2 id="mtcAdminDiscountDeleteTitle">Delete Discount?</h2>
+                        <p class="mtc-admin-discount-delete-text">
+                            Are you sure you want to delete discount code
+                            <strong id="mtcAdminDiscountDeleteCode"></strong>?
+                        </p>
+                        <p class="mtc-admin-discount-delete-warning">This action cannot be undone.</p>
+                        <p class="mtc-admin-discount-message" id="mtcAdminDiscountDeleteMessage" aria-live="polite" hidden></p>
+                        <div class="mtc-admin-discount-delete-actions">
+                            <button type="button" class="mtc-admin-discount-delete-button" id="mtcAdminDiscountDeleteConfirm">
+                                <i class="fa-solid fa-trash"></i>
+                                <span>Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =========================================
+                        FOOTER
+                ========================================== -->
+                <footer class="mtc-admin-subscribers-footer">
+                    <span>© 2026 Midwest Toy Connections</span>
+                    <span>Subscriber & Discount Management</span>
+                </footer>
+            </main>
+        </div>
+    </body>
+</html>

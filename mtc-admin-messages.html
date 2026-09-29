@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" style="visibility: hidden;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages | Midwest Toy Connections</title>
+    <link rel="stylesheet" href="mtc-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="mtc-admin.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="mw-dashboard-shell">
+        <aside class="mw-dashboard-sidebar">
+            <div class="mw-dashboard-brand">
+                <div class="mw-dashboard-mark">
+                    <span>MTC</span>
+                </div>
+                <div class="mw-dashboard-brand-text">
+                    <strong>Midwest Toy</strong>
+                    <span>Connections</span>
+                </div>
+            </div>
+                <nav class="mw-dashboard-navigation">
+                    <p class="mw-dashboard-nav-title">Admin Panel</p>
+                    <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+                    <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+                    <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+                    <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+                    <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+                    <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+                    <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link   mw-dashboard-nav-active"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+                    <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+                    <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+                    <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+                    <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+                </nav>
+            <div class="mw-dashboard-sidebar-bottom">
+                <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </aside>
+        <main class="mtc-admin-messages-main" id="mtcAdminMessagesMain">
+            <header class="mtc-admin-messages-header" id="mtcAdminMessagesHeader">
+                <div class="mtc-admin-messages-header-left">
+                    <button type="button" class="mtc-admin-messages-menu-button" id="mtcAdminMessagesMenuButton" aria-label="Open navigation">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1 class="mtc-admin-messages-title">Messages</h1>
+                        <p class="mtc-admin-messages-subtitle">View and respond to customer messages.</p>
+                    </div>
+                </div>
+            </header>
+            <section class="mtc-admin-messages-content" id="mtcAdminMessagesContent">
+                <section class="mtc-admin-messages-stats">
+                    <article class="mtc-admin-messages-stat-card">
+                        <div class="mtc-admin-messages-stat-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span>Total Messages</span>
+                            <strong id="mtcAdminMessagesTotalCount">0</strong>
+                        </div>
+                    </article>
+                    <article class="mtc-admin-messages-stat-card">
+                        <div class="mtc-admin-messages-stat-icon">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                        <div>
+                            <span>New</span>
+                            <strong id="mtcAdminMessagesNewCount">0</strong>
+                        </div>
+                    </article>
+                    <article class="mtc-admin-messages-stat-card">
+                        <div class="mtc-admin-messages-stat-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <div>
+                            <span>Read</span>
+                            <strong id="mtcAdminMessagesReadCount">0</strong>
+                        </div>
+                    </article>
+                    <article class="mtc-admin-messages-stat-card">
+                        <div class="mtc-admin-messages-stat-icon">
+                            <i class="fa-solid fa-reply"></i>
+                        </div>
+                        <div>
+                            <span>Replied</span>
+                            <strong id="mtcAdminMessagesRepliedCount">0</strong>
+                        </div>
+                    </article>
+                </section>
+                <section class="mtc-admin-messages-toolbar">
+                    <div class="mtc-admin-messages-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="search" id="mtcAdminMessagesSearch" placeholder="Search messages..." autocomplete="off">
+                    </div>
+                    <select class="mtc-admin-messages-filter" id="mtcAdminMessagesStatusFilter">
+                        <option value="all">All Messages</option>
+                        <option value="New">New</option>
+                        <option value="Read">Read</option>
+                        <option value="Replied">Replied</option>
+                    </select>
+                </section>
+                <section class="mtc-admin-messages-layout">
+                    <div class="mtc-admin-messages-inbox">
+                        <div class="mtc-admin-messages-inbox-header">
+                            <h2 id="mtcAdminMessagesInboxTitle">
+                                Customer Inbox
+                            </h2>
+                            <div class="mtc-admin-messages-folder-tabs">
+                                <button
+                                    type="button"
+                                    class="mtc-admin-messages-folder-tab active"
+                                    id="mtcAdminMessagesInboxTab">
+                                    <i class="fa-solid fa-inbox"></i>
+                                    Inbox
+                                </button>
+                                <button
+                                    type="button"
+                                    class="mtc-admin-messages-folder-tab"
+                                    id="mtcAdminMessagesDeletedTab">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                    Recently Deleted
+                                </button>
+                                <button
+                                    type="button"
+                                    class="mtc-admin-messages-folder-tab"
+                                    id="mtcAdminMessagesHistoryTab">
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                    Activity Log
+                                </button>
+                            </div>
+                            <div>
+                                <div class="mtc-admin-messages-bulk-actions">
+                                <label class="mtc-admin-messages-select-all">
+                                    <input
+                                        type="checkbox"
+                                        id="mtcAdminMessagesSelectAll">
+                                    <span>Select All</span>
+                                </label>
+                                <button
+                                    type="button"
+                                    class="mtc-admin-messages-restore-selected"
+                                    id="mtcAdminMessagesRestoreSelected"
+                                    style="display: none;"
+                                    disabled>
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    Restore Selected
+                                </button>
+                                <button
+                                    type="button"
+                                    class="mtc-admin-messages-delete-selected"
+                                    id="mtcAdminMessagesDeleteSelected"
+                                    disabled>
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete Selected
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="mtc-admin-messages-list" id="mtcAdminMessagesList">
+                            <div class="mtc-admin-messages-empty" id="mtcAdminMessagesEmpty">
+                                <i class="fa-regular fa-envelope"></i>
+                                <h3>No messages</h3>
+                                <p>Customer messages will appear here.</p>
+                            </div>
+                        </div>
+                        <!-- PUT YOUR ACTIVITY LOG BLOCK HERE -->
+                       <div
+                            class="mtc-admin-message-history-list"
+                            id="mtcAdminMessageHistoryList"
+                            hidden>
+                        </div>
+                        <div
+                            class="mtc-admin-message-history-pagination"
+                            id="mtcAdminMessageHistoryPagination"
+                            hidden>
+                            <button
+                                type="button"
+                                id="mtcAdminMessageHistoryPrevious">
+                                <i class="fa-solid fa-chevron-left"></i>
+                                Previous
+                            </button>
+                            <span id="mtcAdminMessageHistoryPage">
+                                Page 1 of 1
+                            </span>
+                            <button
+                                type="button"
+                                id="mtcAdminMessageHistoryNext">
+                                Next
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div> 
+                    </div>
+                    <div class="mtc-admin-messages-viewer" id="mtcAdminMessagesViewer">
+                        <div class="mtc-admin-messages-no-selection" id="mtcAdminMessagesNoSelection">
+                            <i class="fa-regular fa-envelope-open"></i>
+                            <h2>Select a message</h2>
+                            <p>Choose a customer message from the inbox to view it.</p>
+                        </div>
+                        <div class="mtc-admin-messages-selected" id="mtcAdminMessagesSelected" hidden>
+                            <div class="mtc-admin-messages-message-header">
+                                <button
+                                    type="button"
+                                    class="mtc-admin-messages-mobile-back"
+                                    id="mtcAdminMessagesMobileBack"
+                                    aria-label="Back to inbox">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </button>
+                                <div>
+                                    <div class="mtc-admin-messages-customer">
+                                        <div class="mtc-admin-messages-avatar" id="mtcAdminMessagesAvatar">C</div>
+                                        <div>
+                                            <h2 id="mtcAdminMessagesCustomerName">Customer Name</h2>
+                                            <a href="#" id="mtcAdminMessagesCustomerEmail">customer@example.com</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mtc-admin-messages-message-actions">
+                                    <span class="mtc-admin-messages-status" id="mtcAdminMessagesStatus">New</span>
+                                    <button
+                                        type="button"
+                                        class="mtc-admin-messages-restore-button"
+                                        id="mtcAdminMessagesRestoreButton"
+                                        style="display: none;">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                        Restore
+                                    </button>
+                                    <button type="button" class="mtc-admin-messages-delete-button" id="mtcAdminMessagesDeleteButton" title="Delete message">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mtc-admin-messages-subject">
+                                <span>Subject</span>
+                                <h3 id="mtcAdminMessagesSubject">Message Subject</h3>
+                                <time id="mtcAdminMessagesDate">--</time>
+                            </div>
+                            <div class="mtc-admin-messages-body" id="mtcAdminMessagesBody">
+                                Customer message will appear here.
+                            </div>
+                            <div
+                            class="mtc-admin-messages-sent-history"
+                            id="mtcAdminMessagesSentHistory">
+                            <div class="mtc-admin-messages-sent-history-header">
+                                <h3>Replies Sent</h3>
+                                <span id="mtcAdminMessagesSentCount">
+                                    0 replies
+                                </span>
+                            </div>
+                            <div
+                                class="mtc-admin-messages-sent-list"
+                                id="mtcAdminMessagesSentList">
+                            </div>
+                        </div>
+                            <div class="mtc-admin-messages-reply">
+                                <div class="mtc-admin-messages-reply-header">
+                                    <div>
+                                        <h3>Reply</h3>
+                                        <p>Send a response directly to the customer.</p>
+                                    </div>
+                                </div>
+                                <textarea class="mtc-admin-messages-reply-textarea" id="mtcAdminMessagesReply" placeholder="Write your reply..." rows="7"></textarea>
+                                <div class="mtc-admin-messages-reply-actions">
+                                    <button type="button" class="mtc-admin-messages-send-button" id="mtcAdminMessagesSendButton">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                        <span>Send Reply</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <!-- DELETE MESSAGE CONFIRMATION MODAL -->
+    <div
+        class="mtc-admin-delete-modal"
+        id="mtcAdminDeleteModal"
+        hidden>
+        <div class="mtc-admin-delete-modal-card">
+            <div class="mtc-admin-delete-modal-icon">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <h2>Delete Message?</h2>
+            <p>
+                Are you sure you want to delete this message?
+                This action cannot be undone.
+            </p>
+            <div class="mtc-admin-delete-modal-actions">
+                <button
+                    type="button"
+                    class="mtc-admin-delete-modal-cancel"
+                    id="mtcAdminDeleteCancel">
+                    Cancel
+                </button>
+                <button
+                    type="button"
+                    class="mtc-admin-delete-modal-confirm"
+                    id="mtcAdminDeleteConfirm">
+                    <i class="fa-solid fa-trash-can"></i>
+                    Delete Message
+                </button>
+            </div>
+        </div>
+    </div>
+        <!-- MESSAGE HISTORY DETAILS MODAL -->
+        <div
+            class="mtc-admin-message-history-modal"
+            id="mtcAdminMessageHistoryModal"
+            hidden>
+            <div class="mtc-admin-message-history-modal-card">
+                <div class="mtc-admin-message-history-modal-header">
+                    <div>
+                        <span>Message Activity</span>
+                        <h2 id="mtcAdminMessageHistoryModalTitle">
+                            Message History
+                        </h2>
+                    </div>
+                    <button
+                        type="button"
+                        id="mtcAdminMessageHistoryClose"
+                        aria-label="Close history">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="mtc-admin-message-history-details">
+                    <div>
+                        <span>Customer</span>
+                        <strong id="mtcAdminHistoryCustomer">--</strong>
+                    </div>
+                    <div>
+                        <span>Email</span>
+                        <strong id="mtcAdminHistoryEmail">--</strong>
+                    </div>
+                    <div>
+                        <span>Subject</span>
+                        <strong id="mtcAdminHistorySubject">--</strong>
+                    </div>
+                    <div>
+                        <span>Activity</span>
+                        <strong id="mtcAdminHistoryActivity">--</strong>
+                    </div>
+                    <div>
+                        <span>Performed By</span>
+                        <strong id="mtcAdminHistoryAdmin">--</strong>
+                    </div>
+                    <div>
+                        <span>Position</span>
+                        <strong id="mtcAdminHistoryPosition">--</strong>
+                    </div>
+                    <div>
+                        <span>Date / Time</span>
+                        <strong id="mtcAdminHistoryDate">--</strong>
+                    </div>
+
+                </div>
+                <div class="mtc-admin-message-history-section">
+                    <span>Original Customer Message</span>
+                    <div id="mtcAdminHistoryOriginalMessage"></div>
+                </div>
+                <div
+                    class="mtc-admin-message-history-section"
+                    id="mtcAdminHistoryReplySection"
+                    hidden>
+                    <span>Reply Sent</span>
+                    <div id="mtcAdminHistoryReply"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
