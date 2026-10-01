@@ -1424,7 +1424,7 @@ if (bandaiLink) {
                     // =========================================
 
                     const response = await fetch(
-                        "http://localhost:3000/subscribe",
+                        "https://mtc-backend-node-production.up.railway.app/subscribe",
                         {
                             method: "POST",
 
