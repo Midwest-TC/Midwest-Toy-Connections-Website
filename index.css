@@ -4259,6 +4259,7 @@ input.cart-quantity-input[type="number"]::-webkit-outer-spin-button {
     align-items:center;
     gap:15px;
     flex-wrap:wrap;
+    margin-top:30px;
 }
 .event-btn{
     display:inline-flex;
