@@ -312,7 +312,7 @@ if (contactForm) {
 
 
                 await emailjs.send(
-                    "service_fpq90em",
+                    "service_taig5gh",
                     "template_xfko5sm",
                     templateParams
                 );
