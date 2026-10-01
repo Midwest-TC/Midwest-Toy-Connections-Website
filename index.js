@@ -247,29 +247,36 @@ if (contactForm) {
             try {
 
                 // =========================================
-                // SAVE TO SUPABASE ADMIN MESSAGES
+                // SAVE MESSAGE THROUGH SECURE BACKEND
                 // =========================================
-                const {
-                    data: newMessage,
-                    error: messageError
-                } = await supabase
-                    .from("Messages")
-                    .insert([
-                        {
+                const messageResponse = await fetch(
+                    "https://mtc-backend-node-production.up.railway.app/contact-message",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
                             name: name,
                             email: email,
                             subject: subject,
-                            message: message,
-                            status: "New"
-                        }
-                    ])
-                    .select("id")
-                    .single();
+                            message: message
+                        })
+                    }
+                );
 
+                const messageResult = await messageResponse.json();
 
-                if (messageError) {
-                    throw messageError;
+                if (!messageResponse.ok || !messageResult.success) {
+                    throw new Error(
+                        messageResult.error || "Unable to save message."
+                    );
                 }
+
+                const newMessage = {
+                    id: messageResult.messageId
+                };
+
 
                 const notificationResponse = await fetch(
                     "https://mtc-backend-node-production.up.railway.app/contact-message-notification",
