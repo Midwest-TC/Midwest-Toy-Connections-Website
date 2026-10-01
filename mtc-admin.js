@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    const activeSessionResponse = await fetch("http://localhost:3000/admin-active-sessions", {
+    const activeSessionResponse = await fetch("https://mtc-backend-node-production.up.railway.app/admin-active-sessions", {
         method: "GET",
 
         headers: {
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const response = await fetch("http://localhost:3000/admin-active-sessions", {
+        const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-active-sessions", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -1657,13 +1657,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const [createEventPermissionResponse, editEventPermissionResponse, deleteEventPermissionResponse] =
             await Promise.all([
-                fetch("http://localhost:3000/admin-permission/check?permission=events.create", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=events.create", {
                     headers: eventPermissionHeaders,
                 }),
-                fetch("http://localhost:3000/admin-permission/check?permission=events.edit", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=events.edit", {
                     headers: eventPermissionHeaders,
                 }),
-                fetch("http://localhost:3000/admin-permission/check?permission=events.delete", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=events.delete", {
                     headers: eventPermissionHeaders,
                 }),
             ]);
@@ -1801,7 +1801,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const activityAccessToken = activitySessionData?.session?.access_token;
 
         if (activityAccessToken) {
-            await fetch("http://localhost:3000/admin-activity-log", {
+            await fetch("https://mtc-backend-node-production.up.railway.app/admin-activity-log", {
                 method: "POST",
 
                 headers: {
@@ -2340,7 +2340,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const activityAccessToken = activitySessionData?.session?.access_token;
 
             if (activityAccessToken) {
-                await fetch("http://localhost:3000/admin-activity-log", {
+                await fetch("https://mtc-backend-node-production.up.railway.app/admin-activity-log", {
                     method: "POST",
 
                     headers: {
@@ -2470,7 +2470,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // =========================================
 
         const permissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=refunds.process",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=refunds.process",
             {
                 headers: {
                     Authorization: `Bearer ${permissionSession.access_token}`,
@@ -2489,7 +2489,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // =========================================
 
         const requestPermissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=refunds.request",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=refunds.request",
             {
                 headers: {
                     Authorization: `Bearer ${permissionSession.access_token}`,
@@ -2556,7 +2556,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // =========================================
 
         const editOrdersPermissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=orders.edit",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=orders.edit",
             {
                 headers: {
                     Authorization: `Bearer ${permissionSession.access_token}`,
@@ -2576,7 +2576,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // =========================================
 
         const editInventoryPermissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=inventory.edit",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=inventory.edit",
             {
                 headers: {
                     Authorization: `Bearer ${permissionSession.access_token}`,
@@ -3543,7 +3543,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
 
             if (refundAction === "direct") {
-                const response = await fetch("http://localhost:3000/admin-refund", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-refund", {
                     method: "POST",
 
                     headers: {
@@ -3637,7 +3637,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // CREATE REFUND REQUEST
                 // =============================================
 
-                const response = await fetch("http://localhost:3000/admin-refund-request", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-refund-request", {
                     method: "POST",
 
                     headers: {
@@ -3795,7 +3795,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // REVIEW REFUND REQUEST
             // =========================================
 
-            const response = await fetch("http://localhost:3000/admin-refund-request/review", {
+            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-refund-request/review", {
                 method: "POST",
 
                 headers: {
@@ -5178,7 +5178,7 @@ document.addEventListener("click", async (event) => {
     const activityAccessToken = activitySessionData?.session?.access_token;
 
     if (activityAccessToken && previousOrderStatus !== newOrderStatus) {
-        await fetch("http://localhost:3000/admin-activity-log", {
+        await fetch("https://mtc-backend-node-production.up.railway.app/admin-activity-log", {
             method: "POST",
 
             headers: {
@@ -5312,7 +5312,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (inventoryPermissionSession?.access_token) {
         const editProductPermissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=products.edit",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=products.edit",
             {
                 headers: {
                     Authorization: `Bearer ${inventoryPermissionSession.access_token}`,
@@ -5324,7 +5324,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         canEditProduct = editProductPermissionResult?.allowed === true;
         const deleteProductPermissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=products.delete",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=products.delete",
             {
                 headers: {
                     Authorization: `Bearer ${inventoryPermissionSession.access_token}`,
@@ -5337,7 +5337,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         canDeleteProduct = deleteProductPermissionResult?.allowed === true;
 
         const inventoryPermissionResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=products.create",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=products.create",
             {
                 headers: {
                     Authorization: `Bearer ${inventoryPermissionSession.access_token}`,
@@ -6221,7 +6221,7 @@ ${
         const activityAccessToken = activitySessionData?.session?.access_token;
 
         if (activityAccessToken) {
-            await fetch("http://localhost:3000/admin-activity-log", {
+            await fetch("https://mtc-backend-node-production.up.railway.app/admin-activity-log", {
                 method: "POST",
 
                 headers: {
@@ -6410,7 +6410,7 @@ ${
             const activityAccessToken = activitySessionData?.session?.access_token;
 
             if (activityAccessToken) {
-                await fetch("http://localhost:3000/admin-activity-log", {
+                await fetch("https://mtc-backend-node-production.up.railway.app/admin-activity-log", {
                     method: "POST",
 
                     headers: {
@@ -6652,15 +6652,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const [createCategoriesResponse, editCategoriesResponse, deleteCategoriesResponse] = await Promise.all([
-            fetch("http://localhost:3000/admin-permission/check?permission=categories.create", {
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=categories.create", {
                 headers: categoryPermissionHeaders,
             }),
 
-            fetch("http://localhost:3000/admin-permission/check?permission=categories.edit", {
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=categories.edit", {
                 headers: categoryPermissionHeaders,
             }),
 
-            fetch("http://localhost:3000/admin-permission/check?permission=categories.delete", {
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=categories.delete", {
                 headers: categoryPermissionHeaders,
             }),
         ]);
@@ -6902,7 +6902,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // LOAD CATEGORIES THROUGH BACKEND
             // =========================================
 
-            const categoryResponse = await fetch("http://localhost:3000/admin-categories", {
+            const categoryResponse = await fetch("https://mtc-backend-node-production.up.railway.app/admin-categories", {
                 method: "GET",
 
                 headers: {
@@ -7140,7 +7140,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // =========================================
 
             if (editingCategoryId) {
-                categorySaveUrl = "http://localhost:3000/admin-categories/update";
+                categorySaveUrl = "https://mtc-backend-node-production.up.railway.app/admin-categories/update";
 
                 categorySaveBody = {
                     categoryId: editingCategoryId,
@@ -7154,7 +7154,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // ADD CATEGORY
                 // =========================================
 
-                categorySaveUrl = "http://localhost:3000/admin-categories/create";
+                categorySaveUrl = "https://mtc-backend-node-production.up.railway.app/admin-categories/create";
 
                 categorySaveBody = {
                     name: categoryName,
@@ -7428,7 +7428,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // SEND DELETE TO PROTECTED BACKEND
             // =========================================
 
-            const categoryDeleteResponse = await fetch("http://localhost:3000/admin-categories/delete", {
+            const categoryDeleteResponse = await fetch("https://mtc-backend-node-production.up.railway.app/admin-categories/delete", {
                 method: "POST",
 
                 headers: {
@@ -7945,11 +7945,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const [replyMessagePermissionResponse, deleteMessagePermissionResponse] = await Promise.all([
-            fetch("http://localhost:3000/admin-permission/check?permission=messages.reply", {
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=messages.reply", {
                 headers: messagePermissionHeaders,
             }),
 
-            fetch("http://localhost:3000/admin-permission/check?permission=messages.delete", {
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=messages.delete", {
                 headers: messagePermissionHeaders,
             }),
         ]);
@@ -8626,7 +8626,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const response = await fetch("http://localhost:3000/admin-message-reply", {
+        const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-message-reply", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -9037,19 +9037,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const [manageSecurityResponse, revokeSessionsResponse, unlockLoginsResponse, manageShippingResponse] =
             await Promise.all([
-                fetch("http://localhost:3000/admin-permission/check?permission=security.manage_settings", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=security.manage_settings", {
                     headers: securityPermissionHeaders,
                 }),
 
-                fetch("http://localhost:3000/admin-permission/check?permission=security.revoke_sessions", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=security.revoke_sessions", {
                     headers: securityPermissionHeaders,
                 }),
 
-                fetch("http://localhost:3000/admin-permission/check?permission=security.unlock_logins", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=security.unlock_logins", {
                     headers: securityPermissionHeaders,
                 }),
 
-                fetch("http://localhost:3000/admin-permission/check?permission=shipping.manage", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=shipping.manage", {
                     headers: securityPermissionHeaders,
                 }),
             ]);
@@ -9191,7 +9191,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     throw new Error("Admin session not found.");
                 }
 
-                const response = await fetch("http://localhost:3000/admin-security-settings", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-security-settings", {
                     method: "PUT",
 
                     headers: {
@@ -9327,7 +9327,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     return;
                 }
 
-                const response = await fetch("http://localhost:3000/admin-login/lockouts", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-login/lockouts", {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -9621,7 +9621,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         return;
                     }
 
-                    const response = await fetch("http://localhost:3000/admin-activity-log", {
+                    const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-activity-log", {
                         method: "GET",
 
                         headers: {
@@ -9705,7 +9705,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     return;
                 }
 
-                const response = await fetch("http://localhost:3000/admin-login/attempts", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-login/attempts", {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -9782,7 +9782,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     return;
                 }
 
-                const response = await fetch("http://localhost:3000/admin-active-sessions", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-active-sessions", {
                     method: "GET",
 
                     headers: {
@@ -9937,7 +9937,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         revokeButton.textContent = "Revoking...";
 
                         try {
-                            const response = await fetch("http://localhost:3000/admin-active-sessions/revoke", {
+                            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-active-sessions/revoke", {
                                 method: "POST",
 
                                 headers: {
@@ -10113,7 +10113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
 
             try {
-                const response = await fetch("http://localhost:3000/admin-login/unlock", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-login/unlock", {
                     method: "POST",
 
                     headers: {
@@ -10778,10 +10778,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 };
 
                 const [createPositionPermissionResponse, deletePositionPermissionResponse] = await Promise.all([
-                    fetch("http://localhost:3000/admin-permission/check?permission=accounts.create_position", {
+                    fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.create_position", {
                         headers: positionPermissionHeaders,
                     }),
-                    fetch("http://localhost:3000/admin-permission/check?permission=accounts.delete_position", {
+                    fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.delete_position", {
                         headers: positionPermissionHeaders,
                     }),
                 ]);
@@ -11040,7 +11040,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (deleteAccountPermissionSession?.access_token) {
             const deleteAdminPermissionResponse = await fetch(
-                "http://localhost:3000/admin-permission/check?permission=accounts.delete",
+                "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.delete",
                 {
                     headers: {
                         Authorization: `Bearer ${deleteAccountPermissionSession.access_token}`,
@@ -11061,7 +11061,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (editAccountPermissionSession?.access_token) {
             const editAdminPermissionResponse = await fetch(
-                "http://localhost:3000/admin-permission/check?permission=accounts.edit",
+                "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.edit",
                 {
                     headers: {
                         Authorization: `Bearer ${editAccountPermissionSession.access_token}`,
@@ -11085,7 +11085,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (manageEmployeePermissionsSession?.access_token) {
             const manageEmployeePermissionsResponse = await fetch(
-                "http://localhost:3000/admin-permission/check?permission=accounts.manage_permissions",
+                "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.manage_permissions",
                 {
                     headers: {
                         Authorization: `Bearer ${manageEmployeePermissionsSession.access_token}`,
@@ -12035,7 +12035,7 @@ ${
         `;
 
             try {
-                const response = await fetch("http://localhost:3000/admin/delete", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin/delete", {
                     method: "POST",
 
                     headers: {
@@ -12363,7 +12363,7 @@ ${
             try {
                 createPositionSave.disabled = true;
 
-                const response = await fetch("http://localhost:3000/admin-position/create", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-position/create", {
                     method: "POST",
 
                     headers: {
@@ -12657,7 +12657,7 @@ ${
                             data: { session: deletePositionSession },
                         } = await adminSupabase.auth.getSession();
 
-                        const deletePositionResponse = await fetch("http://localhost:3000/admin-position/delete", {
+                        const deletePositionResponse = await fetch("https://mtc-backend-node-production.up.railway.app/admin-position/delete", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -12786,7 +12786,7 @@ ${
 
         if (addAccountPermissionSession?.access_token) {
             const createAdminPermissionResponse = await fetch(
-                "http://localhost:3000/admin-permission/check?permission=accounts.create",
+                "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.create",
                 {
                     headers: {
                         Authorization: `Bearer ${addAccountPermissionSession.access_token}`,
@@ -12876,7 +12876,7 @@ ${
                     return;
                 }
 
-                const response = await fetch("http://localhost:3000/admin/create", {
+                const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin/create", {
                     method: "POST",
 
                     headers: {
@@ -12990,7 +12990,7 @@ ${
 
             if (managePositionsSession?.access_token) {
                 const managePositionsResponse = await fetch(
-                    "http://localhost:3000/admin-permission/check?permission=accounts.manage_positions",
+                    "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.manage_positions",
                     {
                         headers: {
                             Authorization: `Bearer ${managePositionsSession.access_token}`,
@@ -13015,7 +13015,7 @@ ${
 
             if (editAuthoritySession?.access_token) {
                 const editAuthorityResponse = await fetch(
-                    "http://localhost:3000/admin-permission/check?permission=accounts.edit_authority",
+                    "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=accounts.edit_authority",
                     {
                         headers: {
                             Authorization: `Bearer ${editAuthoritySession.access_token}`,
@@ -13325,7 +13325,7 @@ ${
                 return;
             }
 
-            const response = await fetch("http://localhost:3000/admin-account/update", {
+            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-account/update", {
                 method: "POST",
 
                 headers: {
@@ -13541,7 +13541,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const manageStoreSettingsResponse = await fetch(
-            "http://localhost:3000/admin-permission/check?permission=store_settings.manage",
+            "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=store_settings.manage",
             {
                 headers: storeSettingsPermissionHeaders,
             }
@@ -13781,8 +13781,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const [approveResponse, denyResponse] = await Promise.all([
-            fetch("http://localhost:3000/admin-permission/check?permission=reviews.approve", { headers }),
-            fetch("http://localhost:3000/admin-permission/check?permission=reviews.deny", { headers }),
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=reviews.approve", { headers }),
+            fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=reviews.deny", { headers }),
         ]);
 
         const [approveResult, denyResult] = await Promise.all([approveResponse.json(), denyResponse.json()]);
@@ -15598,7 +15598,7 @@ reviewsTableBody.addEventListener("change", (event) => {
 
         if (shippingPermissionSession?.access_token) {
             const manageShippingResponse = await fetch(
-                "http://localhost:3000/admin-permission/check?permission=shipping.manage",
+                "https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=shipping.manage",
                 {
                     headers: {
                         Authorization: `Bearer ${shippingPermissionSession.access_token}`,
@@ -17319,7 +17319,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // SEND TO BACKEND
             // =========================================
 
-            const response = await fetch("http://localhost:3000/admin-subscribers/send-promotion", {
+            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-subscribers/send-promotion", {
                 method: "POST",
 
                 headers: {
@@ -17666,7 +17666,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
 
-            const response = await fetch("http://localhost:3000/admin-subscribers", {
+            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-subscribers", {
                 method: "GET",
 
                 headers: {
@@ -17934,7 +17934,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // GET SAVED DISCOUNTS FROM BACKEND
             // =========================================
 
-            const response = await fetch("http://localhost:3000/admin-discounts", {
+            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-discounts", {
                 method: "GET",
 
                 headers: {
@@ -18001,15 +18001,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             };
 
             const [createResponse, editResponse, sendEmailResponse] = await Promise.all([
-                fetch("http://localhost:3000/admin-permission/check?permission=discounts.create", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=discounts.create", {
                     headers: permissionHeaders,
                 }),
 
-                fetch("http://localhost:3000/admin-permission/check?permission=discounts.edit", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=discounts.edit", {
                     headers: permissionHeaders,
                 }),
 
-                fetch("http://localhost:3000/admin-permission/check?permission=subscriptions.send_email", {
+                fetch("https://mtc-backend-node-production.up.railway.app/admin-permission/check?permission=subscriptions.send_email", {
                     headers: permissionHeaders,
                 }),
             ]);
@@ -18251,7 +18251,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // SECURE BACKEND REQUEST
             // =====================================
 
-            const response = await fetch("http://localhost:3000/admin-discounts", {
+            const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-discounts", {
                 method: "POST",
 
                 headers: {
@@ -18580,7 +18580,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         try {
             const response = await fetch(
-                `http://localhost:3000/admin-discounts/${encodeURIComponent(editingDiscountId)}`,
+                `https://mtc-backend-node-production.up.railway.app/admin-discounts/${encodeURIComponent(editingDiscountId)}`,
                 {
                     method: "PATCH",
 
@@ -18768,7 +18768,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/admin-discounts/${encodeURIComponent(discountId)}`, {
+            const response = await fetch(`https://mtc-backend-node-production.up.railway.app/admin-discounts/${encodeURIComponent(discountId)}`, {
                 method: "DELETE",
 
                 headers: {
