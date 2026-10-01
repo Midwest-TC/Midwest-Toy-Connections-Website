@@ -283,8 +283,8 @@ if (contactForm) {
 
 
                 await emailjs.send(
-                    "service_1wt9vkc",
-                    "template_47m66ll",
+                    "service_fpq90em",
+                    "template_xfko5sm",
                     templateParams
                 );
 
