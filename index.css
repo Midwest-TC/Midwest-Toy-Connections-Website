@@ -1010,11 +1010,330 @@
 }
 
 /* ====================================
-        INDEX RESPONSIVE DESIGN
+        SUBSCRIBE POPUP
 ==================================== */
+
+.subscribe-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(2, 6, 17, 0.82);
+    backdrop-filter: blur(6px);
+}
+
+.subscribe-popup.active {
+    display: flex;
+}
 
 
 /* ====================================
+        POPUP BOX
+==================================== */
+
+.subscribe-popup-box {
+    position: relative;
+
+    width: 100%;
+    max-width: 560px;
+    min-height: 500px;
+
+    padding: 45px 40px 35px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(5, 8, 20, 0.20) 0%,
+            rgba(5, 8, 20, 0.30) 45%,
+            rgba(5, 8, 20, 0.58) 100%
+        ),
+        url("pop-ad.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: 1px solid rgba(168, 85, 247, 0.80);
+    border-radius: 16px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.70),
+        0 0 35px rgba(124, 58, 237, 0.35);
+
+    overflow: hidden;
+}
+
+
+/* ====================================
+        TITLE
+==================================== */
+
+.subscribe-popup-box h2 {
+    position: relative;
+    z-index: 2;
+
+    margin: 5px 0 12px;
+
+    color: #ffffff;
+
+    font-size: 2.2rem;
+    font-weight: 900;
+
+    background: none;
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: #ffffff;
+
+    text-shadow:
+        0 3px 5px rgba(0, 0, 0, 1),
+        0 0 12px rgba(0, 0, 0, 1),
+        0 0 20px rgba(124, 58, 237, 0.75);
+}
+
+
+/* ====================================
+        DESCRIPTION
+==================================== */
+
+.subscribe-popup-box > p {
+    position: relative;
+    z-index: 2;
+
+    max-width: 460px;
+    margin: 0 auto;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.6;
+
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 1),
+        0 0 8px rgba(0, 0, 0, 1),
+        0 0 14px rgba(0, 0, 0, 0.95);
+}
+
+
+/* ====================================
+        SUBSCRIBE FORM
+==================================== */
+
+.subscribe-popup form {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    /*
+        Keeps the middle of the image open
+        so the MIDWEST logo can be seen.
+    */
+    margin-top: 145px;
+}
+
+
+/* ====================================
+        EMAIL INPUT
+==================================== */
+
+.subscribe-popup input {
+    width: 100%;
+    padding: 16px 18px;
+
+    background: rgba(8, 13, 30, 0.96);
+    color: #ffffff;
+
+    border: 1px solid rgba(168, 85, 247, 0.65);
+    border-radius: 10px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45),
+        0 0 12px rgba(124, 58, 237, 0.15);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.subscribe-popup input::placeholder {
+    color: #b8c0d4;
+}
+
+.subscribe-popup input:focus {
+    border-color: #a855f7;
+
+    box-shadow:
+        0 0 0 3px rgba(143, 92, 255, 0.15),
+        0 0 22px rgba(124, 58, 237, 0.35);
+}
+
+
+/* ====================================
+        SUBSCRIBE BUTTON
+==================================== */
+
+.subscribe-popup form button {
+    width: 100%;
+    padding: 16px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7b3cff,
+            #a855f7
+        );
+
+    color: #ffffff;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(124, 58, 237, 0.45),
+        0 0 18px rgba(168, 85, 247, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.subscribe-popup form button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(124, 58, 237, 0.60),
+        0 0 28px rgba(168, 85, 247, 0.40);
+}
+
+
+/* ====================================
+        CLOSE X
+==================================== */
+
+.subscribe-popup-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+
+    z-index: 5;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: rgba(8, 13, 30, 0.80);
+    color: #ffffff;
+
+    border: 1px solid rgba(168, 85, 247, 0.70);
+    border-radius: 50%;
+
+    font-size: 27px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 15px rgba(124, 58, 237, 0.40);
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.subscribe-popup-close:hover {
+    background: #7b3cff;
+    color: #ffffff;
+
+    transform: scale(1.08);
+}
+
+
+/* ====================================
+        SUCCESS / ERROR MESSAGE
+==================================== */
+
+#subscribePopupMessage {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 12px;
+    margin-bottom: 0;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 1);
+}
+
+
+/* ====================================
+        MOBILE
+==================================== */
+
+@media (max-width: 600px) {
+
+    .subscribe-popup {
+        padding: 15px;
+    }
+
+    .subscribe-popup-box {
+        max-width: 100%;
+        min-height: 460px;
+
+        padding: 40px 22px 25px;
+
+        background-position: center;
+    }
+
+    .subscribe-popup-box h2 {
+        font-size: 1.75rem;
+    }
+
+    .subscribe-popup-box > p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .subscribe-popup form {
+        margin-top: 125px;
+    }
+
+    .subscribe-popup input,
+    .subscribe-popup form button {
+        padding: 14px;
+    }
+}
+
+/* ====================================
+        INDEX RESPONSIVE DESIGN
         TABLET / SMALL DESKTOP
 ==================================== */
 
@@ -1025,7 +1344,6 @@
     }
 
 }
-
 
 /* ====================================
         TABLET
