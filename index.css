@@ -1041,8 +1041,8 @@
     position: relative;
 
     width: 100%;
-    max-width: 560px;
-    min-height: 500px;
+    max-width: 620px;
+    min-height: 540px;
 
     padding: 45px 40px 35px;
 
@@ -1051,9 +1051,9 @@
     background:
         linear-gradient(
             to bottom,
-            rgba(5, 8, 20, 0.20) 0%,
-            rgba(5, 8, 20, 0.30) 45%,
-            rgba(5, 8, 20, 0.58) 100%
+            rgba(5, 8, 20, 0.15) 0%,
+            rgba(5, 8, 20, 0.20) 50%,
+            rgba(5, 8, 20, 0.55) 100%
         ),
         url("pop-ad.jpeg");
 
@@ -1080,7 +1080,8 @@
     position: relative;
     z-index: 2;
 
-    margin: 5px 0 12px;
+    /* PUSH JOIN OUR COMMUNITY DOWN */
+    margin: 35px 0 12px;
 
     color: #ffffff;
 
@@ -1106,7 +1107,8 @@
     position: relative;
     z-index: 2;
 
-    max-width: 460px;
+    max-width: 480px;
+
     margin: 0 auto;
 
     color: #ffffff;
@@ -1132,13 +1134,14 @@
 
     display: flex;
     flex-direction: column;
+
     gap: 15px;
 
     /*
-        Keeps the middle of the image open
-        so the MIDWEST logo can be seen.
+       LARGE SPACE HERE LEAVES
+       MIDWEST TOY CONNECTIONS VISIBLE
     */
-    margin-top: 145px;
+    margin-top: 190px;
 }
 
 
@@ -1148,12 +1151,13 @@
 
 .subscribe-popup input {
     width: 100%;
+
     padding: 16px 18px;
 
     background: rgba(8, 13, 30, 0.96);
     color: #ffffff;
 
-    border: 1px solid rgba(168, 85, 247, 0.65);
+    border: 1px solid rgba(168, 85, 247, 0.70);
     border-radius: 10px;
 
     outline: none;
@@ -1162,7 +1166,7 @@
 
     box-shadow:
         0 8px 25px rgba(0, 0, 0, 0.45),
-        0 0 12px rgba(124, 58, 237, 0.15);
+        0 0 12px rgba(124, 58, 237, 0.20);
 
     transition:
         border-color 0.2s ease,
@@ -1188,14 +1192,14 @@
 
 .subscribe-popup form button {
     width: 100%;
+
     padding: 16px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #7b3cff,
-            #a855f7
-        );
+    background: linear-gradient(
+        90deg,
+        #7b3cff,
+        #a855f7
+    );
 
     color: #ffffff;
 
@@ -1231,6 +1235,7 @@
 
 .subscribe-popup-close {
     position: absolute;
+
     top: 14px;
     right: 16px;
 
@@ -1306,14 +1311,16 @@
 
     .subscribe-popup-box {
         max-width: 100%;
-        min-height: 460px;
+        min-height: 500px;
 
-        padding: 40px 22px 25px;
+        padding: 35px 22px 25px;
 
         background-position: center;
     }
 
     .subscribe-popup-box h2 {
+        margin-top: 30px;
+
         font-size: 1.75rem;
     }
 
@@ -1323,7 +1330,7 @@
     }
 
     .subscribe-popup form {
-        margin-top: 125px;
+        margin-top: 165px;
     }
 
     .subscribe-popup input,
