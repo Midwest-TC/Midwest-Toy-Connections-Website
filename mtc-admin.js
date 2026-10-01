@@ -1401,7 +1401,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             // LOW STOCK PRODUCT
             // =========================================
 
-            if (destinationPage === "products" && destinationAction === "open_product" && productId) {
+            if (
+                destinationPage === "products" &&
+                destinationAction === "open_product" &&
+                productId
+            ) {
                 window.location.href = `mtc-admin-products.html?productId=${encodeURIComponent(
                     productId
                 )}&action=open_product`;
@@ -1409,8 +1413,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
 
+
+            // =========================================
+            // NEW SUBSCRIBER
+            // =========================================
+
+            if (
+                destinationPage === "subscribers" &&
+                destinationAction === "open_subscribers"
+            ) {
+                window.location.href = "mtc-admin-subscribers.html";
+
+                return;
+            }
+
+
             return;
-        }
+            }
 
         // =========================================
         // DELETE NOTIFICATION
