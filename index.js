@@ -249,8 +249,8 @@ if (contactForm) {
                 // =========================================
                 // SAVE TO SUPABASE ADMIN MESSAGES
                 // =========================================
-
                 const {
+                    data: newMessage,
                     error: messageError
                 } = await supabase
                     .from("Messages")
@@ -262,13 +262,34 @@ if (contactForm) {
                             message: message,
                             status: "New"
                         }
-                    ]);
+                    ])
+                    .select("id")
+                    .single();
 
 
                 if (messageError) {
                     throw messageError;
                 }
 
+                const notificationResponse = await fetch(
+                    "https://mtc-backend-node-production.up.railway.app/contact-message-notification",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            messageId: newMessage.id
+                        })
+                    }
+                );
+
+                if (!notificationResponse.ok) {
+                    console.error(
+                        "CONTACT MESSAGE NOTIFICATION ERROR:",
+                        await notificationResponse.text()
+                    );
+                }
 
                 // =========================================
                 // SEND EMAIL NOTIFICATION
