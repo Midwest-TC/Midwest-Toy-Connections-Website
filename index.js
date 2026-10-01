@@ -1515,3 +1515,104 @@ if (bandaiLink) {
     // END OF MTC NEWSLETTER SUBSCRIPTION
     // =========================================================
 });
+// =========================================
+// SUBSCRIBE POPUP
+// =========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const popup = document.getElementById("subscribePopup");
+    const closeButton = document.getElementById("subscribePopupClose");
+    const form = document.getElementById("subscribePopupForm");
+    const emailInput = document.getElementById("subscribePopupEmail");
+    const message = document.getElementById("subscribePopupMessage");
+
+    if (!popup || !closeButton || !form || !emailInput || !message) {
+        return;
+    }
+
+    // Show popup after 5 seconds
+    setTimeout(() => {
+        popup.classList.add("active");
+    }, 5000);
+
+
+    // Close with X
+    closeButton.addEventListener("click", () => {
+        popup.classList.remove("active");
+    });
+
+
+    // Close by clicking dark background
+    popup.addEventListener("click", (event) => {
+
+        if (event.target === popup) {
+            popup.classList.remove("active");
+        }
+
+    });
+
+
+    // Subscribe
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const email = emailInput.value.trim();
+
+        if (!email) {
+            return;
+        }
+
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Subscribing...";
+
+        try {
+
+            const response = await fetch(
+                "https://mtc-backend-node-production.up.railway.app/subscribe",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email
+                    })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.error || result.message || "Unable to subscribe."
+                );
+            }
+
+            message.textContent = "Thank you for subscribing!";
+            emailInput.value = "";
+
+            setTimeout(() => {
+                popup.classList.remove("active");
+            }, 2000);
+
+        } catch (error) {
+
+            console.error("SUBSCRIBE POPUP ERROR:", error);
+
+            message.textContent =
+                error.message || "Unable to subscribe. Please try again.";
+
+        } finally {
+
+            submitButton.disabled = false;
+            submitButton.textContent = "Subscribe";
+
+        }
+
+    });
+
+});
