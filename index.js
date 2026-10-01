@@ -275,11 +275,12 @@ if (contactForm) {
                 // =========================================
 
                 const templateParams = {
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message
-                };
+                name: name,
+                customer_name: name,
+                email: email,
+                subject: subject,
+                message: "We've received your message and will get back to you as soon as possible. We appreciate you for reaching out to us!"
+            };
 
 
                 await emailjs.send(
