@@ -1534,7 +1534,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Show popup after 5 seconds
     setTimeout(() => {
         popup.classList.add("active");
-    }, 5000);
+    }, 2000);
 
 
     // Close with X
