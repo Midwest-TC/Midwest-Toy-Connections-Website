@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loginError) {
             loginError.style.display = "none";
         }
-        const response = await fetch("http://mtc-backend-node-production.up.railway.app/admin-login", {
+        const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
