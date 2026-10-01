@@ -314,9 +314,32 @@ if (contactForm) {
                 await emailjs.send(
                     "service_taig5gh",
                     "template_xfko5sm",
-                    templateParams
+                     templateParams
                 );
 
+                // =========================================
+                // SEND NEW MESSAGE EMAIL TO MTC
+                // =========================================
+                const adminEmailParams = {
+                    name: name,
+                    customer_name: "Midwest Toy Connections",
+                    email: "midwesttoyconnections@gmail.com",
+                    subject: `New Contact Message: ${subject}`,
+                    message: `New message from ${name}
+
+                    Customer Email: ${email}
+
+                    Subject: ${subject}
+
+                    Message:
+                    ${message}`
+                                    };
+
+                await emailjs.send(
+                    "service_taig5gh",
+                    "template_xfko5sm",
+                    adminEmailParams
+                );
 
                 console.log(
                     "MTC contact message sent successfully."
