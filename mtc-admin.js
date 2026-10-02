@@ -17024,6 +17024,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const promotionMessageInput = document.getElementById("mtcAdminPromotionMessage");
 
+    const promotionImageInput = document.getElementById("mtcAdminPromotionImage");
+
     const promotionDiscountSelect = document.getElementById("mtcAdminPromotionDiscount");
 
     const promotionMessageStatus = document.getElementById("mtcAdminPromotionMessageStatus");
@@ -17267,6 +17269,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const message = String(promotionMessageInput?.value || "").trim();
 
+        const promotionImage = promotionImageInput?.files?.[0] || null;
+
         const discountId = String(promotionDiscountSelect?.value || "").trim();
 
         // =============================================
@@ -17300,6 +17304,42 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             return;
         }
+
+            // =============================================
+            // VALIDATE PROMOTION IMAGE
+            // =============================================
+
+            if (promotionImage) {
+                const allowedImageTypes = [
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp",
+                ];
+
+                if (!allowedImageTypes.includes(promotionImage.type)) {
+                    if (promotionMessageStatus) {
+                        promotionMessageStatus.textContent =
+                            "Promotion image must be JPG, PNG, or WEBP.";
+
+                        promotionMessageStatus.hidden = false;
+                    }
+
+                    return;
+                }
+
+                const maxImageSize = 5 * 1024 * 1024;
+
+                if (promotionImage.size > maxImageSize) {
+                    if (promotionMessageStatus) {
+                        promotionMessageStatus.textContent =
+                            "Promotion image must be 5 MB or smaller.";
+
+                        promotionMessageStatus.hidden = false;
+                    }
+
+                    return;
+                }
+            }
 
         // =============================================
         // GET CURRENT ADMIN SESSION
@@ -17338,24 +17378,43 @@ document.addEventListener("DOMContentLoaded", async () => {
             // SEND TO BACKEND
             // =========================================
 
+            const promotionFormData = new FormData();
+
+            promotionFormData.append(
+                "subscriberIds",
+                JSON.stringify(subscriberIds)
+            );
+
+            promotionFormData.append(
+                "subject",
+                subject
+            );
+
+            promotionFormData.append(
+                "message",
+                message
+            );
+
+            promotionFormData.append(
+                "discountId",
+                discountId || ""
+            );
+
+            if (promotionImage) {
+                promotionFormData.append(
+                    "promotionImage",
+                    promotionImage
+                );
+            }
+
             const response = await fetch("https://mtc-backend-node-production.up.railway.app/admin-subscribers/send-promotion", {
                 method: "POST",
 
                 headers: {
-                    "Content-Type": "application/json",
-
                     Authorization: `Bearer ${session.access_token}`,
                 },
 
-                body: JSON.stringify({
-                    subscriberIds: subscriberIds,
-
-                    subject: subject,
-
-                    message: message,
-
-                    discountId: discountId || null,
-                }),
+                body: promotionFormData,
             });
 
             const result = await response.json();
