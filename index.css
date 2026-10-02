@@ -157,6 +157,10 @@
     color:#b8c0d4;
     font-size:15px;
 }
+.footer-bottom a{
+    color: white;
+    transition: color 0.2s ease;
+}
 .footer-payments{
     display:flex;
     gap:18px;
