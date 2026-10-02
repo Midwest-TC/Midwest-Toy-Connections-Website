@@ -5473,7 +5473,7 @@ function renderDetailImages() {
 
                     sku: detailVariant?.sku || detailProduct.sku || null,
 
-                    name: detailProduct.name,
+                    name: detailProduct.product_name,
 
                     variantName: detailVariant?.variant_name || null,
 
