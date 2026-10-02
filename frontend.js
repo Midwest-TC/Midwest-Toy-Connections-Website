@@ -1558,7 +1558,7 @@ function createOldProductCard(product) {
                 productId: product.id,
                 variantId: variant ? variant.id : null,
                 sku: variant ? variant.sku : product.sku,
-                name: product.name,
+                name: product.product_name,
                 variantName: variant ? variant.variant_name : null,
                 price: variant ? Number(variant.price || 0) : Number(product.price || 0),
                 quantity: quantity,
@@ -1667,69 +1667,281 @@ function createOldProductCard(product) {
         });
     }
     /* =====================================================
-    RENDER SHOPPING CART
+   RENDER SHOPPING CART
 ===================================================== */
-    function renderShoppingCart() {
-        const cartItemsContainer = document.getElementById("cart-items");
-        if (!cartItemsContainer) return;
+async function renderShoppingCart() {
+    const cartItemsContainer =
+        document.getElementById("cart-items");
 
-        const cart = getCart();
+    if (!cartItemsContainer) return;
 
-        /* EMPTY CART */
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = `
+    let cart = getCart();
+
+    /* EMPTY CART */
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `
             <div class="cart-empty">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <h3>Your cart is empty</h3>
                 <p>Add some products to your cart to get started.</p>
-                <a href="mw-visit-store.html" class="checkout-btn">Continue Shopping</a>
-            </div>`;
-            updateCartSummary();
-            return;
+                <a href="mw-visit-store.html" class="checkout-btn">
+                    Continue Shopping
+                </a>
+            </div>
+        `;
+
+        updateCartSummary();
+        return;
+    }
+
+    /* =================================================
+       VALIDATE STORED CART QUANTITIES AGAINST INVENTORY
+    ================================================= */
+
+    let cartChanged = false;
+
+    for (const item of cart) {
+        let quantity =
+            Math.floor(Number(item.quantity));
+
+        /* INVALID / DECIMAL / ZERO / NEGATIVE */
+        if (
+            !Number.isFinite(quantity) ||
+            quantity < 1
+        ) {
+            quantity = 1;
         }
 
-/* RENDER CART ITEMS */
-cartItemsContainer.innerHTML = cart
-    .map((item) => {
-        const price = Number(item.price || 0);
-        const quantity = Math.max(1, Number(item.quantity || 1));
-        const itemTotal = price * quantity;
+        let inventoryQuery = supabase
+            .from("Inventory")
+            .select("quantity")
+            .eq("product_id", item.productId);
 
-        const safeCartImageURL =
-            safeURL(item.image_url);
+        if (item.variantId) {
+            inventoryQuery =
+                inventoryQuery.eq(
+                    "variant_id",
+                    item.variantId
+                );
+        } else {
+            inventoryQuery =
+                inventoryQuery.is(
+                    "variant_id",
+                    null
+                );
+        }
 
-        const imageHTML = safeCartImageURL
-            ? `<img src="${escapeHTML(safeCartImageURL)}" alt="${escapeHTML(item.name)}">`
-            : `<div class="cart-product-placeholder"><i class="fa-solid fa-image"></i></div>`;
+        const {
+            data: inventoryRecord,
+            error: inventoryError
+        } = await inventoryQuery.maybeSingle();
 
-        return `
-    <div class="cart-item" data-cart-item-id="${escapeHTML(item.cartItemId)}">
+        if (inventoryError) {
+            console.error(
+                "CART LOAD INVENTORY CHECK ERROR:",
+                inventoryError
+            );
 
-                <div class="product">
-                    ${imageHTML}
-                    <div>
-                        <h4>${escapeHTML(item.name)}</h4>
-                        ${item.variantName ? `<small>${escapeHTML(item.variantName)}</small>` : ""}
-                    </div>
-                </div>
-                <div>$${price.toFixed(2)}</div>
-                <div class="quantity">
-                    <button type="button" class="cart-quantity-minus" data-cart-item-id="${escapeHTML(item.cartItemId)}">-</button>
-                    <input type="number" min="1" value="${quantity}" class="cart-quantity-input" data-cart-item-id="${escapeHTML(item.cartItemId)}">
-                    <button type="button" class="cart-quantity-plus" data-cart-item-id="${escapeHTML(item.cartItemId)}">+</button>
-                </div>
-                <div>$${itemTotal.toFixed(2)}</div>
-                <button type="button" class="remove cart-remove-btn" data-cart-item-id="${escapeHTML(item.cartItemId)}" aria-label="Remove ${escapeHTML(item.name)}">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>`;
-            })
-            .join("");
+            continue;
+        }
 
-        attachShoppingCartEvents();
-        renderCartShippingMethods();
-        updateCartSummary();
+        const availableQuantity =
+            Math.max(
+                0,
+                Number(
+                    inventoryRecord?.quantity || 0
+                )
+            );
+
+        /* DON'T ALLOW STORED QUANTITY ABOVE STOCK */
+        if (
+            availableQuantity > 0 &&
+            quantity > availableQuantity
+        ) {
+            quantity = availableQuantity;
+        }
+
+        /* FIX INVALID QUANTITY */
+        if (Number(item.quantity) !== quantity) {
+            item.quantity = quantity;
+            cartChanged = true;
+        }
+
+        /* GET REAL PRICE FROM LOADED DATABASE DATA */
+        let realPrice = null;
+
+        if (item.variantId) {
+            const realVariant = variants.find(
+                (variant) =>
+                    String(variant.id) === String(item.variantId) &&
+                    String(variant.product_id) === String(item.productId)
+            );
+
+            if (realVariant) {
+                realPrice = Number(realVariant.price);
+            }
+        } else {
+            const realProduct = products.find(
+                (product) =>
+                    String(product.id) === String(item.productId)
+            );
+
+            if (realProduct) {
+                realPrice = Number(realProduct.price);
+            }
+        }
+
+        /* REPLACE TAMPERED PRICE */
+        if (
+            realPrice !== null &&
+            Number.isFinite(realPrice) &&
+            Number(item.price) !== realPrice
+        ) {
+            item.price = realPrice;
+            cartChanged = true;
+        }
+        }
+    /* SAVE CORRECTED CART */
+    if (cartChanged) {
+        saveCart(cart);
     }
+
+    /* RENDER CART ITEMS */
+    cartItemsContainer.innerHTML = cart
+        .map((item) => {
+            let price = 0;
+
+        if (item.variantId) {
+            const variant = variants.find(
+                (variant) =>
+                    String(variant.id) ===
+                    String(item.variantId)
+            );
+
+            price = Number(variant?.price || 0);
+        } else {
+            const product = products.find(
+                (product) =>
+                    String(product.id) ===
+                    String(item.productId)
+            );
+
+            price = Number(product?.price || 0);
+        }
+
+            const quantity =
+                Math.max(
+                    1,
+                    Math.floor(
+                        Number(item.quantity || 1)
+                    )
+                );
+
+            const itemTotal =
+                price * quantity;
+
+            const safeCartImageURL =
+                safeURL(item.image_url);
+
+            const imageHTML =
+                safeCartImageURL
+                    ? `<img src="${escapeHTML(
+                          safeCartImageURL
+                      )}" alt="${escapeHTML(
+                          item.name
+                      )}">`
+                    : `<div class="cart-product-placeholder">
+                           <i class="fa-solid fa-image"></i>
+                       </div>`;
+
+            return `
+                <div
+                    class="cart-item"
+                    data-cart-item-id="${escapeHTML(
+                        item.cartItemId
+                    )}">
+
+                    <div class="product">
+                        ${imageHTML}
+
+                        <div>
+                            <h4>${escapeHTML(
+                                item.name
+                            )}</h4>
+
+                            ${
+                                item.variantName
+                                    ? `<small>${escapeHTML(
+                                          item.variantName
+                                      )}</small>`
+                                    : ""
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        $${price.toFixed(2)}
+                    </div>
+
+                    <div class="quantity">
+
+                        <button
+                            type="button"
+                            class="cart-quantity-minus"
+                            data-cart-item-id="${escapeHTML(
+                                item.cartItemId
+                            )}">
+                            -
+                        </button>
+
+                        <input
+                            type="number"
+                            min="1"
+                            step="1"
+                            value="${quantity}"
+                            class="cart-quantity-input"
+                            data-cart-item-id="${escapeHTML(
+                                item.cartItemId
+                            )}">
+
+                        <button
+                            type="button"
+                            class="cart-quantity-plus"
+                            data-cart-item-id="${escapeHTML(
+                                item.cartItemId
+                            )}">
+                            +
+                        </button>
+
+                    </div>
+
+                    <div>
+                        $${itemTotal.toFixed(2)}
+                    </div>
+
+                    <button
+                        type="button"
+                        class="remove cart-remove-btn"
+                        data-cart-item-id="${escapeHTML(
+                            item.cartItemId
+                        )}"
+                        aria-label="Remove ${escapeHTML(
+                            item.name
+                        )}">
+
+                        <i class="fas fa-times"></i>
+
+                    </button>
+
+                </div>
+            `;
+        })
+        .join("");
+
+    attachShoppingCartEvents();
+    renderCartShippingMethods();
+    updateCartSummary();
+}
 
     /* =====================================================
     CART QUANTITY / REMOVE EVENTS
