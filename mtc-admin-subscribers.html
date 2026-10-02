@@ -291,6 +291,19 @@
                                             required
                                         ></textarea>
                                     </div>
+                                    <!-- PROMOTION IMAGE -->
+                                    <div class="mtc-admin-promotion-field">
+                                        <label for="mtcAdminPromotionImage">
+                                            Promotion Image
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="mtcAdminPromotionImage"
+                                            accept="image/png, image/jpeg, image/webp"/>
+                                        <small>
+                                            Optional — add an image to the promotional email.
+                                        </small>
+                                    </div>
                                     <!-- DISCOUNT -->
                                     <div class="mtc-admin-promotion-field">
                                         <label for="mtcAdminPromotionDiscount">
@@ -555,15 +568,19 @@
                     </div>
                 </div>
 
-                <!-- =========================================================
-                        DELETE DISCOUNT CONFIRMATION
+            <!-- =========================================================
+                    DELETE DISCOUNT CONFIRMATION
                 ========================================================= -->
-                <div class="mtc-admin-discount-modal" id="mtcAdminDiscountDeleteModal" hidden>
+                <div
+                    class="mtc-admin-discount-modal"
+                    id="mtcAdminDiscountDeleteModal"
+                    hidden>
                     <div
                         class="mtc-admin-discount-delete-card"
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="mtcAdminDiscountDeleteTitle">
+                        <!-- CLOSE -->
                         <button
                             type="button"
                             class="mtc-admin-discount-modal-close"
@@ -571,25 +588,38 @@
                             aria-label="Close delete confirmation">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
-                        <h2 id="mtcAdminDiscountDeleteTitle">Delete Discount?</h2>
+                        <!-- TITLE -->
+                        <h2 id="mtcAdminDiscountDeleteTitle">
+                            Delete Discount?
+                        </h2>
+                        <!-- MESSAGE -->
                         <p class="mtc-admin-discount-delete-text">
                             Are you sure you want to delete discount code
                             <strong id="mtcAdminDiscountDeleteCode"></strong>?
                         </p>
-                        <p class="mtc-admin-discount-delete-warning">This action cannot be undone.</p>
-                        <p class="mtc-admin-discount-message" id="mtcAdminDiscountDeleteMessage" aria-live="polite" hidden></p>
+                        <!-- WARNING -->
+                        <p class="mtc-admin-discount-delete-warning">
+                            This action cannot be undone.
+                        </p>
+                        <!-- STATUS MESSAGE -->
+                        <p
+                            class="mtc-admin-discount-message"
+                            id="mtcAdminDiscountDeleteMessage"
+                            aria-live="polite"
+                            hidden>
+                        </p>
+                        <!-- ACTIONS -->
                         <div class="mtc-admin-discount-delete-actions">
-                            <button type="button" class="mtc-admin-discount-delete-button" id="mtcAdminDiscountDeleteConfirm">
+                            <button
+                                type="button"
+                                class="mtc-admin-discount-delete-button"
+                                id="mtcAdminDiscountDeleteConfirm">
                                 <i class="fa-solid fa-trash"></i>
                                 <span>Delete</span>
                             </button>
                         </div>
                     </div>
-                </div>
-
-                <!-- =========================================
-                        FOOTER
-                ========================================== -->
+                </div>    
                 <footer class="mtc-admin-subscribers-footer">
                     <span>© 2026 Midwest Toy Connections</span>
                     <span>Subscriber & Discount Management</span>
