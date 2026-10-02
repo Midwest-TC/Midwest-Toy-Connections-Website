@@ -1895,6 +1895,9 @@ nav li i{
     width: 100%;
     text-align: left;
 }
+body{
+    background:#0b1020;
+}
 
 @media (max-width:600px){
 
