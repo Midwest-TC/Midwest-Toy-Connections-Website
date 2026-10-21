@@ -4437,7 +4437,7 @@ const currentTotal = Math.max(0, subtotal + shipping - discount);
             shippingAddressError.hidden = true;
             shippingAddressError.textContent = "";
         }
-return; // TEMPORARY: stop payment redirect while testing tax
+
         if (checkoutPaymentMethod === "paypal") {
 
             await startPayPalCheckout();
