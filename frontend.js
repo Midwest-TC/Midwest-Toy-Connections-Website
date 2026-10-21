@@ -2442,7 +2442,10 @@ function renderCartShippingMethods() {
 // FREE SHIPPING ONLY
 // =============================================
 
-if (qualifiesForFreeShipping) {
+if (
+    qualifiesForFreeShipping &&
+    selectedCartShippingMethod?.is_local_pickup !== true
+) {
 
     const standardShippingMethod =
         cartShippingMethods.find(method =>
@@ -2537,7 +2540,12 @@ shippingMethodsContainer.innerHTML =
     cartShippingMethods.map(method => {
 
         const methodPrice =
-            Number(method.price || 0);
+    qualifiesForFreeShipping &&
+    String(method.name || "")
+        .toLowerCase()
+        .includes("standard")
+        ? 0
+        : Number(method.price || 0);
 
         const isSelected =
             selectedCartShippingMethod?.id === method.id;
@@ -2688,9 +2696,9 @@ if (cartLocalPickupEnabled) {
 }
 
 
-// =============================================
-// SHIPPING METHOD CHANGE
-// =============================================
+ // =============================================
+ // SHIPPING METHOD CHANGE + TAX RECALCULATION
+ // =============================================
 
 shippingMethodsContainer
     .querySelectorAll(
@@ -2698,49 +2706,96 @@ shippingMethodsContainer
     )
     .forEach(input => {
 
-        input.addEventListener(
-            "change",
-            async () => {
+        input.addEventListener("change", async () => {
 
-                if (input.value === "local-pickup") {
+            if (input.value === "local-pickup") {
 
-    selectedCartShippingMethod = {
-        id: "local-pickup",
-        name: "Local Pickup",
-        price: 0,
-        is_local_pickup: true
-    };
+                selectedCartShippingMethod = {
+                    id: "local-pickup",
+                    name: "Local Pickup",
+                    price: 0,
+                    is_local_pickup: true
+                };
 
-} else {
+            } else {
 
-    selectedCartShippingMethod =
-        cartShippingMethods.find(
-            method =>
-                String(method.id) ===
-                String(input.value)
-        ) || null;
-}
-
-                estimatedCartTax = null;
-
-        const payNowButton = document.getElementById("cart-pay-now");
-        const proceedButton = document.getElementById("checkout-btn");
-
-        if (payNowButton) {
-            payNowButton.hidden = true;
-        }
-
-        if (proceedButton) {
-            proceedButton.hidden = false;
-        }
-
-        renderCartShippingMethods();
-
-        await updateCartSummary();
+                selectedCartShippingMethod =
+                    cartShippingMethods.find(
+                        method =>
+                            String(method.id) ===
+                            String(input.value)
+                    ) || null;
             }
-        );
+
+            estimatedCartTax = null;
+
+            const payNowButton =
+                document.getElementById("cart-pay-now");
+
+            const proceedButton =
+                document.getElementById("checkout-btn");
+
+            if (payNowButton) {
+                payNowButton.hidden = true;
+            }
+
+            if (proceedButton) {
+                proceedButton.hidden = false;
+            }
+
+            renderCartShippingMethods();
+
+            // LOCAL PICKUP TAX
+            if (
+                selectedCartShippingMethod?.is_local_pickup
+            ) {
+                try {
+
+                    const taxResult = await calculateCartTax(
+                        getCart(),
+                        null,
+                        "local-pickup",
+                        appliedCartDiscount?.code || null
+                    );
+
+                    const tax = Number(taxResult.tax);
+
+                    if (
+                        !Number.isFinite(tax) ||
+                        tax < 0
+                    ) {
+                        throw new Error(
+                            "Invalid Local Pickup tax estimate."
+                        );
+                    }
+
+                    estimatedCartTax = tax;
+
+                } catch (error) {
+
+                    console.error(
+                        "LOCAL PICKUP TAX ERROR:",
+                        error
+                    );
+
+                    const taxElement =
+                        document.getElementById("cart-tax");
+
+                    if (taxElement) {
+                        taxElement.textContent =
+                            "Unable to calculate";
+                    }
+
+                    await updateCartSummary();
+                    return;
+                }
+            }
+
+            await updateCartSummary();
+
+        });
     });
-}
+
 
 /* =====================================================
 UPDATE CART SUMMARY
