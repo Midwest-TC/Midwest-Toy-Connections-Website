@@ -2244,6 +2244,7 @@ let selectedCartShippingMethod = null;
 // CART DISCOUNT
 // =========================================================
 let appliedCartDiscount = null;
+let estimatedCartTax = null;
 
 let cartFreeShippingEnabled = false;
 let cartFreeShippingMinimum = 0;
