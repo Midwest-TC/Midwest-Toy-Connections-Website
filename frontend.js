@@ -4,7 +4,7 @@
 ========================================================= */
 document.addEventListener("DOMContentLoaded", async () => {
     /* =====================================================
-       SUPABASE
+       SUPABASE 
     ===================================================== */
     const SUPABASE_URL = "https://ujwelweqqjyzknssqgtn.supabase.co";
     const SUPABASE_ANON_KEY =
@@ -2905,7 +2905,7 @@ if (
 ) {
     shipping = 0;
 }
-const tax = 0;
+let tax = null;
 
 // =============================================
 // APPLIED DISCOUNT
@@ -3027,7 +3027,9 @@ const total =
     if (taxElement) {
 
         taxElement.textContent =
-            `$${tax.toFixed(2)}`;
+    tax === null
+        ? "Calculated at checkout"
+        : `$${tax.toFixed(2)}`;
     }
 
 if (
@@ -3894,6 +3896,33 @@ const shippingAddressContinue =
     document.getElementById("shipping-address-continue");
 
 let checkoutShippingAddress = null;
+async function calculateCartTax(cart, shippingAddress, shippingMethodId, discountCode) {
+    const response = await fetch(
+        "https://mtc-backend-node-production.up.railway.app/calculate-cart-tax",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cart,
+                shippingAddress,
+                shippingMethodId,
+                discountCode
+            })
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(
+            result.error || "Unable to calculate sales tax."
+        );
+    }
+
+    return result;
+}
 
 let checkoutPaymentMethod = "stripe";
 
@@ -4341,6 +4370,66 @@ shippingAddressForm?.addEventListener(
             postalCode,
             country: "US",
         };
+
+try {
+    const taxResult = await calculateCartTax(
+        getCart(),
+        checkoutShippingAddress,
+        selectedCartShippingMethod?.id,
+        appliedCartDiscount?.code || null
+    );
+
+    const estimatedTax = Number(taxResult.tax);
+
+    if (!Number.isFinite(estimatedTax) || estimatedTax < 0) {
+        throw new Error("Invalid sales tax estimate.");
+    }
+
+    const taxElement = document.getElementById("cart-tax");
+
+    if (taxElement) {
+        taxElement.textContent = `$${estimatedTax.toFixed(2)}`;
+    }
+
+const totalElement = document.getElementById("cart-total");
+
+if (totalElement) {
+    const subtotal = Number(
+    document.getElementById("cart-subtotal").textContent.replace(/[^0-9.]/g, "")
+);
+
+const shippingText =
+    document.getElementById("cart-shipping").textContent;
+
+const shipping = shippingText.toLowerCase().includes("free")
+    ? 0
+    : Number(shippingText.replace(/[^0-9.]/g, ""));
+
+const discountText =
+    document.getElementById("cart-discount")?.textContent || "";
+
+const discount = Number(
+    discountText.replace(/[^0-9.]/g, "")
+) || 0;
+
+const currentTotal = Math.max(0, subtotal + shipping - discount);
+
+    if (Number.isFinite(currentTotal)) {
+        totalElement.textContent =
+            `$${(currentTotal + estimatedTax).toFixed(2)}`;
+    }
+}
+
+} catch (error) {
+    console.error("CART TAX ESTIMATE ERROR:", error);
+
+    if (shippingAddressError) {
+        shippingAddressError.textContent = error.message;
+        shippingAddressError.hidden = false;
+    }
+
+    return;
+}
 
         if (shippingAddressError) {
             shippingAddressError.hidden = true;
