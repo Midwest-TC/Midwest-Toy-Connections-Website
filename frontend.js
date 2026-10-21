@@ -2723,12 +2723,18 @@ shippingMethodsContainer
 
         estimatedCartTax = null;
 
-if (selectedCartShippingMethod?.is_local_pickup === true) {
+const isPickup =
+    selectedCartShippingMethod?.is_local_pickup === true;
+
+const addressForTax =
+    isPickup ? null : checkoutShippingAddress;
+
+if (isPickup || addressForTax) {
     try {
         const taxResult = await calculateCartTax(
             getCart(),
-            null,
-            "local-pickup",
+            addressForTax,
+            selectedCartShippingMethod.id,
             appliedCartDiscount?.code || null
         );
 
@@ -2741,9 +2747,8 @@ if (selectedCartShippingMethod?.is_local_pickup === true) {
         estimatedCartTax = calculatedTax;
 
     } catch (error) {
-        console.error("LOCAL PICKUP TAX ERROR:", error);
-        alert("LOCAL PICKUP TAX ERROR: " + error.message);
-        return;
+        console.error("SHIPPING TAX ERROR:", error);
+        alert("Unable to calculate sales tax: " + error.message);
     }
 }
 
@@ -3010,7 +3015,7 @@ const total =
         0,
         subtotal +
         shipping +
-        tax -
+        (tax ?? 0) -
         discountAmount
     );
 
@@ -3077,10 +3082,10 @@ const total =
                 : `$${shipping.toFixed(2)}`;
     }
 
-    if (taxElement) {
+  if (taxElement) {
     taxElement.textContent =
         tax === null
-            ? ""
+            ? "Calculating..."
             : `$${tax.toFixed(2)}`;
 }
 
@@ -3986,6 +3991,13 @@ async function calculateCartTax(cart, shippingAddress, shippingMethodId, discoun
 
     const result = await response.json();
 
+    console.log("STRIPE TAX RESPONSE:", {
+    status: response.status,
+    shippingMethodId,
+    shippingAddress,
+    result
+});
+
     if (!response.ok) {
         throw new Error(
             result.error || "Unable to calculate sales tax."
@@ -4004,7 +4016,10 @@ let checkoutPaymentMethod = "stripe";
 
 function openShippingAddressModal() {
 
+    checkoutShippingAddress = null;
     estimatedCartTax = null;
+
+    updateCartSummary();
 
     if (!shippingAddressModal) {
         console.error(
