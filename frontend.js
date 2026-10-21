@@ -4394,12 +4394,14 @@ try {
 const totalElement = document.getElementById("cart-total");
 
 if (totalElement) {
-    const subtotal = Number(
-    document.getElementById("cart-subtotal").textContent.replace(/[^0-9.]/g, "")
+    const subtotal = getCart().reduce(
+    (total, item) =>
+        total + Number(item.price || 0) * Number(item.quantity || 0),
+    0
 );
 
 const shippingText =
-    document.getElementById("cart-shipping").textContent;
+    document.getElementById("cart-shipping")?.textContent || "$0.00";
 
 const shipping = shippingText.toLowerCase().includes("free")
     ? 0
