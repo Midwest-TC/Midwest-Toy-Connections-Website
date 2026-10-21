@@ -2442,10 +2442,7 @@ function renderCartShippingMethods() {
 // FREE SHIPPING ONLY
 // =============================================
 
-if (
-    qualifiesForFreeShipping &&
-    selectedCartShippingMethod?.is_local_pickup !== true
-) {
+if (qualifiesForFreeShipping) {
 
     const standardShippingMethod =
         cartShippingMethods.find(method =>
@@ -2540,12 +2537,7 @@ shippingMethodsContainer.innerHTML =
     cartShippingMethods.map(method => {
 
         const methodPrice =
-    qualifiesForFreeShipping &&
-    String(method.name || "")
-        .toLowerCase()
-        .includes("standard")
-        ? 0
-        : Number(method.price || 0);
+            Number(method.price || 0);
 
         const isSelected =
             selectedCartShippingMethod?.id === method.id;
@@ -2696,9 +2688,9 @@ if (cartLocalPickupEnabled) {
 }
 
 
- // =============================================
- // SHIPPING METHOD CHANGE + TAX RECALCULATION
- // =============================================
+// =============================================
+// SHIPPING METHOD CHANGE
+// =============================================
 
 shippingMethodsContainer
     .querySelectorAll(
@@ -2706,96 +2698,73 @@ shippingMethodsContainer
     )
     .forEach(input => {
 
-        input.addEventListener("change", async () => {
+        input.addEventListener(
+            "change",
+            async () => {
 
-            if (input.value === "local-pickup") {
+                if (input.value === "local-pickup") {
 
-                selectedCartShippingMethod = {
-                    id: "local-pickup",
-                    name: "Local Pickup",
-                    price: 0,
-                    is_local_pickup: true
-                };
+    selectedCartShippingMethod = {
+        id: "local-pickup",
+        name: "Local Pickup",
+        price: 0,
+        is_local_pickup: true
+    };
 
-            } else {
+} else {
 
-                selectedCartShippingMethod =
-                    cartShippingMethods.find(
-                        method =>
-                            String(method.id) ===
-                            String(input.value)
-                    ) || null;
+    selectedCartShippingMethod =
+        cartShippingMethods.find(
+            method =>
+                String(method.id) ===
+                String(input.value)
+        ) || null;
+}
+
+        estimatedCartTax = null;
+
+if (selectedCartShippingMethod?.is_local_pickup === true) {
+    try {
+        const taxResult = await calculateCartTax(
+            getCart(),
+            null,
+            "local-pickup",
+            appliedCartDiscount?.code || null
+        );
+
+        const calculatedTax = Number(taxResult.tax);
+
+        if (!Number.isFinite(calculatedTax) || calculatedTax < 0) {
+            throw new Error("Invalid sales tax estimate.");
+        }
+
+        estimatedCartTax = calculatedTax;
+
+    } catch (error) {
+        console.error("LOCAL PICKUP TAX ERROR:", error);
+        alert("LOCAL PICKUP TAX ERROR: " + error.message);
+        return;
+    }
+}
+
+        const payNowButton = document.getElementById("cart-pay-now");
+        const proceedButton = document.getElementById("checkout-btn");
+
+        if (payNowButton) {
+            payNowButton.hidden = true;
+        }
+
+        if (proceedButton) {
+            proceedButton.hidden = false;
+        }
+
+        renderCartShippingMethods();
+
+        await updateCartSummary();
             }
-
-            estimatedCartTax = null;
-
-            const payNowButton =
-                document.getElementById("cart-pay-now");
-
-            const proceedButton =
-                document.getElementById("checkout-btn");
-
-            if (payNowButton) {
-                payNowButton.hidden = true;
-            }
-
-            if (proceedButton) {
-                proceedButton.hidden = false;
-            }
-
-            renderCartShippingMethods();
-
-            // LOCAL PICKUP TAX
-            if (
-                selectedCartShippingMethod?.is_local_pickup
-            ) {
-                try {
-
-                    const taxResult = await calculateCartTax(
-                        getCart(),
-                        null,
-                        "local-pickup",
-                        appliedCartDiscount?.code || null
-                    );
-
-                    const tax = Number(taxResult.tax);
-
-                    if (
-                        !Number.isFinite(tax) ||
-                        tax < 0
-                    ) {
-                        throw new Error(
-                            "Invalid Local Pickup tax estimate."
-                        );
-                    }
-
-                    estimatedCartTax = tax;
-
-                } catch (error) {
-
-                    console.error(
-                        "LOCAL PICKUP TAX ERROR:",
-                        error
-                    );
-
-                    const taxElement =
-                        document.getElementById("cart-tax");
-
-                    if (taxElement) {
-                        taxElement.textContent =
-                            "Unable to calculate";
-                    }
-
-                    await updateCartSummary();
-                    return;
-                }
-            }
-
-            await updateCartSummary();
-
-        });
+        );
     });
-
+}
 
 /* =====================================================
 UPDATE CART SUMMARY
@@ -3995,6 +3964,10 @@ const shippingAddressContinue =
 
 let checkoutShippingAddress = null;
 async function calculateCartTax(cart, shippingAddress, shippingMethodId, discountCode) {
+    console.log("TAX REQUEST:", {
+    shippingMethodId,
+    shippingAddress
+});
     const response = await fetch(
         "https://mtc-backend-node-production.up.railway.app/calculate-cart-tax",
         {
