@@ -90,9 +90,15 @@
             <span>Discount</span>
         <strong id="cart-discount">-$0.00</strong>
         </div>
-        <div class="summary-row" id="cart-tax-row">
-            <span>Estimated Sales Tax</span>
-            <strong id="cart-tax">At checkout</strong>
+        <div class="cart-tax-section">
+            <div class="summary-row" id="cart-tax-row">
+                <span>Sales Tax</span>
+                <strong id="cart-tax">Calculated at checkout</strong>
+            </div>
+            <p class="cart-tax-note">
+                Tax is estimated and will be calculated when
+                your order is processed.
+            </p>
         </div>
         <hr>
         <div class="summary-row total">
@@ -114,7 +120,17 @@
                     </div>
                 </div>
             </div>
-            <button class="checkout-btn" id="checkout-btn">Proceed To Checkout</button>
+            <button class="checkout-btn" 
+                id="checkout-btn">Proceed To Checkout
+            </button>
+            <button
+                type="button"
+                class="checkout-btn"
+                id="cart-pay-now"
+                hidden>
+                <i class="fa-solid fa-lock"></i>
+                Pay Now
+            </button>
             <button class="paypal-btn" id="paypal-btn">
                 <i class="fab fa-paypal"></i> Buy with PayPal
             </button>
@@ -295,7 +311,7 @@
                     type="submit"
                     class="checkout-btn shipping-address-continue"
                     id="shipping-address-continue">
-                    Continue To Payment
+                    Review Order
                 </button>
             </form>
         </div>
