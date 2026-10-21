@@ -1483,9 +1483,24 @@ function createOldProductCard(product) {
 ===================================================== */
 
     function saveCart(cart) {
-        localStorage.setItem("mtc-cart", JSON.stringify(cart));
-        updateCartCount();
+    localStorage.setItem("mtc-cart", JSON.stringify(cart));
+
+    estimatedCartTax = null;
+
+    const payNowButton = document.getElementById("cart-pay-now");
+    const proceedButton = document.getElementById("checkout-btn");
+
+    if (payNowButton) {
+        payNowButton.hidden = true;
     }
+
+    if (proceedButton) {
+        proceedButton.hidden = false;
+    }
+
+    updateCartCount();
+    updateCartSummary();
+}
 
     /* =====================================================
     ADD PRODUCT TO CART
@@ -2706,9 +2721,22 @@ shippingMethodsContainer
         ) || null;
 }
 
-                renderCartShippingMethods();
+                estimatedCartTax = null;
 
-                await updateCartSummary();
+        const payNowButton = document.getElementById("cart-pay-now");
+        const proceedButton = document.getElementById("checkout-btn");
+
+        if (payNowButton) {
+            payNowButton.hidden = true;
+        }
+
+        if (proceedButton) {
+            proceedButton.hidden = false;
+        }
+
+        renderCartShippingMethods();
+
+        await updateCartSummary();
             }
         );
     });
@@ -2906,7 +2934,7 @@ if (
 ) {
     shipping = 0;
 }
-let tax = null;
+let tax = estimatedCartTax;
 
 // =============================================
 // APPLIED DISCOUNT
@@ -3026,12 +3054,11 @@ const total =
     }
 
     if (taxElement) {
-
-        taxElement.textContent =
-    tax === null
-        ? "Calculated at checkout"
-        : `$${tax.toFixed(2)}`;
-    }
+    taxElement.textContent =
+        tax === null
+            ? ""
+            : `$${tax.toFixed(2)}`;
+}
 
 if (
     discountRow &&
@@ -3353,10 +3380,13 @@ if (
                     data.success !== true
                 ) {
 
-                    appliedCartDiscount =
-                        null;
+                    appliedCartDiscount = null;
+estimatedCartTax = null;
 
-                    await updateCartSummary();
+document.getElementById("cart-pay-now")?.setAttribute("hidden", "");
+document.getElementById("checkout-btn")?.removeAttribute("hidden");
+
+await updateCartSummary();
 
 
                     throw new Error(
@@ -3365,6 +3395,18 @@ if (
                     );
                 }
 
+estimatedCartTax = null;
+
+const payNowButton = document.getElementById("cart-pay-now");
+const proceedButton = document.getElementById("checkout-btn");
+
+if (payNowButton) {
+    payNowButton.hidden = true;
+}
+
+if (proceedButton) {
+    proceedButton.hidden = false;
+}
 
                 // =========================================
                 // SAVE VALIDATED DISCOUNT
@@ -3934,6 +3976,8 @@ let checkoutPaymentMethod = "stripe";
 
 function openShippingAddressModal() {
 
+    estimatedCartTax = null;
+
     if (!shippingAddressModal) {
         console.error(
             "Shipping address modal was not found."
@@ -4282,6 +4326,35 @@ if (paypalButton) {
 }
 
 /* =====================================================
+    PAY NOW BUTTON
+===================================================== */
+
+const cartPayNowButton =
+    document.getElementById("cart-pay-now");
+
+cartPayNowButton?.addEventListener("click", async () => {
+
+    if (!checkoutShippingAddress) {
+        alert("Please enter your shipping address.");
+        openShippingAddressModal();
+        return;
+    }
+
+    cartPayNowButton.disabled = true;
+
+    try {
+        if (checkoutPaymentMethod === "paypal") {
+            await startPayPalCheckout();
+        } else {
+            await startStoreCheckout();
+        }
+    } finally {
+        cartPayNowButton.disabled = false;
+    }
+
+});
+
+/* =====================================================
     SHIPPING ADDRESS FORM
 ===================================================== */
 
@@ -4386,42 +4459,9 @@ try {
         throw new Error("Invalid sales tax estimate.");
     }
 
-    const taxElement = document.getElementById("cart-tax");
+    estimatedCartTax = estimatedTax;
 
-    if (taxElement) {
-        taxElement.textContent = `$${estimatedTax.toFixed(2)}`;
-    }
-
-const totalElement = document.getElementById("cart-total");
-
-if (totalElement) {
-    const subtotal = getCart().reduce(
-    (total, item) =>
-        total + Number(item.price || 0) * Number(item.quantity || 0),
-    0
-);
-
-const shippingText =
-    document.getElementById("cart-shipping")?.textContent || "$0.00";
-
-const shipping = shippingText.toLowerCase().includes("free")
-    ? 0
-    : Number(shippingText.replace(/[^0-9.]/g, ""));
-
-const discountText =
-    document.getElementById("cart-discount")?.textContent || "";
-
-const discount = Number(
-    discountText.replace(/[^0-9.]/g, "")
-) || 0;
-
-const currentTotal = Math.max(0, subtotal + shipping - discount);
-
-    if (Number.isFinite(currentTotal)) {
-        totalElement.textContent =
-            `$${(currentTotal + estimatedTax).toFixed(2)}`;
-    }
-}
+    await updateCartSummary();
 
 } catch (error) {
     console.error("CART TAX ESTIMATE ERROR:", error);
@@ -4439,17 +4479,21 @@ const currentTotal = Math.max(0, subtotal + shipping - discount);
             shippingAddressError.textContent = "";
         }
 
-        if (checkoutPaymentMethod === "paypal") {
+        // REVIEW ORDER — SHOW PAYMENT BUTTON
+closeShippingAddressModal();
 
-            await startPayPalCheckout();
+const payNowButton = document.getElementById("cart-pay-now");
+const proceedButton = document.getElementById("checkout-btn");
 
-        } else {
+if (payNowButton) {
+    payNowButton.hidden = false;
+}
 
-            await startStoreCheckout();
-
-        }
-    }
-);
+if (proceedButton) {
+    proceedButton.hidden = true;
+}
+            }
+        );
 
 /* =====================================================
     INITIALIZATION
