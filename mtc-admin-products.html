@@ -9,7 +9,7 @@
     <script src="mtc-admin.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-<body>
+<body> 
     <div class="mw-dashboard-shell">
         <aside class="mw-dashboard-sidebar">
             <div class="mw-dashboard-brand">
@@ -45,6 +45,35 @@
                         <p class="mtc-admin-products-subtitle" id="mtcAdminProductsSubtitle">Manage your store products and inventory.</p>
                     </div>
                 </div>
+                <div class="mw-dashboard-header-right">
+                    <div class="mw-dashboard-notification-wrapper">
+                        <button
+                            class="mw-dashboard-notification"
+                            id="mwNotificationButton"
+                            type="button"
+                            aria-label="Notifications">
+                            <i class="fa-regular fa-bell"></i>
+                            <span
+                                class="mw-dashboard-notification-dot"
+                                id="mwNotificationDot">
+                        </span>
+                        </button>
+                        <div
+                            class="mw-dashboard-notification-menu"
+                            id="mwNotificationMenu">
+                            <div class="mw-dashboard-dropdown-header">
+                                <strong>Notifications</strong>
+                                <span id="mwNotificationCount">0 new</span>
+                            </div>
+                            <div
+                                class="mw-dashboard-notification-list"
+                                id="mwNotificationList">
+                                <div class="mw-dashboard-empty-notification">
+                                    No new notifications
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <div class="mtc-admin-products-header-actions" id="mtcAdminProductsHeaderActions">
                     <div class="mtc-admin-products-header-actions" id="mtcAdminProductsHeaderActions">
                         <button
@@ -263,12 +292,49 @@
                 <div class="mtc-admin-products-form-row">
                     <div class="mtc-admin-products-form-group">
                         <label for="mtcAdminProductsWeight">Weight</label>
-                        <input type="number" id="mtcAdminProductsWeight" class="mtc-admin-products-form-input" placeholder="0" step="0.01" min="0">
+                        <div style="display:flex; gap:10px;">
+                            <input
+                                type="number"
+                                id="mtcAdminProductsWeight"
+                                class="mtc-admin-products-form-input"
+                                placeholder="0"
+                                step="0.01"
+                                min="0"
+                                style="flex:1; min-width:0;">
+                            <select
+                                id="mtcAdminProductsWeightUnit"
+                                class="mtc-admin-products-form-input"
+                                style="width:90px; flex-shrink:0;">
+                                <option value="oz">oz</option>
+                                <option value="lbs">lbs</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="mtc-admin-products-form-group">
                         <label for="mtcAdminProductsQuantity">Quantity</label>
-                        <input type="number" id="mtcAdminProductsQuantity" class="mtc-admin-products-form-input" min="0" step="1" placeholder="0">
+                        <input
+                            type="number"
+                            id="mtcAdminProductsQuantity"
+                            class="mtc-admin-products-form-input"
+                            min="0"
+                            step="1"
+                            placeholder="0">
                     </div>
+                </div>
+                <div class="mtc-admin-products-form-group">
+                    <label
+                        for="mtcAdminProductsActive"
+                        style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                        <input
+                            type="checkbox"
+                            id="mtcAdminProductsActive"
+                            checked
+                            style="width:18px; height:18px; cursor:pointer;">
+                        <span>Active Product</span>
+                    </label>
+                    <small>
+                        Uncheck to hide this product from the storefront.
+                    </small>
                 </div>
                 <div class="mtc-admin-products-form-actions">
                     <button type="submit" class="mtc-admin-products-save-button" id="mtcAdminProductsSaveButton">
