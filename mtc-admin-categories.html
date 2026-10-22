@@ -10,51 +10,80 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    <div class="mw-dashboard-shell">
-        <aside class="mw-dashboard-sidebar">
-            <div class="mw-dashboard-brand">
-                <div class="mw-dashboard-mark">
-                    <span>MTC</span>
-                </div>
-                <div class="mw-dashboard-brand-text">
-                    <strong>Midwest Toy</strong>
-                    <span>Connections</span>
+<div class="mw-dashboard-shell">
+    <aside class="mw-dashboard-sidebar">
+        <div class="mw-dashboard-brand">
+            <div class="mw-dashboard-mark">
+                <span>MTC</span>
+            </div>
+            <div class="mw-dashboard-brand-text">
+                <strong>Midwest Toy</strong>
+                <span>Connections</span>
+            </div>
+        </div>
+        <nav class="mw-dashboard-navigation">
+            <p class="mw-dashboard-nav-title">Admin Panel</p>
+            <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
+            <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
+            <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
+            <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
+            <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
+            <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
+            <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
+            <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
+            <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
+            <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+        <div class="mw-dashboard-sidebar-bottom">
+            <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Sign Out</span>
+            </a>
+        </div>
+    </aside>
+    <main class="mtc-admin-categories-main" id="mtcAdminCategoriesMain">
+        <header class="mtc-admin-categories-header" id="mtcAdminCategoriesHeader">
+            <div class="mtc-admin-categories-header-left">
+                <button type="button" class="mtc-admin-categories-menu-button" id="mtcAdminCategoriesMenuButton" aria-label="Open navigation">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div>
+                    <h1 class="mtc-admin-categories-title">
+                        Categories
+                    </h1>
+                    <p class="mtc-admin-categories-subtitle">
+                        Organize and manage your store product categories.
+                    </p>
                 </div>
             </div>
-           <nav class="mw-dashboard-navigation">
-                <p class="mw-dashboard-nav-title">Admin Panel</p>
-                <a href="mtc-admin-dashboard.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
-                <a href="mtc-admin-orders.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-box-open"></i><span>Orders</span></a>
-                <a href="mtc-admin-products.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-layer-group"></i><span>Products</span></a>
-                <a href="mtc-admin-categories.html" class="mw-dashboard-nav-link mw-dashboard-nav-active"><i class="fa-solid fa-tags"></i><span>Categories</span></a>
-                <a href="mtc-admin-subscribers.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-users"></i><span>Subscribers</span></a>
-                <a href="mtc-admin-events.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-calendar-days"></i><span>Events</span></a>
-                <a href="mtc-admin-messages.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-envelope"></i><span>Messages</span></a>
-                <a href="mtc-admin-reviews.html" class="mw-dashboard-nav-link"> <i class="fa-solid fa-star"></i>Reviews</a>
-                <a href="mtc-admin-shipping.html"class="mw-dashboard-nav-link"><i class="fa-solid fa-truck"></i><span>Shipping</span></a>
-                <a href="mtc-admin-legal.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-scale-balanced"></i><span>Legal</span></a>
-                <a href="mtc-admin-settings.html" class="mw-dashboard-nav-link"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
-            </nav>
-            <div class="mw-dashboard-sidebar-bottom">
-                <a href="#" class="mw-dashboard-nav-link mw-dashboard-logout-link">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Sign Out</span>
-                </a>
-            </div>
-        </aside>
-        <main class="mtc-admin-categories-main" id="mtcAdminCategoriesMain">
-            <header class="mtc-admin-categories-header" id="mtcAdminCategoriesHeader">
-                <div class="mtc-admin-categories-header-left">
-                    <button type="button" class="mtc-admin-categories-menu-button" id="mtcAdminCategoriesMenuButton" aria-label="Open navigation">
-                        <i class="fa-solid fa-bars"></i>
+            <div class="mw-dashboard-header-right">
+                <div class="mw-dashboard-notification-wrapper">
+                    <button
+                        class="mw-dashboard-notification"
+                        id="mwNotificationButton"
+                        type="button"
+                        aria-label="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <span
+                            class="mw-dashboard-notification-dot"
+                            id="mwNotificationDot">
+                    </span>
                     </button>
-                    <div>
-                        <h1 class="mtc-admin-categories-title">
-                            Categories
-                        </h1>
-                        <p class="mtc-admin-categories-subtitle">
-                            Organize and manage your store product categories.
-                        </p>
+                    <div
+                        class="mw-dashboard-notification-menu"
+                        id="mwNotificationMenu">
+                        <div class="mw-dashboard-dropdown-header">
+                            <strong>Notifications</strong>
+                            <span id="mwNotificationCount">0 new</span>
+                        </div>
+                        <div
+                            class="mw-dashboard-notification-list"
+                            id="mwNotificationList">
+                            <div class="mw-dashboard-empty-notification">
+                                No new notifications
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="mtc-admin-categories-header-actions">
