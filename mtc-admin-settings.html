@@ -42,8 +42,7 @@
                             type="button"
                             class="mtc-admin-settings-menu-button"
                             id="mtcAdminSettingsMenuButton"
-                            aria-label="Open navigation"
-                        >
+                            aria-label="Open navigation">
                             <i class="fa-solid fa-bars"></i>
                         </button>
                         <div>
@@ -51,6 +50,35 @@
                             <p class="mtc-admin-settings-subtitle" id="mtcAdminSettingsSubtitle">
                                 Manage your store and administrator settings.
                             </p>
+                        </div>
+                    </div>
+                    <div class="mw-dashboard-header-right">
+                    <div class="mw-dashboard-notification-wrapper">
+                        <button
+                            class="mw-dashboard-notification"
+                            id="mwNotificationButton"
+                            type="button"
+                            aria-label="Notifications">
+                            <i class="fa-regular fa-bell"></i>
+                            <span
+                                class="mw-dashboard-notification-dot"
+                                id="mwNotificationDot">
+                        </span>
+                        </button>
+                        <div
+                            class="mw-dashboard-notification-menu"
+                            id="mwNotificationMenu">
+                            <div class="mw-dashboard-dropdown-header">
+                                <strong>Notifications</strong>
+                                <span id="mwNotificationCount">0 new</span>
+                            </div>
+                            <div
+                                class="mw-dashboard-notification-list"
+                                id="mwNotificationList">
+                                <div class="mw-dashboard-empty-notification">
+                                    No new notifications
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </header>
