@@ -3019,6 +3019,8 @@ const total =
         discountAmount
     );
 
+const taxPending = tax === null;
+
     /* =============================================
        UPDATE HTML
     ============================================= */
@@ -3082,7 +3084,7 @@ const total =
                 : `$${shipping.toFixed(2)}`;
     }
 
-  if (taxElement) {
+    if (taxElement) {
     taxElement.textContent =
         tax === null
             ? "Calculating..."
@@ -3114,10 +3116,8 @@ if (
 }
 
     if (totalElement) {
-
-        totalElement.textContent =
-            `$${total.toFixed(2)}`;
-    }
+    totalElement.textContent = `$${total.toFixed(2)}`;
+}
 
     /* =============================================
        CHECKOUT BUTTON
@@ -4249,7 +4249,7 @@ async function startPayPalCheckout() {
             );
         }
 
-        window.location.href = data.approvalUrl;
+       window.location.href = data.approvalUrl;
 
     } catch (error) {
 
@@ -4369,11 +4369,12 @@ if (paypalButton) {
             ========================================= */
 
             if (checkoutShippingAddress && estimatedCartTax !== null) {
-                await startPayPalCheckout();
-                return;
-            }
+    await startPayPalCheckout();
+    return;
+}
 
-            openShippingAddressModal();
+openShippingAddressModal();
+
         }
     );
 }
