@@ -115,26 +115,144 @@
                 </div>
             </header>
             <section class="mw-dashboard-content">
+                <div class="mw-dashboard-date-filter">
+                    <div class="mw-dashboard-date-filter-heading">
+                        <div class="mw-dashboard-date-filter-icon">
+                            <i class="fa-regular fa-calendar-days"></i>
+                        </div>
+                        <div>
+                            <h2>Dashboard Date Range</h2>
+                            <p>Select a date range to view your store's performance.</p>
+                        </div>
+                    </div>
+                    <div class="mw-dashboard-date-filter-controls">
+                        <div class="mw-dashboard-date-presets">
+                            <button type="button" class="active" data-dashboard-range="all">All Time</button>
+                            <button type="button" data-dashboard-range="month">This Month</button>
+                            <button type="button" data-dashboard-range="year">This Year</button>
+                        </div>
+                        <div class="mw-dashboard-date-input-group">
+                            <label for="mwDashboardStartDate">Start Date</label>
+                            <input type="date" id="mwDashboardStartDate">
+                        </div>
+                        <div class="mw-dashboard-date-input-group">
+                            <label for="mwDashboardEndDate">End Date</label>
+                            <input type="date" id="mwDashboardEndDate">
+                        </div>
+                        <div class="mw-dashboard-date-actions">
+                            <button type="button" id="mwDashboardApplyDate">Apply Filter</button>
+                            <button type="button" id="mwDashboardResetDate">Reset Filter</button>
+                        </div>
+                    </div>
+                    <p id="mwDashboardDateFilterError" role="alert" hidden></p>
+                </div>
+                <div class="mw-dashboard-overview-header">
+                    <div class="mw-dashboard-overview-navigation">
+                        <button
+                            type="button"
+                            id="mwDashboardOverviewPrevious"
+                            aria-label="Previous overview"
+                            disabled>
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button
+                            type="button"
+                            id="mwDashboardOverviewNext"
+                            aria-label="Next overview">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="mw-dashboard-stat-grid">
+                    <div class="mw-dashboard-stat-card" data-overview="financial">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Product Profit</span>
+                        </div>
+                        <p>Total Product Profit</p>
+                        <h2 id="mwDashboardProductProfit">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">
+                            Total profit from products sold after discounts (excluding tax)
+                        </span>
+                    </div>
+                    <div class="mw-dashboard-stat-card" data-overview="financial">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Shipping Profit</span>
+                        </div>
+                        <p>Total Shipping Profit</p>
+                        <h2 id="mwDashboardShippingProfit">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Shipping collected minus carrier expenses</span>
+                    </div>
+                    <div class="mw-dashboard-stat-card" data-overview="financial">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Product + Shipping Profit</span>
+                        </div>
+                        <p>Total Gross Profit</p>
+                        <h2 id="mwDashboardGrossProfit">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Product profit plus shipping profit</span>
+                    </div>
                     <div class="mw-dashboard-stat-card">
                         <div class="mw-dashboard-stat-top">
                             <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon"><i class="fa-solid fa-dollar-sign"></i></div>
                             <span class="mw-dashboard-stat-change">Revenue</span>
                         </div>
-                        <p>Total Sales</p>
+                        <p>Net Product Sales</p>
                         <h2 id="mwDashboardTotalSales">Loading...</h2>
-                        <span class="mw-dashboard-stat-description">Compared to last month</span>
+                        <span class="mw-dashboard-stat-description">Total product sales after discounts (excluding Tax)</span>
                     </div>
-                    <div class="mw-dashboard-stat-card">
+                    <div class="mw-dashboard-stat-card" data-overview="store" hidden>
                         <div class="mw-dashboard-stat-top">
-                            <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon"><i class="fa-solid fa-cart-shopping"></i></div>
-                            <span class="mw-dashboard-stat-change">Orders</span>
+                            <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon">
+                                <i class="fa-solid fa-receipt"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Tax</span>
                         </div>
-                        <p>Total Orders</p>
-                        <h2 id="mwDashboardTotalOrders">Loading...</h2>
-                        <span class="mw-dashboard-stat-description">Compared to last month</span>
+                        <p>Total Sales Tax</p>
+                        <h2 id="mwDashboardTotalSalesTax">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Sales tax collected from paid orders</span>
                     </div>
-                    <div class="mw-dashboard-stat-card">
+                    <div class="mw-dashboard-stat-card" data-overview="financial">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Customer's Shipping Cost</span>
+                        </div>
+                        <p>Total Shipping Collected</p>
+                        <h2 id="mwDashboardShippingCollected">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Shipping fees paid by customers</span>
+                    </div>
+                    <div class="mw-dashboard-stat-card" data-overview="financial">
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Actual Carrier Shipping Cost</span>
+                        </div>
+                        <p>Total Shipping Expenses</p>
+                        <h2 id="mwDashboardShippingExpenses">Loading...</h2>
+                        <span class="mw-dashboard-stat-description">Actual carrier shipping costs</span>
+                    </div>
+                        <div class="mw-dashboard-stat-card" data-overview="store" hidden>
+                            <div class="mw-dashboard-stat-top">
+                                <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </div>
+                                <span class="mw-dashboard-stat-change">Orders</span>
+                            </div>
+                            <p>Total Orders</p>
+                            <h2 id="mwDashboardTotalOrders">Loading...</h2>
+                            <span class="mw-dashboard-stat-description">Total customer orders</span>
+                        </div>
+                    <div class="mw-dashboard-stat-card" data-overview="store" hidden>
                         <div class="mw-dashboard-stat-top">
                             <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon"><i class="fa-solid fa-users"></i></div>
                             <span class="mw-dashboard-stat-change">Customers</span>
@@ -143,7 +261,7 @@
                         <h2 id="mwDashboardCustomerCount">Loading...</h2>
                         <span class="mw-dashboard-stat-description">Total registered customers</span>
                     </div>
-                    <div class="mw-dashboard-stat-card">
+                    <div class="mw-dashboard-stat-card" data-overview="store" hidden>
                         <div class="mw-dashboard-stat-top">
                             <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon"><i class="fa-solid fa-box"></i></div>
                             <span class="mw-dashboard-stat-change">Inventory</span>
@@ -152,39 +270,28 @@
                         <h2 id="mwDashboardProductCount">Loading...</h2>
                         <span class="mw-dashboard-stat-description">Products currently listed</span>
                     </div>
-                    <div class="mw-dashboard-stat-card">
-                    <div class="mw-dashboard-stat-top">
-                        <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon">
-                            <i class="fa-solid fa-rotate-left"></i>
+                    <div class="mw-dashboard-stat-card" data-overview="store" hidden>
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-purple-icon">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Refunds</span>
                         </div>
-                        <span class="mw-dashboard-stat-change">Refunds</span>
+                        <p>Refunded Orders</p>
+                        <h2 id="mwDashboardRefundedOrders">Loading...</h2>
+                        <span class="mw-dashboard-stat-description"> Orders with partial or full refunds </span>
                     </div>
-                    <p>Refunded Orders</p>
-                    <h2 id="mwDashboardRefundedOrders">
-                        Loading...
-                    </h2>
-                    <span class="mw-dashboard-stat-description">
-                        Orders with partial or full refunds
-                    </span>
-                </div>
-                <div class="mw-dashboard-stat-card">
-    <div class="mw-dashboard-stat-top">
-        <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
-            <i class="fa-solid fa-money-bill-transfer"></i>
-        </div>
-        <span class="mw-dashboard-stat-change">Total Refund Amount</span>
-    </div>
-
-    <p>Total Refunded</p>
-
-    <h2 id="mwDashboardTotalRefunded">
-        Loading...
-    </h2>
-
-    <span class="mw-dashboard-stat-description">
-        Total amount refunded to customers
-    </span>
-</div>
+                    <div class="mw-dashboard-stat-card" data-overview="store" hidden>
+                        <div class="mw-dashboard-stat-top">
+                            <div class="mw-dashboard-stat-icon mw-dashboard-blue-icon">
+                                <i class="fa-solid fa-money-bill-transfer"></i>
+                            </div>
+                            <span class="mw-dashboard-stat-change">Total Refund Amount</span>
+                        </div>
+                        <p>Total Refunded</p>
+                        <h2 id="mwDashboardTotalRefunded">Loading...</h2>
+                        <span class="mw-dashboard-stat-description"> Total amount refunded to customers </span>
+                    </div>
                 </div>
                 <div class="mw-dashboard-panel mw-dashboard-sales-panel">
                     <div class="mw-dashboard-panel-header">
@@ -192,59 +299,87 @@
                             <h2>Sales Analytics</h2>
                             <p>Revenue performance over time</p>
                         </div>
-                        <select
-                            id="mwDashboardSalesRange"
-                            class="mw-dashboard-sales-range">
+                        <select id="mwDashboardSalesRange" class="mw-dashboard-sales-range">
                             <option value="7">Last 7 Days</option>
                             <option value="30" selected>Last 30 Days</option>
                             <option value="365">Last 12 Months</option>
                         </select>
                     </div>
                     <div class="mw-dashboard-chart-container">
-                        <canvas
-                            id="mwDashboardSalesChart"
-                        ></canvas>
+                        <canvas id="mwDashboardSalesChart"></canvas>
                     </div>
                 </div>
                 <div class="mw-dashboard-main-grid">
                     <div class="mw-dashboard-panel mw-dashboard-orders-panel">
                         <div class="mw-dashboard-panel-header">
-                            <div><h2>Recent Orders</h2><p>Latest customer orders</p></div>
-                            <a href="mtc-admin-orders.html" class="mw-dashboard-view-link">View All<i class="fa-solid fa-arrow-right"></i></a>
+                            <div>
+                                <h2>Recent Orders</h2>
+                                <p>Latest customer orders</p>
+                            </div>
+                            <a href="mtc-admin-orders.html" class="mw-dashboard-view-link"
+                                >View All<i class="fa-solid fa-arrow-right"></i
+                            ></a>
                         </div>
                         <div class="mw-dashboard-table-wrapper">
                             <table class="mw-dashboard-orders-table">
                                 <thead>
-                                    <tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Customer</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="mwDashboardOrdersTableBody">
-                                    <tr><td colspan="5"><div class="mw-dashboard-loading">Loading...</div></td></tr>
+                                    <tr>
+                                        <td colspan="5"><div class="mw-dashboard-loading">Loading...</div></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="mw-dashboard-panel mw-dashboard-actions-panel">
                         <div class="mw-dashboard-panel-header">
-                            <div><h2>Quick Actions</h2><p>Manage your store</p></div>
+                            <div>
+                                <h2>Quick Actions</h2>
+                                <p>Manage your store</p>
+                            </div>
                         </div>
                         <div class="mw-dashboard-actions-grid">
-                            <a href="mtc-admin-products.html" class="mw-dashboard-action-card"><div class="mw-dashboard-action-icon"><i class="fa-solid fa-plus"></i></div><span>Add Product</span></a>
-                            <a href="mtc-admin-orders.html" class="mw-dashboard-action-card"><div class="mw-dashboard-action-icon"><i class="fa-solid fa-box"></i></div><span>View Orders</span></a>
-                            <a href="mtc-admin-events.html" class="mw-dashboard-action-card"><div class="mw-dashboard-action-icon"><i class="fa-solid fa-calendar-plus"></i></div><span>Create Event</span></a>
+                            <a href="mtc-admin-products.html" class="mw-dashboard-action-card"
+                                ><div class="mw-dashboard-action-icon"><i class="fa-solid fa-plus"></i></div>
+                                <span>Add Product</span></a
+                            >
+                            <a href="mtc-admin-orders.html" class="mw-dashboard-action-card"
+                                ><div class="mw-dashboard-action-icon"><i class="fa-solid fa-box"></i></div>
+                                <span>View Orders</span></a
+                            >
+                            <a href="mtc-admin-events.html" class="mw-dashboard-action-card"
+                                ><div class="mw-dashboard-action-icon"><i class="fa-solid fa-calendar-plus"></i></div>
+                                <span>Create Event</span></a
+                            >
                         </div>
                     </div>
                 </div>
                 <div class="mw-dashboard-lower-grid">
                     <div class="mw-dashboard-panel">
                         <div class="mw-dashboard-panel-header">
-                            <div><h2>Inventory Overview</h2><p>Current product inventory</p></div>
-                            <a href="mtc-admin-products.html" class="mw-dashboard-view-link">Manage<i class="fa-solid fa-arrow-right"></i></a>
+                            <div>
+                                <h2>Inventory Overview</h2>
+                                <p>Current product inventory</p>
+                            </div>
+                            <a href="mtc-admin-products.html" class="mw-dashboard-view-link"
+                                >Manage<i class="fa-solid fa-arrow-right"></i
+                            ></a>
                         </div>
                         <div class="mw-dashboard-inventory-list">
                             <div class="mw-dashboard-inventory-item">
                                 <div class="mw-dashboard-inventory-icon"><i class="fa-solid fa-layer-group"></i></div>
                                 <div class="mw-dashboard-inventory-info">
-                                    <div><strong>Trading Cards</strong><span id="mwDashboardTradingCardsCount">Loading...</span></div>
+                                    <div>
+                                        <strong>Trading Cards</strong><span id="mwDashboardTradingCardsCount">Loading...</span>
+                                    </div>
                                     <div class="mw-dashboard-progress"><span id="mwDashboardTradingCardsProgress"></span></div>
                                 </div>
                             </div>
@@ -258,7 +393,10 @@
                             <div class="mw-dashboard-inventory-item">
                                 <div class="mw-dashboard-inventory-icon"><i class="fa-solid fa-gamepad"></i></div>
                                 <div class="mw-dashboard-inventory-info">
-                                    <div><strong>Accessories / Other Inventory</strong><span id="mwDashboardOtherCount">Loading...</span></div>
+                                    <div>
+                                        <strong>Accessories / Other Inventory</strong
+                                        ><span id="mwDashboardOtherCount">Loading...</span>
+                                    </div>
                                     <div class="mw-dashboard-progress"><span id="mwDashboardOtherProgress"></span></div>
                                 </div>
                             </div>
@@ -266,8 +404,13 @@
                     </div>
                     <div class="mw-dashboard-panel">
                         <div class="mw-dashboard-panel-header">
-                            <div><h2>Upcoming Events</h2><p>Scheduled store events</p></div>
-                            <a href="mtc-admin-events.html" class="mw-dashboard-view-link">View All<i class="fa-solid fa-arrow-right"></i></a>
+                            <div>
+                                <h2>Upcoming Events</h2>
+                                <p>Scheduled store events</p>
+                            </div>
+                            <a href="mtc-admin-events.html" class="mw-dashboard-view-link"
+                                >View All<i class="fa-solid fa-arrow-right"></i
+                            ></a>
                         </div>
                         <div class="mw-dashboard-event-list" id="mwDashboardEventList">
                             <div class="mw-dashboard-loading">Loading...</div>
@@ -275,6 +418,7 @@
                     </div>
                 </div>
             </section>
+
             <footer class="mw-dashboard-footer">
                 <span>© 2026 Midwest Toy Connections</span>
                 <span>Admin Dashboard</span>
