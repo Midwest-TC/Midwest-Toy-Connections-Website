@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         };
 
         const response = await fetch(
-    "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)submit-store-review",
+    "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)submit-store-review",
     {
         method: "POST",
         headers: {
@@ -3386,7 +3386,7 @@ async function revalidateAppliedCartDiscount() {
 
         const response =
             await fetch(
-                "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)validate-discount",
+                "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)validate-discount",
                 {
                     method: "POST",
 
@@ -3487,7 +3487,7 @@ if (
 
                 const response =
                     await fetch(
-                        "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)validate-discount",
+                        "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)validate-discount",
                         {
                             method: "POST",
 
@@ -4083,7 +4083,7 @@ async function calculateCartTax(cart, shippingAddress, shippingMethodId, discoun
     shippingAddress
 });
     const response = await fetch(
-        "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)calculate-cart-tax",
+        "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)calculate-cart-tax",
         {
             method: "POST",
             headers: {
@@ -4216,7 +4216,7 @@ async function startStoreCheckout() {
         }
 
         const response = await fetch(
-            "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)create-store-checkout-session",
+            "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)create-store-checkout-session",
             {
                 method: "POST",
 
@@ -4322,7 +4322,7 @@ async function startPayPalCheckout() {
         );
 
         const response = await fetch(
-            "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)create-paypal-order",
+            "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)create-paypal-order",
             {
                 method: "POST",
 
@@ -4764,7 +4764,7 @@ function getCarrierTrackingUrl(carrier, trackingNumber) {
         `;
 
             try {
-                const response = await fetch("[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)track-order", {
+                const response = await fetch("[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)track-order", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -5855,7 +5855,7 @@ function renderDetailImages() {
             Submitting...
         `;
                 reviewSubmitResult.innerHTML = "";
-                const response = await fetch("[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)submit-review", {
+                const response = await fetch("[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)submit-review", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -5992,7 +5992,7 @@ async function handlePaymentSuccessPage() {
 
             const response =
                 await fetch(
-                    "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)capture-paypal-order",
+                    "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)capture-paypal-order",
                     {
                         method: "POST",
 
@@ -6071,7 +6071,7 @@ async function handlePaymentSuccessPage() {
 
         const response =
             await fetch(
-                `[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)store-order-by-session/${encodeURIComponent(sessionId)}`
+                `[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)store-order-by-session/${encodeURIComponent(sessionId)}`
             );
 
         const data =
@@ -6178,7 +6178,7 @@ async function handlePaymentSuccessPage() {
 
             const response =
                 await fetch(
-                    "[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)capture-paypal-order",
+                    "[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)capture-paypal-order",
                     {
                         method: "POST",
 
@@ -6289,7 +6289,7 @@ async function handlePaymentSuccessPage() {
 
         const response =
             await fetch(
-                `[https://mtc-backend-node-production.up.railway.app/](https://mtc-backend-node-production.up.railway.app/)store-order-by-session/${encodeURIComponent(sessionId)}`
+                `[https://mtc-backend-node.onrender.com/](https://mtc-backend-node.onrender.com/)store-order-by-session/${encodeURIComponent(sessionId)}`
             );
 
         const data =
