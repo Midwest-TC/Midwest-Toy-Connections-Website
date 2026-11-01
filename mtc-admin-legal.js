@@ -119,22 +119,22 @@ console.log("LEGAL PERMISSION FUNCTION IS RUNNING");
 ] = await Promise.all([
 
             fetch(
-                "http://localhost:3000/admin-permission/check?permission=legal.create",
+                "https://mtc-backend-node.onrender.com/admin-permission/check?permission=legal.create",
                 { headers: permissionHeaders }
             ),
 
             fetch(
-                "http://localhost:3000/admin-permission/check?permission=legal.edit",
+                "https://mtc-backend-node.onrender.com/admin-permission/check?permission=legal.edit",
                 { headers: permissionHeaders }
             ),
 
             fetch(
-                "http://localhost:3000/admin-permission/check?permission=legal.publish",
+                "https://mtc-backend-node.onrender.com/admin-permission/check?permission=legal.publish",
                 { headers: permissionHeaders }
             ),
 
             fetch(
-                "http://localhost:3000/admin-permission/check?permission=legal.delete",
+                "https://mtc-backend-node.onrender.com/admin-permission/check?permission=legal.delete",
                 { headers: permissionHeaders }
             )
 
