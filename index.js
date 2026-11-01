@@ -250,7 +250,7 @@ if (contactForm) {
                 // SAVE MESSAGE THROUGH SECURE BACKEND
                 // =========================================
                 const messageResponse = await fetch(
-                    "https://mtc-backend-node-production.up.railway.app/contact-message",
+                    "https://mtc-backend-node.onrender.com/contact-message",
                     {
                         method: "POST",
                         headers: {
@@ -279,7 +279,7 @@ if (contactForm) {
 
 
                 const notificationResponse = await fetch(
-                    "https://mtc-backend-node-production.up.railway.app/contact-message-notification",
+                    "https://mtc-backend-node.onrender.com/contact-message-notification",
                     {
                         method: "POST",
                         headers: {
@@ -1424,7 +1424,7 @@ if (bandaiLink) {
                     // =========================================
 
                     const response = await fetch(
-                        "https://mtc-backend-node-production.up.railway.app/subscribe",
+                        "https://mtc-backend-node.onrender.com/subscribe",
                         {
                             method: "POST",
 
@@ -1572,7 +1572,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
 
             const response = await fetch(
-                "https://mtc-backend-node-production.up.railway.app/subscribe",
+                "https://mtc-backend-node.onrender.com/subscribe",
                 {
                     method: "POST",
                     headers: {
