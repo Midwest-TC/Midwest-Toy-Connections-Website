@@ -1182,88 +1182,192 @@ if (customersError) {
 
     await loadRecentOrders();
 
+    
     // =========================================
     // DASHBOARD INVENTORY OVERVIEW
+    // DYNAMIC CATEGORIES + INVENTORY
     // =========================================
+
     async function loadInventoryOverview() {
-        const { data: products, error: productsError } = await adminSupabase
-            .from("Products")
-            .select(
-                `
-        id,
-        category_id,
-        Categories (
-            name
-        )
-    `
-            )
-            .eq("is_active", true);
-        const { data: inventory, error: inventoryError } = await adminSupabase
-            .from("Inventory")
-            .select("product_id, quantity");
-        if (productsError || inventoryError) {
-            console.error("Inventory overview error:", productsError || inventoryError);
+        const container = document.getElementById(
+            "mwDashboardInventoryCategories"
+        );
+
+        if (!container) return;
+
+        // =========================================
+        // GET ALL CATEGORIES
+        // =========================================
+
+        const { data: categories, error: categoriesError } =
+            await adminSupabase
+                .from("Categories")
+                .select("id, name")
+                .order("name", { ascending: true });
+
+        // =========================================
+        // GET ACTIVE PRODUCTS
+        // =========================================
+
+        const { data: products, error: productsError } =
+            await adminSupabase
+                .from("Products")
+                .select("id, category_id")
+                .eq("is_active", true);
+
+        // =========================================
+        // GET PRODUCT INVENTORY
+        // =========================================
+
+        const { data: inventory, error: inventoryError } =
+            await adminSupabase
+                .from("Inventory")
+                .select("product_id, quantity");
+
+        // =========================================
+        // CHECK FOR ERRORS
+        // =========================================
+
+        if (categoriesError || productsError || inventoryError) {
+            console.error(
+                "Inventory overview error:",
+                categoriesError || productsError || inventoryError
+            );
+
+            container.textContent = "Unable to load inventory.";
             return;
         }
-        const totals = {
-            tradingCards: 0,
-            toys: 0,
-            games: 0,
-        };
-        products.forEach((product) => {
-            const inventoryRow = inventory.find((item) => String(item.product_id) === String(product.id));
-            const quantity = Number(inventoryRow?.quantity || 0);
-            const categoryName = (product.Categories?.name || "").toLowerCase();
 
-            if (categoryName.includes("tcg") || categoryName.includes("trading card")) {
-                totals.tradingCards += quantity;
-            } else if (
-                categoryName.includes("figure") ||
-                categoryName.includes("die-cast") ||
-                categoryName.includes("building") ||
-                categoryName.includes("collectible")
-            ) {
-                totals.toys += quantity;
-            } else {
-                totals.games += quantity;
-            }
+        // =========================================
+        // CALCULATE INVENTORY BY PRODUCT
+        // =========================================
+
+        const inventoryByProduct = new Map();
+
+        (inventory || []).forEach((item) => {
+            const productId = String(item.product_id);
+
+            const currentQuantity =
+                inventoryByProduct.get(productId) || 0;
+
+            inventoryByProduct.set(
+                productId,
+                currentQuantity + Number(item.quantity || 0)
+            );
         });
-        const highestTotal = Math.max(totals.tradingCards, totals.toys, totals.games, 1);
 
-        // TRADING CARDS
-        const tradingCardsCount = document.getElementById("mwDashboardTradingCardsCount");
-        const tradingCardsProgress = document.getElementById("mwDashboardTradingCardsProgress");
-        if (tradingCardsCount) {
-            tradingCardsCount.textContent = `${totals.tradingCards} items`;
-        }
-        if (tradingCardsProgress) {
-            tradingCardsProgress.style.width = `${(totals.tradingCards / highestTotal) * 100}%`;
+        // =========================================
+        // CREATE CATEGORY TOTALS
+        // INCLUDING EMPTY CATEGORIES
+        // =========================================
+
+        const categoryTotals = new Map();
+
+        (categories || []).forEach((category) => {
+            categoryTotals.set(String(category.id), {
+                name: category.name,
+                quantity: 0
+            });
+        });
+
+        // =========================================
+        // ADD PRODUCT QUANTITY TO CATEGORY
+        // =========================================
+
+        (products || []).forEach((product) => {
+            const category = categoryTotals.get(
+                String(product.category_id)
+            );
+
+            if (!category) return;
+
+            const quantity =
+                inventoryByProduct.get(String(product.id)) || 0;
+
+            category.quantity += quantity;
+        });
+
+        // =========================================
+        // FIND HIGHEST CATEGORY TOTAL
+        // FOR PROGRESS BARS
+        // =========================================
+
+        const results = [...categoryTotals.values()];
+
+        const highestTotal = Math.max(
+            1,
+            ...results.map((category) => category.quantity)
+        );
+
+        // =========================================
+        // CLEAR OLD INVENTORY DISPLAY
+        // =========================================
+
+        container.replaceChildren();
+
+        if (results.length === 0) {
+            container.textContent = "No categories created yet.";
+            return;
         }
 
-        // TOYS
-        const toyCount = document.getElementById("mwDashboardToyCount");
-        const toyProgress = document.getElementById("mwDashboardToyProgress");
-        if (toyCount) {
-            toyCount.textContent = `${totals.toys} items`;
-        }
-        if (toyProgress) {
-            toyProgress.style.width = `${(totals.toys / highestTotal) * 100}%`;
-        }
+        // =========================================
+        // DISPLAY DYNAMIC CATEGORIES
+        // =========================================
 
-        // ACCESSORIES / OTHER INVENTORY
-        const otherCount = document.getElementById("mwDashboardOtherCount");
+        results.forEach((category) => {
 
-        const otherProgress = document.getElementById("mwDashboardOtherProgress");
+            // Inventory row
+            const item = document.createElement("div");
+            item.className = "mw-dashboard-inventory-item";
 
-        if (otherCount) {
-            otherCount.textContent = `${totals.games} items`;
-        }
+            // Category icon
+            const icon = document.createElement("div");
+            icon.className = "mw-dashboard-inventory-icon";
 
-        if (otherProgress) {
-            otherProgress.style.width = `${(totals.games / highestTotal) * 100}%`;
-        }
+            const iconElement = document.createElement("i");
+            iconElement.className = "fa-solid fa-layer-group";
+
+            icon.appendChild(iconElement);
+
+            // Category information
+            const info = document.createElement("div");
+            info.className = "mw-dashboard-inventory-info";
+
+            // Category name + quantity
+            const heading = document.createElement("div");
+
+            const name = document.createElement("strong");
+            name.textContent = category.name;
+
+            const count = document.createElement("span");
+            count.textContent = `${category.quantity} items`;
+
+            heading.append(name, count);
+
+            // Progress bar
+            const progress = document.createElement("div");
+            progress.className = "mw-dashboard-progress";
+
+            const progressFill = document.createElement("span");
+
+            const percentage =
+                (category.quantity / highestTotal) * 100;
+
+            progressFill.style.width = `${percentage}%`;
+
+            progress.appendChild(progressFill);
+
+            // Assemble row
+            info.append(heading, progress);
+            item.append(icon, info);
+
+            // Add category to dashboard
+            container.appendChild(item);
+        });
     }
+
     await loadInventoryOverview();
+
 
     // =========================================
     // DASHBOARD UPCOMING EVENTS
