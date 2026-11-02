@@ -6737,12 +6737,11 @@ ${
             return;
         }
 
-        const { error: deleteError } = await adminSupabase
+        const { data: deletedRows, error: deleteError } = await adminSupabase
             .from("Products")
-            .update({
-                is_active: false,
-            })
-            .eq("id", productId);
+            .delete()
+            .eq("id", productId)
+            .select("id");
 
         if (deleteError) {
             console.error("Delete product error:", deleteError);
