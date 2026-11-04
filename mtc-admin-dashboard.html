@@ -408,7 +408,55 @@
                     </div>
                 </div>
             </section>
-
+            <section class="mtc-about-admin">
+                <h2>About Page — Our Story</h2>
+                <p>Edit the story and image displayed on your website.</p>
+                <form id="mtcAboutCmsForm">
+                    <label for="mtcAboutCmsText">
+                        Our Story
+                    </label>
+                    <textarea
+                        id="mtcAboutCmsText"
+                        rows="9"
+                        placeholder="Enter your story..."
+                    ></textarea>
+                    <label for="mtcAboutCmsFile">
+                        Our Story Image
+                    </label>
+                    <input
+                        type="file"
+                        id="mtcAboutCmsFile"
+                        accept="image/png,image/jpeg,image/webp,image/gif"
+                    >
+                    <div id="mtcAboutCmsImageWrap">
+                    <img
+                        id="mtcAboutCmsPreview"
+                        alt="Our Story image preview"
+                        hidden
+                    >
+                    <button
+                        type="button"
+                        id="mtcAboutCmsRemoveImage"
+                        aria-label="Remove image"
+                        title="Remove image"
+                        hidden
+                    >
+                        &times;
+                    </button>
+                </div>
+                    <button
+                        type="submit"
+                        id="mtcAboutCmsSave"
+                    >
+                        Save Changes
+                    </button>
+                    <p
+                        id="mtcAboutCmsStatus"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+                </form>
+            </section>
             <footer class="mw-dashboard-footer">
                 <span>© 2026 Midwest Toy Connections</span>
                 <span>Admin Dashboard</span>
