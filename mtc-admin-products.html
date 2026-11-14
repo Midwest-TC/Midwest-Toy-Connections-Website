@@ -126,6 +126,22 @@
                     </div>
                 </section>
                 <section class="mtc-admin-products-panel" id="mtcAdminProductsPanel">
+                    <div class="mtc-admin-products-tabs">
+                        <button
+                            type="button"
+                            id="mtcProductsActiveTab"
+                            class="mtc-products-tab active">
+                            <i class="fa-solid fa-box"></i>
+                            Products
+                        </button>
+                        <button
+                            type="button"
+                            id="mtcProductsHistoryTab"
+                            class="mtc-products-tab">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            Product History
+                        </button>
+                    </div>
                     <div class="mtc-admin-products-panel-header" id="mtcAdminProductsPanelHeader">
                         <div>
                             <h2>All Products</h2>
@@ -356,12 +372,12 @@
             <div class="mtc-admin-delete-modal-icon">
                 <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <h2>Delete Product?</h2>
+            <h2>Move Product to History?</h2>
             <p id="mtcAdminDeleteModalMessage">
-                Are you sure you want to delete this product?
+                Are you sure you want to move this product to Product History?
             </p>
             <span class="mtc-admin-delete-modal-warning">
-                This action cannot be undone.
+                You can restore this product later from Product History.
             </span>
             <div class="mtc-admin-delete-modal-actions">
                 <button
@@ -374,10 +390,36 @@
                     type="button"
                     class="mtc-admin-delete-confirm-button"
                     id="mtcAdminDeleteConfirmButton">
-                    <i class="fa-solid fa-trash"></i>
-                    <span>Delete Product</span>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Move to History</span>
                 </button>
             </div>
+        </div>
+    </div>
+    <!-- =========================================
+        MTC ADMIN CUSTOM ALERT
+    ========================================= -->
+    <div class="mtc-custom-alert-overlay" id="mtcCustomAlert" hidden>
+        <div class="mtc-custom-alert-box" role="alertdialog"
+            aria-modal="true" aria-labelledby="mtcCustomAlertTitle">
+
+            <div class="mtc-custom-alert-icon">
+                <i class="fa-solid fa-circle-check" id="mtcCustomAlertIcon"></i>
+            </div>
+
+            <h2 id="mtcCustomAlertTitle">Success</h2>
+
+            <p id="mtcCustomAlertMessage"></p>
+
+            <div class="mtc-custom-alert-actions">
+                <button type="button" id="mtcCustomAlertOk">
+                    Yes
+                </button>
+                <button type="button" id="mtcCustomAlertCancel" hidden>
+                    No
+                </button>
+            </div>
+
         </div>
     </div>
 </body>
